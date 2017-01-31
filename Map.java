@@ -15,6 +15,7 @@ public class Map {
 	private int diamondBonus;
 	private int amoebaT;
 	private int magicWallT;
+	private char[][] tab;
 	
 	public Map(int numMap){
 		this.numMap = numMap;
