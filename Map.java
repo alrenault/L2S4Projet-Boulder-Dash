@@ -17,9 +17,12 @@ public class Map {
 	private int magicWallT;
 	private char[][] tab;
 	
-	public Map(int numMap){
+	//--> HAUTEUR !!
+	//--> LARGEUR !!
+	public Map(int numMap, File f){
 		this.numMap = numMap;
 		name = "Cave "+numMap;
+		findMap(f);
 	}
 	
 	public int nbLigne(String map){
@@ -42,7 +45,7 @@ public class Map {
 		
 	}
 	
-	public String findMap(File f){
+	public void findMap(File f){
 		String map = "";
 		Scanner sc;
 		String ligne ="";
@@ -124,14 +127,14 @@ public class Map {
 					if(sc1.hasNext()){
 						ligne = sc1.next();
 					}
-					int compt = nbLigne(map);
+					hauteur = nbLigne(map);
 					char [] ligneCourante = ligne.toCharArray();
-					int nbColonne = ligneCourante.length;
-					tab = new char[compt][nbColonne];
+				    largeur = ligneCourante.length;
+					tab = new char[hauteur][largeur];
 					
-					for(int i =0;i<compt;i++){
+					for(int i =0;i<hauteur;i++){
 						ligneCourante = ligne.toCharArray();
-						for(int j = 0;j<nbColonne;j++){
+						for(int j = 0;j<largeur;j++){
 							tab[i][j] = ligneCourante[j];
 							//System.out.print(tab[i][j]);
 						}
@@ -149,11 +152,20 @@ public class Map {
 						ligne = sc1.next();
 					}
 				}
-			}
-				
-				
+			}		
 		}
-		return map;
+	}
+
+	public String toString(){
+		String s ="";
+		for(int i =0;i<hauteur;i++){
+			for(int j = 0; j<largeur;j++){
+				
+				s+=tab[i][j];
+			}
+			s+="\n";
+		}
+		return s;
 	}
 	
 }
