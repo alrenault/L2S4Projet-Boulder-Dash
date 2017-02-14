@@ -155,6 +155,21 @@ public class Map {
 			}		
 		}
 	}
+	
+	public void placerJoueur(){
+		for(int i=0;i<tab.length;i++){
+			for(int j = 0;j<tab[i].length;j++){
+				if(tab[i][j] == 'P'){
+					Joueur joueur = new JoueurHumain(true,true,'R',i,j);
+					tab[i][j] = 'R';
+				}
+			}
+		}
+	}
+	
+	public void deplacerJoueur(int x, int y){
+		
+	}
 
 	public String toString(){
 		String s ="";

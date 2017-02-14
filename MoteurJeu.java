@@ -1,4 +1,4 @@
-package BoulderDash;
+package projetS4;
 
 public class MoteurJeu {
 

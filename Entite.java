@@ -1,4 +1,4 @@
-package BoulderDash;
+package projetS4;
 
 public abstract class Entite {
 	protected boolean traversable;
@@ -7,7 +7,7 @@ public abstract class Entite {
 	protected int posX;
 	protected int posY;
 	
-	Entite(boolean traversable,boolean enJeu, char apparence,
+	public Entite(boolean traversable,boolean enJeu, char apparence,
 			int posX, int posY){
 		this.enJeu=enJeu;
 		this.traversable=traversable;
@@ -15,4 +15,26 @@ public abstract class Entite {
 		this.posX=posX;
 		this.posY=posY;
 	}
+
+	public boolean isTraversable() {
+		return traversable;
+	}
+
+	public boolean isEnJeu() {
+		return enJeu;
+	}
+
+	public char getApparence() {
+		return apparence;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+	
+	
 }

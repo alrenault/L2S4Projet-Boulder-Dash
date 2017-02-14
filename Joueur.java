@@ -1,6 +1,6 @@
-package BoulderDash;
+package projetS4;
 
-public class Joueur extends Entite implements Vivant{
+public abstract class Joueur extends Entite implements Vivant{
 	private int nbreDiamants;
 
 	Joueur(boolean traversable, boolean enJeu, char apparence, int posX, int posY) {
@@ -8,13 +8,12 @@ public class Joueur extends Entite implements Vivant{
 		this.nbreDiamants=0;
 	}
 
-	public boolean deplacer() {
-		// TODO Auto-generated method stub
+	public boolean deplacer(char touche) {
+
+		
 		return false;
 	}
-	public boolean deplacementPossible(char touche){
-		return true;
-	}
+
 
 	public void gagne() {
 		
