@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
 
-public class Joueur extends Entite implements Vivant{
+public abstract class Joueur extends Entite implements Vivant{
 	private int nbreDiamants;
 	public static final char TOUCHE_DROITE='6';
 	public static final char TOUCHE_GAUCHE='4';
@@ -16,10 +16,19 @@ public class Joueur extends Entite implements Vivant{
 		super(traversable, enJeu, apparence, posX, posY);
 		this.nbreDiamants=0;
 	}
+/*
+
+	public boolean deplacer(char touche) {
+
+		
+		return false;
+	}
+
 	
 	public boolean deplacementPossible(char touche){
 		return true;
 	}
+*/
 
 	public void gagne() {
 		

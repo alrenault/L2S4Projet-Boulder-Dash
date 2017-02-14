@@ -1,5 +1,4 @@
 package projetS4;
-
 import java.io.File;
 
 public abstract class Entite {
@@ -10,7 +9,7 @@ public abstract class Entite {
 	protected int posY;
 	protected Map map;
 	
-	Entite(boolean traversable,boolean enJeu, char apparence,
+	public Entite(boolean traversable,boolean enJeu, char apparence,
 			int posX, int posY){
 		this.enJeu=enJeu;
 		this.traversable=traversable;
@@ -19,4 +18,26 @@ public abstract class Entite {
 		this.posY=posY;
 		this.map=new Map(3,new File("BD01plus.bd"));
 	}
+
+	public boolean isTraversable() {
+		return traversable;
+	}
+
+	public boolean isEnJeu() {
+		return enJeu;
+	}
+
+	public char getApparence() {
+		return apparence;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+	
+	
 }
