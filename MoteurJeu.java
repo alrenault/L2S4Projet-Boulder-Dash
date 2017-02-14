@@ -1,4 +1,8 @@
-package BoulderDash;
+package projetS4;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 public class MoteurJeu {
 
@@ -9,13 +13,20 @@ public class MoteurJeu {
 	Joueur joueur;
 	Roc[] tabRochers;
 	
+	public MoteurJeu(){
+		joueur=new Joueur(false,true,'X',5,5);
+		tabEnnemis=new Ennemi[5];
+	}
+	
 	public void jeu(Map map){
+		System.out.println("execute");
 		while(true){
+			System.out.println("tour de boucle");
 			//recupere la touche et tente un deplacement du joueur
-			char touche=recupererTouche();
-			if(joueur.deplacementPossible(touche)){
-				joueur.deplacer();
-			}
+			//char touche=recupererTouche();
+			//if(joueur.deplacementPossible(touche)){
+			joueur.deplacer();
+			//}
 			perdu(OBSTACLE_MORTEL);
 			joueur.gagne();
 			joueur.prendObjets();
@@ -29,20 +40,22 @@ public class MoteurJeu {
 			ennemisMorts(OBSTACLE_MORTEL);
 			perdu(TOUCHER_MORTEL);
 			//afficher le jeu
-			afficherJeu();
+			afficherJeu(map);
 		}
 	}
-	private void perdu(int toucherMortel) {
-		// TODO Auto-generated method stub
-		
+	private void perdu(int cause) {
+		switch(cause){
+		case TOUCHER_MORTEL:break;
+		case OBSTACLE_MORTEL:break;
+		default:
+		}
 	}
 	private void ennemisMorts(int toucherMortel) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void afficherJeu() {
-		// TODO Auto-generated method stub
-		
+	private void afficherJeu(Map m) {
+		System.out.println(m.toString());
 	}
 	private void deplacerEnnemis(Ennemi[] tabEnnemis2) {
 		// TODO Auto-generated method stub
@@ -52,10 +65,7 @@ public class MoteurJeu {
 		// TODO Auto-generated method stub
 		
 	}
-	private char recupererTouche() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
