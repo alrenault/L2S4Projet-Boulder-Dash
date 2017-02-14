@@ -1,4 +1,4 @@
-package BoulderDash;
+package projetS4;
 
 public class Objet extends Entite{
 	protected boolean ramassable;

@@ -1,7 +1,8 @@
-package BoulderDash;
+package projetS4;
 
 public class Joueur extends Entite implements Vivant{
 	private int nbreDiamants;
+	
 
 	Joueur(boolean traversable, boolean enJeu, char apparence, int posX, int posY) {
 		super(traversable, enJeu, apparence, posX, posY);

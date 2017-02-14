@@ -65,7 +65,7 @@ public class Map {
 			sc.close();
 		}
 		catch(FileNotFoundException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouvï¿½");
 		}
 		
 		Scanner sc1 = new Scanner (map).useDelimiter("=|\n");
@@ -166,6 +166,38 @@ public class Map {
 			s+="\n";
 		}
 		return s;
+	}
+	
+	
+	private Entite[][] map;
+	/*
+	public void buildMap(){
+		for (int i = 0 ; i < hauteur ; i++){
+			for (int j = 0 ; j < largeur ; j++){
+				//map[i][j] = buildEntity(tab[i][j]);
+				char apparence = tab[i][j];
+				
+				switch(apparence){
+				case "r" : new 
+				}
+			}
+		}
+		return map;
+	}
+	
+	*/
+	
+	/*
+	public Entite buildEntity(char display, int posX, int posY){
+		Entite Entity = new Entite()
+	}
+	*/
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	public int getLargeur() {
+		return largeur;
 	}
 	
 }
