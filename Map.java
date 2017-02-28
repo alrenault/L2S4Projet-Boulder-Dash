@@ -22,7 +22,7 @@ public class Map {
 	public Map(int numMap, File f){
 		this.numMap = numMap;
 		name = "Cave "+numMap;
-		findMap(f);
+		//findMap(f);
 	}
 	
 	public int nbLigne(String map){
@@ -67,6 +67,8 @@ public class Map {
 		catch(FileNotFoundException e){
 			System.out.println("Fichier non trouvé");
 		}
+		
+		//System.out.println("DEBUT \n"+map+"   FIN");
 		
 		Scanner sc1 = new Scanner (map).useDelimiter("=|\n");
 		boolean quit = false;
@@ -156,19 +158,36 @@ public class Map {
 		}
 	}
 	
-	public void placerJoueur(){
+	public Joueur placerJoueur(){
+		Joueur joueur = null;
 		for(int i=0;i<tab.length;i++){
 			for(int j = 0;j<tab[i].length;j++){
 				if(tab[i][j] == 'P'){
-					Joueur joueur = new JoueurHumain(true,true,'R',i,j);
+					joueur = new JoueurHumain(true,true,'R',i,j);
 					tab[i][j] = 'R';
+					System.out.println("i et j : "+i+" "+j);
+					return joueur;
 				}
 			}
+			
 		}
+		System.out.println(joueur);
+		return joueur;
+		
 	}
 	
-	public void deplacerJoueur(int x, int y){
-		
+	public boolean caseLibre(int posX, int posY){
+		System.out.println("Emplacement : "+posX+" "+posY);
+		if(tab[posX][posY] == ' ' || tab[posX][posY] == '.' || tab[posX][posY] == 'd' || tab[posX][posY] == 'X' || tab[posX][posY] == 'P' )
+			return true;
+		return false;
+	}
+	
+	public void deplacerJoueur(Joueur j, int x, int y){
+		tab[j.getPosX()][j.getPosY()] = ' ';
+		tab[x][y] = 'R';
+		j.setPosX(x);
+		j.setPosY(y);
 	}
 
 	public String toString(){
@@ -213,5 +232,10 @@ public class Map {
 	public int getLargeur() {
 		return largeur;
 	}
+
+	public char[][] getTab() {
+		return tab;
+	}
+	
 	
 }
