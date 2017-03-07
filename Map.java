@@ -169,6 +169,10 @@ public class Map {
 	}
 	
 	
+	public void castPlayer(int i, int j){
+		//Crée le joueur, en fonction de l'IA sélectionnée
+	}
+	
 	private Entite[][] entityMap;
 	
 	public void buildMap(){
@@ -178,22 +182,22 @@ public class Map {
 				char apparence = tab[i][j];
 				
 				switch(apparence){
-				case 'R' : //Rockford
-				case ' ' : new Espace(i,j);//Espace
-				case '.' : new Poussiere(i,j); //Poussiere
-				case 'r' : new Roc(i,j);//Roc
-				case 'd' : new Diamant(i,j);//Diamant
-				case 'w' : new Mur(i,j);//Mur
-				case 'W' : new MurTitane(i,j);//Mur de Titane
-				case 'X' : new Exit(i,j);//Exit
+				case 'R' : castPlayer(i,j); break;//Rockford
+				case ' ' : new Espace(i,j); break;//Espace
+				case '.' : new Poussiere(i,j); break; //Poussiere
+				case 'r' : new Roc(i,j); break;//Roc
+				case 'd' : new Diamant(i,j); break;//Diamant
+				case 'w' : new Mur(i,j); break;//Mur
+				case 'W' : new MurTitane(i,j); break;//Mur de Titane
+				case 'X' : new Exit(i,j); break;//Exit
 					
 				//Facultatifs
-				case 'M' : //Mur Magique
+				case 'M' : break;//Mur Magique
 				//case 'F o O q Q' : //Luciole
 				//case 'B b C c' : //Libellule
-				case 'a' : //Amibe
-				case 'P' : //Point de Départ
-				default : 
+				case 'a' : break;//Amibe
+				case 'P' : break;//Point de Départ
+				default :  break;
 				}
 			}
 		}
