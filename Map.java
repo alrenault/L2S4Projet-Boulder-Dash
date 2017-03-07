@@ -65,7 +65,7 @@ public class Map {
 			sc.close();
 		}
 		catch(FileNotFoundException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouvï¿½");
 		}
 		
 		Scanner sc1 = new Scanner (map).useDelimiter("=|\n");
@@ -155,21 +155,6 @@ public class Map {
 			}		
 		}
 	}
-	
-	public void placerJoueur(){
-		for(int i=0;i<tab.length;i++){
-			for(int j = 0;j<tab[i].length;j++){
-				if(tab[i][j] == 'P'){
-					Joueur joueur = new JoueurHumain(true,true,'R',i,j);
-					tab[i][j] = 'R';
-				}
-			}
-		}
-	}
-	
-	public void deplacerJoueur(int x, int y){
-		
-	}
 
 	public String toString(){
 		String s ="";
@@ -183,23 +168,42 @@ public class Map {
 		return s;
 	}
 	
-	private Entite[][] map;
-	/*
+	
+	private Entite[][] entityMap;
+	
 	public void buildMap(){
 		for (int i = 0 ; i < hauteur ; i++){
 			for (int j = 0 ; j < largeur ; j++){
-				//map[i][j] = buildEntity(tab[i][j]);
+				//entityMap[i][j] = buildEntity(tab[i][j],i,j);
 				char apparence = tab[i][j];
 				
 				switch(apparence){
-				case "r" : new 
+				case 'R' : //Rockford
+				case ' ' : new Espace(i,j);//Espace
+				case '.' : new Poussiere(i,j); //Poussiere
+				case 'r' : new Roc(i,j);//Roc
+				case 'd' : new Diamant(i,j);//Diamant
+				case 'w' : new Mur(i,j);//Mur
+				case 'W' : new MurTitane(i,j);//Mur de Titane
+				case 'X' : new Exit(i,j);//Exit
+					
+				//Facultatifs
+				case 'M' : //Mur Magique
+				//case 'F o O q Q' : //Luciole
+				//case 'B b C c' : //Libellule
+				case 'a' : //Amibe
+				case 'P' : //Point de DÃ©part
+				default : 
 				}
 			}
 		}
-		return map;
+		//return map;
 	}
 	
-	*/
+	public void updateMap() {
+		System.out.println("J");
+	}
+	
 	
 	/*
 	public Entite buildEntity(char display, int posX, int posY){

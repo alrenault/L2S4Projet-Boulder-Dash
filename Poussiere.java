@@ -1,13 +1,11 @@
 package projetS4;
 
-public class Roc extends Objet{
+public class Poussiere extends Entite {
 
-	public Roc(int posX, int posY) {
+	public Poussiere(int posX, int posY) {
 		super(posX, posY);
-		this.ramassable=false;
 		this.traversable=false;
-		//false - Cette entite n'est pas traversable
-		
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -15,6 +13,5 @@ public class Roc extends Objet{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 }
