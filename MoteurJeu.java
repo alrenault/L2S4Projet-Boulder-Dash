@@ -29,14 +29,15 @@ public class MoteurJeu {
 	
 	public void jeu(Map map){
 		System.out.println("Le joueur : "+joueur.getPosX()+","+joueur.getPosY());
-		System.out.println("execute");
 		while(true){
 			System.out.println("tour de boucle");
 			//recupere la touche et tente un deplacement du joueur
 			char touche=recupererTouche();
 			if(deplacementPossible(joueur,touche)){
-			joueur.deplacer();
+				joueur.deplacer(touche);
+				System.out.println("moteur : posX="+joueur.posX+" posY="+joueur.posY);
 			}
+			//joueur.deplacer(touche);
 			perdu(OBSTACLE_MORTEL);
 			joueur.gagne();
 			joueur.prendObjets();
@@ -54,7 +55,7 @@ public class MoteurJeu {
 		}
 	}
 	
-	public boolean deplacer() { 
+	/*public boolean deplacer() { 
 	char direction=recupererTouche();
 	if(deplacementPossible(joueur,direction)){
 		switch(direction){
@@ -67,10 +68,10 @@ public class MoteurJeu {
 		return true ;
 	}
 	return false;
-}
+}*/
 
 	public boolean deplacementPossible(Joueur joueur, char touche ){
-		System.out.println(touche);
+		System.out.println("deplacement possible ? "+touche);
 		switch(touche){
 		case TOUCHE_BAS:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()+1);
 		case TOUCHE_HAUT:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()-1);
@@ -78,7 +79,7 @@ public class MoteurJeu {
 		case TOUCHE_DROITE:return joueur.getMap().caseLibre(joueur.getPosX()+1,joueur.getPosY());
 		case TOUCHE_IMMOBILE:break;
 		}
-		return true;
+		return false;
 	}
 	
 //sert pour addKeyListener()
@@ -97,11 +98,13 @@ private char recupererTouche() {
 	Scanner sc=new Scanner(System.in);
 	do{
 		System.out.println("Saisissez une touche");
-		touche=sc.nextLine().charAt(0);
+		if(sc.hasNextLine()){
+			touche=sc.nextLine().charAt(0);
+		}
 	}while(touche!=TOUCHE_BAS&&touche!=TOUCHE_HAUT&&touche!=TOUCHE_DROITE&&
 			touche!=TOUCHE_GAUCHE&&touche!=TOUCHE_IMMOBILE);
 	//.addKeyListener(new ActionClavier());
-	sc.close();
+	//sc.close();
 	return touche;
 }
 	private void perdu(int cause) {

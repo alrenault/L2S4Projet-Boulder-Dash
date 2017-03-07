@@ -6,7 +6,7 @@ public class Luciole extends Ennemi{
 		super(traversable, enJeu, apparence, posX, posY);
 	}
 
-	public boolean deplacer() {
+	public boolean deplacer(char touche) {
 		// TODO Auto-generated method stub
 		return false;
 	}

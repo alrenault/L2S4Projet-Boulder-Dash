@@ -65,7 +65,7 @@ public class Map {
 			sc.close();
 		}
 		catch(FileNotFoundException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouvï¿½");
 		}
 		
 		//System.out.println("DEBUT \n"+map+"   FIN");
@@ -138,7 +138,7 @@ public class Map {
 						ligneCourante = ligne.toCharArray();
 						for(int j = 0;j<largeur;j++){
 							tab[i][j] = ligneCourante[j];
-							//System.out.print(tab[i][j]);
+							System.out.print(tab[i][j]);
 						}
 						//System.out.println();;
 						if(sc1.hasNext())
@@ -177,14 +177,25 @@ public class Map {
 	}
 	
 	public boolean caseLibre(int posX, int posY){
-		System.out.println("Emplacement : "+posX+" "+posY);
-		if(tab[posX][posY] == ' ' || tab[posX][posY] == '.' || tab[posX][posY] == 'd' || tab[posX][posY] == 'X' || tab[posX][posY] == 'P' )
+		System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+tab.length);
+		/*//verifie les murs
+		if(posX>largeur||posX<0||posY>hauteur||posY<0){
+			System.out.println("Case non libre mur");
+			return false;
+		}*/
+		//verifie le contenu de la case
+		if(tab[posX][posY] == ' ' || tab[posX][posY] == '.' || tab[posX][posY] == 'd' || tab[posX][posY] == 'X' || tab[posX][posY] == 'P' ){
+			System.out.println("Case libre");
 			return true;
+		}
+		System.out.println("Case non libre");
 		return false;
 	}
 	
 	public void deplacerJoueur(Joueur j, int x, int y){
-		tab[j.getPosX()][j.getPosY()] = ' ';
+		System.out.println("map : posX="+j.posX+" posY="+j.posY+" x="+x+" y="+y);
+		//getPosX()   getPosY()
+		tab[j.posX][j.posY] = ' ';
 		tab[x][y] = 'R';
 		j.setPosX(x);
 		j.setPosY(y);

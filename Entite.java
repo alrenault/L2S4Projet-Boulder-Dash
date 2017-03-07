@@ -1,7 +1,7 @@
 package projetS4;
 import java.io.File;
 
-public abstract class Entite {
+public abstract class Entite implements FindMap{
 	protected boolean traversable;
 	protected boolean enJeu;
 	protected char apparence;
@@ -17,7 +17,7 @@ public abstract class Entite {
 		this.apparence=apparence;
 		this.posX=posX;
 		this.posY=posY;
-		this.map=new Map(3,new File("BD01plus.bd"));
+		this.map=m;
 	}
 
 	public boolean isTraversable() {
@@ -39,8 +39,6 @@ public abstract class Entite {
 	public int getPosY() {
 		return posY;
 	}
-	
-	
 
 	public Map getMap() {
 		return map;
