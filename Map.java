@@ -22,7 +22,7 @@ public class Map {
 	public Map(int numMap, File f){
 		this.numMap = numMap;
 		name = "Cave "+numMap;
-		findMap(f);
+		//findMap(f);
 	}
 	
 	public int nbLigne(String map){
@@ -67,6 +67,8 @@ public class Map {
 		catch(FileNotFoundException e){
 			System.out.println("Fichier non trouv�");
 		}
+		
+		//System.out.println("DEBUT \n"+map+"   FIN");
 		
 		Scanner sc1 = new Scanner (map).useDelimiter("=|\n");
 		boolean quit = false;
@@ -136,7 +138,7 @@ public class Map {
 						ligneCourante = ligne.toCharArray();
 						for(int j = 0;j<largeur;j++){
 							tab[i][j] = ligneCourante[j];
-							//System.out.print(tab[i][j]);
+							System.out.print(tab[i][j]);
 						}
 						//System.out.println();;
 						if(sc1.hasNext())
@@ -154,6 +156,49 @@ public class Map {
 				}
 			}		
 		}
+	}
+	
+	public Joueur placerJoueur(){
+		Joueur joueur = null;
+		for(int i=0;i<tab.length;i++){
+			for(int j = 0;j<tab[i].length;j++){
+				if(tab[i][j] == 'P'){
+					joueur = new JoueurHumain(true,true,'R',i,j);
+					tab[i][j] = 'R';
+					System.out.println("i et j : "+i+" "+j);
+					return joueur;
+				}
+			}
+			
+		}
+		System.out.println(joueur);
+		return joueur;
+		
+	}
+	
+	public boolean caseLibre(int posX, int posY){
+		System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+tab.length);
+		/*//verifie les murs
+		if(posX>largeur||posX<0||posY>hauteur||posY<0){
+			System.out.println("Case non libre mur");
+			return false;
+		}*/
+		//verifie le contenu de la case
+		if(tab[posX][posY] == ' ' || tab[posX][posY] == '.' || tab[posX][posY] == 'd' || tab[posX][posY] == 'X' || tab[posX][posY] == 'P' ){
+			System.out.println("Case libre");
+			return true;
+		}
+		System.out.println("Case non libre");
+		return false;
+	}
+	
+	public void deplacerJoueur(Joueur j, int x, int y){
+		System.out.println("map : posX="+j.posX+" posY="+j.posY+" x="+x+" y="+y);
+		//getPosX()   getPosY()
+		tab[j.posX][j.posY] = ' ';
+		tab[x][y] = 'R';
+		j.setPosX(x);
+		j.setPosY(y);
 	}
 
 	public String toString(){
@@ -220,6 +265,10 @@ public class Map {
 
 	public int getLargeur() {
 		return largeur;
+	}
+	
+	public char[][] getTab() {
+		return tab;
 	}
 	
 }
