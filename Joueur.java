@@ -16,19 +16,6 @@ public abstract class Joueur extends Entite implements Vivant{
 		super(traversable, enJeu, apparence, posX, posY);
 		this.nbreDiamants=0;
 	}
-/*
-
-	public boolean deplacer(char touche) {
-
-		
-		return false;
-	}
-
-	
-	public boolean deplacementPossible(char touche){
-		return true;
-	}
-*/
 
 	public void gagne() {
 		
@@ -37,26 +24,13 @@ public abstract class Joueur extends Entite implements Vivant{
 	public void prendObjets() {
 		
 	}
-	/*private char recupererTouche() {
-		char touche='_';
-		Scanner sc=new Scanner(System.in);
-		do{
-			System.out.println("Saisissez une touche");
-			if(sc.hasNextLine()){
-				touche=sc.nextLine().charAt(0);
-			}
-		}while(touche!=TOUCHE_BAS&&touche!=TOUCHE_HAUT&&touche!=TOUCHE_DROITE&&
-				touche!=TOUCHE_GAUCHE&&touche!=TOUCHE_IMMOBILE);
-		//.addKeyListener(new ActionClavier());
-		//sc.close();
-		return touche;
-	}*/
+	
 	public boolean deplacer(char touche) {
 		switch(touche){
-			case TOUCHE_BAS:map.deplacerJoueur(this,posX,posY+1);posY++;return true;
-			case TOUCHE_HAUT:map.deplacerJoueur(this,posX,posY-1);posY--;return true;
-			case TOUCHE_GAUCHE:map.deplacerJoueur(this,posX-1,posY);posX--;return true;
-			case TOUCHE_DROITE:map.deplacerJoueur(this,posX+1,posY);posX++;return true;
+			case TOUCHE_BAS:map.deplacerJoueur(this,posX+1,posY);return true;
+			case TOUCHE_HAUT:map.deplacerJoueur(this,posX-1,posY);return true;
+			case TOUCHE_GAUCHE:map.deplacerJoueur(this,posX,posY-1);return true;
+			case TOUCHE_DROITE:map.deplacerJoueur(this,posX,posY+1);return true;
 			case TOUCHE_IMMOBILE:return true;
 		}
 		return false;

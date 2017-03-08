@@ -73,10 +73,10 @@ public class MoteurJeu {
 	public boolean deplacementPossible(Joueur joueur, char touche ){
 		System.out.println("deplacement possible ? "+touche);
 		switch(touche){
-		case TOUCHE_BAS:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()+1);
-		case TOUCHE_HAUT:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()-1);
-		case TOUCHE_GAUCHE:return joueur.getMap().caseLibre(joueur.getPosX()-1,joueur.getPosY());
-		case TOUCHE_DROITE:return joueur.getMap().caseLibre(joueur.getPosX()+1,joueur.getPosY());
+		case TOUCHE_BAS:return joueur.getMap().caseLibre(joueur.getPosX()+1,joueur.getPosY());
+		case TOUCHE_HAUT:return joueur.getMap().caseLibre(joueur.getPosX()-1,joueur.getPosY());
+		case TOUCHE_GAUCHE:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()-1);
+		case TOUCHE_DROITE:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()+1);
 		case TOUCHE_IMMOBILE:break;
 		}
 		return false;
