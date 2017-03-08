@@ -3,7 +3,7 @@ package projetS4;
 public class JoueurHumain extends Joueur{
 	
 	public JoueurHumain(boolean traversable, boolean enJeu, char apparence, int posX, int posY){
-		super(traversable, enJeu, apparence, posX, posY);
+		super(apparence, posX, posY);
 	}
 	
 	public boolean deplacer() {
@@ -42,6 +42,12 @@ public class JoueurHumain extends Joueur{
 
 	public void prendObjets() {
 		
+	}
+
+	@Override
+	Entite buildEntity(char apparence, int posX, int posY) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

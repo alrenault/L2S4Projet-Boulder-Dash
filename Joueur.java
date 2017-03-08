@@ -11,11 +11,15 @@ public abstract class Joueur extends Entite implements Vivant{
 	public static final char TOUCHE_HAUT='8';
 	public static final char TOUCHE_BAS='2';
 	public static final char TOUCHE_IMMOBILE='5';
-
-	Joueur(boolean traversable, boolean enJeu, char apparence, int posX, int posY) {
-		super(traversable, enJeu, apparence, posX, posY);
+	
+	Joueur(char apparence, int posX, int posY) {
+		super(posX, posY);
+		//this.apparence=apparence; //Changer l'apparence de RockFord
 		this.nbreDiamants=0;
+		this.traversable=true;
 	}
+	
+	
 
 	public void gagne() {
 		

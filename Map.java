@@ -213,23 +213,46 @@ public class Map {
 		return s;
 	}
 	
-	private Entite[][] map;
-	/*
+	
+	public void castPlayer(int i, int j){
+		//Crée le joueur, en fonction de l'IA sélectionnée
+	}
+	
+	private Entite[][] entityMap;
+	
 	public void buildMap(){
 		for (int i = 0 ; i < hauteur ; i++){
 			for (int j = 0 ; j < largeur ; j++){
-				//map[i][j] = buildEntity(tab[i][j]);
+				//entityMap[i][j] = buildEntity(tab[i][j],i,j);
 				char apparence = tab[i][j];
 				
 				switch(apparence){
-				case "r" : new 
+				case 'R' : castPlayer(i,j); break;//Rockford
+				case ' ' : new Espace(i,j); break;//Espace
+				case '.' : new Poussiere(i,j); break; //Poussiere
+				case 'r' : new Roc(i,j); break;//Roc
+				case 'd' : new Diamant(i,j); break;//Diamant
+				case 'w' : new Mur(i,j); break;//Mur
+				case 'W' : new MurTitane(i,j); break;//Mur de Titane
+				case 'X' : new Exit(i,j); break;//Exit
+					
+				//Facultatifs
+				case 'M' : break;//Mur Magique
+				//case 'F o O q Q' : //Luciole
+				//case 'B b C c' : //Libellule
+				case 'a' : break;//Amibe
+				case 'P' : break;//Point de Départ
+				default :  break;
 				}
 			}
 		}
-		return map;
+		//return map;
 	}
 	
-	*/
+	public void updateMap() {
+		System.out.println("J");
+	}
+	
 	
 	/*
 	public Entite buildEntity(char display, int posX, int posY){
@@ -243,10 +266,9 @@ public class Map {
 	public int getLargeur() {
 		return largeur;
 	}
-
+	
 	public char[][] getTab() {
 		return tab;
 	}
-	
 	
 }

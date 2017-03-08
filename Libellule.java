@@ -2,11 +2,17 @@ package projetS4;
 
 public class Libellule extends Ennemi{
 	
-	public Libellule(boolean traversable, boolean enJeu, char apparence, int posX, int posY) {
-		super(traversable, enJeu, apparence, posX, posY);
+	public Libellule(int posX, int posY) {
+		super(posX, posY);
+		this.apparence=' ';
+		//true - Cette entite est traversable
+		//true - Cette entite est en Jeu
 	}
-
-	public boolean deplacer(char touche) {
+	
+	public Entite buildEntity(char apparence, int posX, int posY){
+		return new Libellule(posX,posY);
+	}
+	public boolean deplacer() {
 		// TODO Auto-generated method stub
 		return false;
 	}

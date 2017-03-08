@@ -98,7 +98,7 @@ private char recupererTouche() {
 	Scanner sc=new Scanner(System.in);
 	do{
 		System.out.println("Saisissez une touche");
-		if(sc.hasNextLine()){
+		if(sc.hasNextInt()){	//Faire un test supplémentaire : si espace est appuyé avec chaine vide -> Exception RunTime
 			touche=sc.nextLine().charAt(0);
 		}
 	}while(touche!=TOUCHE_BAS&&touche!=TOUCHE_HAUT&&touche!=TOUCHE_DROITE&&
