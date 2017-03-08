@@ -1,4 +1,4 @@
-package BoulderDash;
+package projetS4;
 
 public class Libellule extends Ennemi{
 	
@@ -6,7 +6,7 @@ public class Libellule extends Ennemi{
 		super(traversable, enJeu, apparence, posX, posY);
 	}
 
-	public boolean deplacer() {
+	public boolean deplacer(char touche) {
 		// TODO Auto-generated method stub
 		return false;
 	}

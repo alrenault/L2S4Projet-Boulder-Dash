@@ -1,4 +1,4 @@
-package BoulderDash;
+package projetS4;
 
 public abstract class Ennemi extends Entite implements Vivant{
 	public Ennemi(boolean traversable, boolean enJeu,
