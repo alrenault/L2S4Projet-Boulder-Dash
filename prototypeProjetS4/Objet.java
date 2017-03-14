@@ -1,4 +1,4 @@
-package projetS4;
+package prototypeProjetS4;
 
 public abstract class Objet extends Entite{
 	protected boolean ramassable;

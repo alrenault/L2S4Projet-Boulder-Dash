@@ -1,4 +1,4 @@
-package projetS4;
+package prototypeProjetS4;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
