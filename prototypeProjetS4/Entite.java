@@ -1,4 +1,4 @@
-package projetS4;
+package prototypeProjetS4;
 import java.io.File;
 
 public abstract class Entite implements FindMap {

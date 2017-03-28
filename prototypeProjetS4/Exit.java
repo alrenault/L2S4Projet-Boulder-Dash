@@ -1,8 +1,8 @@
-package projetS4;
+package prototypeProjetS4;
 
-public class Diamant extends Objet {
+public class Exit extends Entite {
 
-	public Diamant(int posX, int posY) {
+	public Exit(int posX, int posY) {
 		super(posX, posY);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,4 +1,4 @@
-package projetS4;
+package prototypeProjetS4;
 
 public class Espace extends Entite {
 	

@@ -1,8 +1,8 @@
-package projetS4;
+package prototypeProjetS4;
 
-public class Exit extends Entite {
+public class Mur extends Entite {
 
-	public Exit(int posX, int posY) {
+	public Mur(int posX, int posY) {
 		super(posX, posY);
 		// TODO Auto-generated constructor stub
 	}

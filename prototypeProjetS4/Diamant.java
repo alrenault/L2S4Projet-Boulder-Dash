@@ -1,8 +1,8 @@
-package projetS4;
+package prototypeProjetS4;
 
-public class Mur extends Entite {
+public class Diamant extends Objet {
 
-	public Mur(int posX, int posY) {
+	public Diamant(int posX, int posY) {
 		super(posX, posY);
 		// TODO Auto-generated constructor stub
 	}

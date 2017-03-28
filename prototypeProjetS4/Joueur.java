@@ -1,4 +1,4 @@
-package projetS4;
+package prototypeProjetS4;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +12,7 @@ public abstract class Joueur extends Entite implements Vivant{
 	public static final char TOUCHE_BAS='2';
 	public static final char TOUCHE_IMMOBILE='5';
 	
-	Joueur(char apparence, int posX, int posY) {
+	public Joueur(char apparence, int posX, int posY) {
 		super(posX, posY);
 		//this.apparence=apparence; //Changer l'apparence de RockFord
 		this.nbreDiamants=0;
