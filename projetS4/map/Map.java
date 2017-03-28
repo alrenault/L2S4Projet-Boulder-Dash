@@ -4,6 +4,9 @@ import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.Scanner;
 
+import projetS4.entite.*;
+import prototypeProjetS4.Entite;
+
 public class Map{
 	private Path fichier;
 	private String contenu;
@@ -18,7 +21,9 @@ public class Map{
 	private int diamondBonus;
 	private int amoebaT;
 	private int magicWallT;
+	
 	private char[][] tab;
+	private Entite[][] entite;
 	
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
@@ -33,6 +38,7 @@ public class Map{
 		this.numMap = numMap;
 		name = "Cave "+numMap;
 		findMap();
+		//placerJoueur();
 	}
 	
 	static String readFile(Path path, Charset encoding) throws IOException{
@@ -41,7 +47,8 @@ public class Map{
 	}
 	
 	public int nbLigne(String map){
-		Scanner sc = new Scanner(map).useDelimiter("\n");
+		Scanner scanner = new Scanner(map);
+		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
 		String ligne ="";
 		int i = 0;
 		if(sc.hasNext()){
@@ -56,6 +63,7 @@ public class Map{
 					ligne = sc.next();
 			}
 		}
+		scanner.close();
 		return i-1;
 		
 	}
@@ -79,7 +87,8 @@ public class Map{
 		}
 		sc.close();	
 		
-		Scanner sc1 = new Scanner (map).useDelimiter("=|\n");
+		Scanner scanner = new Scanner (map);
+		Scanner sc1 = scanner.useDelimiter("=|\n");
 		boolean quit = false;
 		while(sc1.hasNext() && !quit){
 			ligne = sc1.next();
@@ -166,7 +175,26 @@ public class Map{
 				}
 			}		
 		}
+		scanner.close();
 	}
+	
+	/*public Joueur placerJoueur(){
+		Joueur joueur = null;
+		for(int i=0;i<tab.length;i++){
+			for(int j = 0;j<tab[i].length;j++){
+				if(tab[i][j] == 'P'){
+					joueur = new JoueurHumain(true,true,'R',i,j);
+					tab[i][j] = 'R';
+					System.out.println("i et j : "+i+" "+j);
+					return joueur;
+				}
+			}	
+		}
+		//System.out.println(joueur);
+		return joueur;	
+	}*/
+	
+
 
 	public String toString(){
 		String s ="";
@@ -180,22 +208,26 @@ public class Map{
 			s+="\n";
 		}
 		
-		/*private int numMap;
-	private int hauteur;
-	private int largeur;
-	private String name;
-	private int maptime;
-	private int diamondRec;
-	private int diamondVal;
-	private int diamondBonus;
-	private int amoebaT;
-	private int magicWallT;
-	private char[][] tab;*/
 		return s;
 	}
 	
 	public String getContenu() {
 		return contenu;
+	}
+
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	public int getLargeur() {
+		return largeur;
+	}
+	public char getTab(int i, int j){
+		return tab[i][j];
+	}
+	
+	public void setTab(int i, int j, char val){
+		tab[i][j] = val;
 	}
 	
 	
