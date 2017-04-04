@@ -3,6 +3,7 @@ package projetS4.moteurJeu;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import projetS4.entite.*;
@@ -123,6 +124,18 @@ public class MoteurJeu {
 			s+="\n";
 		}
 		return s;
+	}
+	
+	public Position deplacerJoueur(char touche) {
+		Position p = Joueur.getPosition();
+		
+		switch(touche){
+		case TOUCHE_BAS:return joueur.getMap().caseLibre(joueur.getPosX()+1,joueur.getPosY());
+		case TOUCHE_HAUT:return joueur.getMap().caseLibre(joueur.getPosX()-1,joueur.getPosY());
+		case TOUCHE_GAUCHE:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()-1);
+		case TOUCHE_DROITE:return joueur.getMap().caseLibre(joueur.getPosX(),joueur.getPosY()+1);
+		case TOUCHE_IMMOBILE:break;
+		}
 	}
 
 	private void perdu(int cause) {

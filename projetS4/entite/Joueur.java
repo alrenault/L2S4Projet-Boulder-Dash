@@ -2,6 +2,7 @@ package projetS4.entite;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Joueur extends Entite implements Deplacable, Disparaitre {
@@ -18,28 +19,31 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 		this.apparence = 'R';
 	}
 	
-	
 
 	public void gagne() {
-		
+	
 	}
 
 	public void prendObjets() {
 		
 	}
 	
-	/*
-	public boolean deplacer(char touche) {
+	
+	public Position deplacer(char touche) {
+		Position p = getPosition();
+		int x = p.getX();
+		int y = p.getY();
+		
 		switch(touche){
-			case TOUCHE_BAS:map.deplacerJoueur(this,posX+1,posY);return true;
-			case TOUCHE_HAUT:map.deplacerJoueur(this,posX-1,posY);return true;
-			case TOUCHE_GAUCHE:map.deplacerJoueur(this,posX,posY-1);return true;
-			case TOUCHE_DROITE:map.deplacerJoueur(this,posX,posY+1);return true;
-			case TOUCHE_IMMOBILE:return true;
+			case TOUCHE_BAS:p.setX(x+1);p.setY(y);return p;
+			case TOUCHE_HAUT:p.setX(x-1);p.setY(y);return p;
+			case TOUCHE_GAUCHE:p.setX(x);p.setY(y-1);return p;
+			case TOUCHE_DROITE:p.setX(x);p.setY(y+1);return p;
+			case TOUCHE_IMMOBILE:return p;
 		}
-		return false;
+		return p;
 	}
-	*/
+	
 	
 	//sert pour addKeyListener()
 	public class ActionClavier implements KeyListener{
@@ -64,6 +68,16 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 	public void disparait() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+
+	public static Position getPosition() {
+		if(position.size()!=1)
+			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
+		Iterator<Position> it = position.iterator();
+		Position p = it.next();
+		
+		return p;
 	}
 
 
