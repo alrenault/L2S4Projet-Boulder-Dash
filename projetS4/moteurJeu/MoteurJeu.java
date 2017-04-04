@@ -41,8 +41,6 @@ public class MoteurJeu {
 	public MoteurJeu(int numMap, String chemin){
 		System.out.println("coucou\n");
 		map = new Map(numMap,chemin);
-		//fenetre=new FenetreBoulder(this);
-		
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 		
 		joueur = (Joueur) builder.buildEntity('P');
@@ -57,6 +55,8 @@ public class MoteurJeu {
 		amibe = (Amibe) builder.buildEntity('a');
 		luciole = (Luciole) builder.buildEntity('F');
 		libellule = (Libellule) builder.buildEntity('B');
+		
+		fenetre=new FenetreBoulder(this);
 	}
 	/*
 	public void jeu(char touche){
@@ -89,8 +89,6 @@ public class MoteurJeu {
 	public void construireMapEntite(){
 		for(int i=0;i<map.getHauteur();i++){
 			for(int j=0; j<map.getLargeur();j++){
-				
-				
 				
 				switch(map.getTab(i,j)){
 				case 'P': entite[i][j] = joueur; break;
@@ -148,5 +146,14 @@ public class MoteurJeu {
 		
 	}
 	
+	public Entite[][] getMap(){
+		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];
+		for(int i=0;i<mapRetour.length;i++){
+			for(int j=0;j<mapRetour.length;j++){
+				mapRetour[i][j]=(Entite) entite[i][j].clone();
+			}
+		}*/
+		return entite;
+	}
 
 }

@@ -17,7 +17,7 @@ public class EcouteurTouche implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent evt) {
 		char touche=evt.getKeyChar();
-		moteur.jeu(touche);
+		//moteur.jeu(touche);
 	}
 
 	@Override
