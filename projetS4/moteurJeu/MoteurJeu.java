@@ -30,7 +30,7 @@ public class MoteurJeu {
 	private Poussiere poussiere;
 	private Roc roc;
 	private Diamant diamant;
-	private Mur mur;
+	private MurBasique mur;
 	private MurTitane murTitane;
 	private MurMagique murMagique;
 	private Exit exit;
@@ -41,22 +41,24 @@ public class MoteurJeu {
 	public MoteurJeu(int numMap, String chemin){
 		System.out.println("coucou\n");
 		map = new Map(numMap,chemin);
-		fenetre=new FenetreBoulder(this);
+		//fenetre=new FenetreBoulder(this);
 		
-		joueur = builder.buildEntity('P');
-		espace = builder.buildEntity(' ');
-		poussiere = builder.buildEntity('.');
-		roc = builder.buildEntity('r');
-		diamant = builder.buildEntity('d');
-		mur = builder.buildEntity('w');
-		murTitane = builder.buildEntity('W');
-		murMagique = builder.buildEntity('M');
-		exit = builder.buildEntity('X');
-		amibe = builder.builEntity('a');
-		luciole = builder.builEntity('F');
-		libellule = builder.buildEntity('B');
+		entite = new Entite[map.getHauteur()][map.getLargeur()];
+		
+		joueur = (Joueur) builder.buildEntity('P');
+		espace = (Espace) builder.buildEntity(' ');
+		poussiere = (Poussiere) builder.buildEntity('.');
+		roc = (Roc) builder.buildEntity('r');
+		diamant = (Diamant) builder.buildEntity('d');
+		mur = (MurBasique) builder.buildEntity('w');
+		murTitane = (MurTitane) builder.buildEntity('W');
+		murMagique = (MurMagique)builder.buildEntity('M');
+		exit = (Exit) builder.buildEntity('X');
+		amibe = (Amibe) builder.buildEntity('a');
+		luciole = (Luciole) builder.buildEntity('F');
+		libellule = (Libellule) builder.buildEntity('B');
 	}
-	
+	/*
 	public void jeu(char touche){
 		System.out.println("Le joueur : "+joueur.getPosX()+","+joueur.getPosY());
 		while(true){
@@ -82,41 +84,41 @@ public class MoteurJeu {
 			//afficher le jeu
 			afficherJeu(map);
 		}
-	}
+	}*/
 	
 	public void construireMapEntite(){
-		for(int i=0;i<map.getLargeur();i++){
-			for(int j=0; j<map.getHauteur();j++){
+		for(int i=0;i<map.getHauteur();i++){
+			for(int j=0; j<map.getLargeur();j++){
+				
+				
+				
 				switch(map.getTab(i,j)){
-				case 'P':{
-					entite[i][j] = joueur;
-					map.setTab(i, j, 'R');  //A ENLEVER SI ON VEUT UTILISER APPARENCE DES ENTITES !!
-				}	
-				case '.': entite[i][j] = poussiere;
-				case 'r': entite[i][j] = roc;
-				case 'd': entite[i][j] = diamant;
-				case 'w': entite[i][j] = mur;
-				case 'W': entite[i][j] = murTitane;
-				case 'X': entite[i][j] = exit;
-				case 'M': entite[i][j] = murMagique;
-				case 'a': entite[i][j] = amibe;
+				case 'P': entite[i][j] = joueur; break;
+				case '.': entite[i][j] = poussiere; break;
+				case 'r': entite[i][j] = roc; break;
+				case 'd': entite[i][j] = diamant; break;
+				case 'w': entite[i][j] = mur; break;
+				case 'W': entite[i][j] = murTitane; break;
+				case 'X': entite[i][j] = exit; break;
+				case 'M': entite[i][j] = murMagique; break;
+				case 'a': entite[i][j] = amibe; break;
 				default:
 					if(map.getTab(i,j) == 'F' || map.getTab(i,j) == 'o' || map.getTab(i,j) == 'O' || map.getTab(i,j) == 'q' || map.getTab(i,j) == 'Q')
-						entite[i][j] = luciole;
+						{entite[i][j] = luciole; break;}
 					if( map.getTab(i,j) == 'b' || map.getTab(i,j) == 'B' || map.getTab(i,j) == 'c' || map.getTab(i,j) == 'C')
-						entite[i][j] = libellule;
+						{entite[i][j] = libellule; break; }
 					else
-						entite[i][j] = espace;
+						{entite[i][j] = espace; break ; }
 				}
 			}
 		}
 	}
 	
-	public String afficherMappObjet(){ //Temporaire avant l'affichage propre. sert aussi au test pour voir si tout se passe bien
+	public String afficherMapEntite(){ //Temporaire avant l'affichage propre. sert aussi au test pour voir si tout se passe bien
 		String s = "";
-		for(int i=0;i<map.getLargeur();i++){
-			for(int j=0;i<map.getHauteur();j++){
-				s+=entite[i][j].apparence;
+		for(int i=0;i<map.getHauteur();i++){
+			for(int j=0;j<map.getLargeur();j++){
+				s+=entite[i][j].getApparence();
 			}
 			s+="\n";
 		}
