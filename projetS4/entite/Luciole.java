@@ -34,4 +34,32 @@ public class Luciole extends Entite implements Deplacable, Disparaitre {
 		-> 1000 iterations
 		
 	*/
+	
+	public void generate(){
+		
+		/*
+		 * Evaluation
+		 * 
+		 * tab[0-100] = int score et tab[2n] de char
+		 * 		--> Individu
+		 * 
+		 * Selection
+		 *  	Voir cours
+		 *  
+		 *  Mutation / Reproduction
+		 *  25 par mut - 25 par rep
+		 *  
+		 *  
+		 *  
+		
+		
+		-->
+		
+		
+		
+		
+		
+		
+		*/
+	}
 }
