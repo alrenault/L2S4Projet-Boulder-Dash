@@ -79,7 +79,7 @@ public class PanneauBoulder extends JPanel{
 			return Color.GREEN;
 		}
 	}
-	
+  
 	private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
