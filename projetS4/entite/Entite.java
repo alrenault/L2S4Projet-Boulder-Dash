@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 
 public abstract class Entite  {
-	protected boolean traversable;
+	protected boolean traversable = true;
 	protected char apparence;
-	protected static Set<Position> position;
+	protected  Set<Position> position;
 	
 	
 	//public abstract Entite buildEntity(char display, int posX, int posY);
@@ -41,6 +41,14 @@ public abstract class Entite  {
 	}
 
 
+
+
+
+	public Set<Position> getPosition() {
+		return position;
+	}
+
+	
 
 
 

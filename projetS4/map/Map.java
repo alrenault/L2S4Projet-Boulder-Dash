@@ -194,21 +194,7 @@ public class Map{
 		return joueur;	
 	}*/
 	
-	public boolean caseLibre(int posX, int posY){
-		System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+tab.length);
-		/*//verifie les murs
-		if(posX>largeur||posX<0||posY>hauteur||posY<0){
-			System.out.println("Case non libre mur");
-			return false;
-		}*/
-		//verifie le contenu de la case
-		if(tab[posX][posY] == ' ' || tab[posX][posY] == '.' || tab[posX][posY] == 'd' || tab[posX][posY] == 'X' || tab[posX][posY] == 'P' ){
-			System.out.println("Case libre");
-			return true;
-		}
-		System.out.println("Case non libre");
-		return false;
-	}
+
 
 
 	public String toString(){

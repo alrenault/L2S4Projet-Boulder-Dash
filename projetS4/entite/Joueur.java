@@ -29,8 +29,8 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 	}
 	
 	
-	public Position deplacer(char touche) {
-		Position p = getPosition();
+	/*public Position deplacer(char touche) {
+		Position p = getLaPosition();
 		int x = p.getX();
 		int y = p.getY();
 		
@@ -42,7 +42,7 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 			case TOUCHE_IMMOBILE:return p;
 		}
 		return p;
-	}
+	}*/
 	
 	
 	//sert pour addKeyListener()
@@ -71,14 +71,15 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 	}
 	
 
-	public static Position getPosition() {
+	/*public Position getLaPosition() {
+		System.out.println("lol "+position.size());
 		if(position.size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = position.iterator();
 		Position p = it.next();
 		
 		return p;
-	}
+	}*/
 
 
 
