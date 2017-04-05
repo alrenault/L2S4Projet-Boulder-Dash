@@ -117,6 +117,7 @@ public class MoteurJeu {
 			System.out.println("tour de boucle");
 			//recupere la touche et tente un deplacement du joueur
 			char touche=recupererTouche();
+			System.out.println("lol1 "+joueur.getPosition().size());
 			if(joueur.getPosition().size()!=1)
 				throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 			Iterator<Position> it = joueur.getPosition().iterator();
@@ -149,7 +150,7 @@ public class MoteurJeu {
 			ennemisMorts(OBSTACLE_MORTEL);
 			perdu(TOUCHER_MORTEL);
 			//afficher le jeu
-			afficherJeu(map);
+			//afficherJeu(map);
 			System.out.println(afficherMapEntite());
 		}
 	}
@@ -196,6 +197,7 @@ public class MoteurJeu {
 	}
 	
 	public void deplacerJoueur(int x, int y){
+		System.out.println("lollol "+joueur.getPosition().size());
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = joueur.getPosition().iterator();
@@ -207,14 +209,15 @@ public class MoteurJeu {
 		entite[p.getX()][p.getY()] = espace; 
 		espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
 		
-		joueur.getPosition().remove(new Position(x,y)); //enlève la pos actuelle du joueur
+		joueur.getPosition().remove(p); //enlève la pos actuelle du joueur
 		entite[x][y] = joueur; //fait pointer sur la nouvelle pos
 		entite[x][y].getPosition().add(new Position(x,y)); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
+		System.out.println("changement : "+joueur.getPosition().size());
 		
 	}
 	
 	public boolean deplacementPossible(Touche t1) {
-		//System.out.println("lol "+position.size());
+		System.out.println("lol "+joueur.getPosition().size());
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = joueur.getPosition().iterator();
