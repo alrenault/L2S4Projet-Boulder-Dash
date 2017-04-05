@@ -8,7 +8,7 @@ import projetS4.moteurJeu.MoteurJeu;
  * 
  */
 public class FenetreBoulder extends JFrame{
-	private MoteurJeu moteur;
+	private MoteurJeu moteur=null;
 	private static final long serialVersionUID = 1L;
 	private PanneauBoulder panneauBoulder;
 	private EcouteurTouche ecouteurTouche;
@@ -21,6 +21,7 @@ public class FenetreBoulder extends JFrame{
 		
 		this.add(panneauBoulder);
 		this.addKeyListener(ecouteurTouche);
+		this.setJMenuBar(new MenuBar());
 		
 		this.setBounds(50, 100, panneauBoulder.getWidth(), panneauBoulder.getHeight());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
