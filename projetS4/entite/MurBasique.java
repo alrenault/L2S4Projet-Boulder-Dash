@@ -4,6 +4,7 @@ public class MurBasique extends Entite implements Disparaitre {
 
 	public MurBasique() {
 		this.apparence = 'w';
+		traversable = false;
 	}
 
 	@Override

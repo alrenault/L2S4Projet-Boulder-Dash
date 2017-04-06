@@ -196,6 +196,7 @@ public class Map{
 	
 
 
+
 	public String toString(){
 		String s ="";
 		s+="Nom : "+name+"s\nLimite de temps : "+maptime+"\n";

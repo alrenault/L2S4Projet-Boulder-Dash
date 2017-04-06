@@ -4,6 +4,7 @@ public class Luciole extends Entite implements Deplacable, Disparaitre {
 	
 	public Luciole() {
 		this.apparence = 'F';
+		traversable = true;;
 	}
 
 	

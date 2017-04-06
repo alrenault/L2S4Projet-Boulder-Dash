@@ -1,11 +1,13 @@
 package projetS4.entite;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
+
 
 public abstract class Entite  {
 	protected boolean traversable;
 	protected char apparence;
-	private Set<Position> position;
+	protected  Set<Position> position;
 	
 	
 	//public abstract Entite buildEntity(char display, int posX, int posY);
@@ -37,5 +39,20 @@ public abstract class Entite  {
 	public char getApparence() {
 		return apparence;
 	}
+
+
+
+
+
+	public Set<Position> getPosition() {
+		return position;
+	}
+
+	
+
+
+
+	
+	
 
 }
