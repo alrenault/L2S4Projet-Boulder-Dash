@@ -4,6 +4,7 @@ public class Poussiere extends Entite implements Disparaitre {
 
 	public Poussiere() {
 		this.apparence = '.';
+		traversable = true;
 	}
 
 	@Override

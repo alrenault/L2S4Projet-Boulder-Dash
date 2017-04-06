@@ -126,10 +126,10 @@ public class MoteurJeu {
 			int x = p.getX();
 			int y = p.getY();
 			switch(touche){
-			case '6': t = Touche.TOUCHE_DROITE; x+=1;break;
-			case '4': t = Touche.TOUCHE_GAUCHE; x-=1;break;
-			case '8': t = Touche.TOUCHE_HAUT; y-=1;break;
-			case '2': t = Touche.TOUCHE_BAS; y+=1;break;
+			case '6': t = Touche.TOUCHE_DROITE; y+=1;break;
+			case '4': t = Touche.TOUCHE_GAUCHE; y-=1;break;
+			case '8': t = Touche.TOUCHE_HAUT; x-=1;break;
+			case '2': t = Touche.TOUCHE_BAS; x+=1;break;
 			case '5' : t = Touche.TOUCHE_IMMOBILE;break;
 			}
 			if(deplacementPossible(t)){

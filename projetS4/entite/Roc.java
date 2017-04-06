@@ -4,6 +4,7 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 
 	public Roc() {
 		this.apparence = 'r';
+		traversable = false;
 	}
 	
 	public void tomber(){

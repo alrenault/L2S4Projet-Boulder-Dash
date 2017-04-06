@@ -4,6 +4,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre {
 	
 	public Amibe() {
 		this.apparence = 'a';
+		traversable = true;
 	}
 
 	public boolean deplacer() {

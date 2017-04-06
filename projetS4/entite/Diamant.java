@@ -4,6 +4,7 @@ public class Diamant extends Entite implements Deplacable, Disparaitre {
 
 	public Diamant() {
 		this.apparence = 'd';
+		traversable = true;
 	}
 
 	@Override

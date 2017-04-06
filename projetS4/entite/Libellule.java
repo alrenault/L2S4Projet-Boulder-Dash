@@ -4,6 +4,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre {
 	
 	public Libellule() {
 		this.apparence = 'B';
+		traversable = true;
 	}
 	
 	

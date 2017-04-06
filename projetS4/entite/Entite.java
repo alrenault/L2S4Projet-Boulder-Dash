@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 
 public abstract class Entite  {
-	protected boolean traversable = true;
+	protected boolean traversable;
 	protected char apparence;
 	protected  Set<Position> position;
 	

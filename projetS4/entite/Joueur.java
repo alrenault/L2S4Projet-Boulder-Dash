@@ -17,6 +17,7 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 	
 	public Joueur() {
 		this.apparence = 'R';
+		traversable = true;
 	}
 	
 
