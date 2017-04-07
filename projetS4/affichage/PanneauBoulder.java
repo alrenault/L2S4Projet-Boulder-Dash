@@ -3,6 +3,7 @@ package projetS4.affichage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,6 +39,7 @@ public class PanneauBoulder extends JPanel{
 		DIAMANT (chargerImage("src/projetS4/BoulderDashImages/Diamant.png")),
 		POUSSIERE (chargerImage("src/projetS4/BoulderDashImages/Poussiere.png")),
 		SOL (chargerImage("src/projetS4/BoulderDashImages/Sol2.png")),
+		MENU (chargerImage("src/projetS4/BoulderDashImages/Menu.png")),
 		DEFAULT (chargerImage("src/projetS4/BoulderDashImages/Default.png"));
 		
 		private Image img;
@@ -60,7 +62,7 @@ public class PanneauBoulder extends JPanel{
 		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.2));
 	}
 	/***/
-	private Color reconnaitreCouleur(Entite entite){
+	/*private Color reconnaitreCouleur(Entite entite){
 		if(entite instanceof MurBasique || entite instanceof MurMagique || entite instanceof MurTitane){
 			return Color.BLUE;
 		}else if(entite instanceof Diamant){
@@ -78,7 +80,7 @@ public class PanneauBoulder extends JPanel{
 		}else{
 			return Color.GREEN;
 		}
-	}
+	}*/
   
 	private static Image chargerImage(String adresse){
 		Image img = null;
@@ -122,6 +124,10 @@ public class PanneauBoulder extends JPanel{
 	public void paintComponent(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		//barre de menu
+		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*5,0,TAILLE*10,TAILLE,null);
+		
 		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
 		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);

@@ -48,7 +48,7 @@ public class MoteurJeu {
 	private Map map;
 	
 	private BuildEntity builder = new BuildEntity();
-	private Joueur joueur;
+	public Joueur joueur;
 	private Espace espace;
 	private Poussiere poussiere;
 	private Roc roc;
