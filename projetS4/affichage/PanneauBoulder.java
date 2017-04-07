@@ -3,6 +3,7 @@ package projetS4.affichage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,19 +27,20 @@ public class PanneauBoulder extends JPanel{
 	private final int TAILLE=24;
 	
 	private enum ImagesJeu{
-		MUR_BASIQUE (chargerImage("BoulderDashImages/Mur.png")),
-		MUR_MAGIQUE (chargerImage("BoulderDashImages/MurMagique.png")),
-		MUR_TITANE (chargerImage("BoulderDashImages/MurTitane.png")),
-		ROCHER (chargerImage("BoulderDashImages/Rocher.png")),
-		ROBIL (chargerImage("BoulderDashImages/Robil.png")),
-		LIBELLULE (chargerImage("BoulderDashImages/Libellule1.png")),
-		LUCIOLE (chargerImage("BoulderDashImages/Carre1.png")),
-		AMIBE (chargerImage("BoulderDashImages/Amibe.png")),
-		SORTIE (chargerImage("BoulderDashImages/Sortie.png")),
-		DIAMANT (chargerImage("BoulderDashImages/Diamant.png")),
-		POUSSIERE (chargerImage("BoulderDashImages/Poussiere.png")),
-		SOL (chargerImage("BoulderDashImages/Sol2.png")),
-		DEFAULT (chargerImage("BoulderDashImages/Default.png"));
+		MUR_BASIQUE (chargerImage("src/projetS4/BoulderDashImages/Mur.png")),
+		MUR_MAGIQUE (chargerImage("src/projetS4/BoulderDashImages/MurMagique.png")),
+		MUR_TITANE (chargerImage("src/projetS4/BoulderDashImages/MurTitane.png")),
+		ROCHER (chargerImage("src/projetS4/BoulderDashImages/Rocher.png")),
+		ROBIL (chargerImage("src/projetS4/BoulderDashImages/Robil.png")),
+		LIBELLULE (chargerImage("src/projetS4/BoulderDashImages/Libellule1.png")),
+		LUCIOLE (chargerImage("src/projetS4/BoulderDashImages/Carre1.png")),
+		AMIBE (chargerImage("src/projetS4/BoulderDashImages/Amibe.png")),
+		SORTIE (chargerImage("src/projetS4/BoulderDashImages/Sortie.png")),
+		DIAMANT (chargerImage("src/projetS4/BoulderDashImages/Diamant.png")),
+		POUSSIERE (chargerImage("src/projetS4/BoulderDashImages/Poussiere.png")),
+		SOL (chargerImage("src/projetS4/BoulderDashImages/Sol2.png")),
+		MENU (chargerImage("src/projetS4/BoulderDashImages/Menu.png")),
+		DEFAULT (chargerImage("src/projetS4/BoulderDashImages/Default.png"));
 		
 		private Image img;
 		ImagesJeu(Image img){
@@ -60,7 +62,7 @@ public class PanneauBoulder extends JPanel{
 		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.2));
 	}
 	/***/
-	private Color reconnaitreCouleur(Entite entite){
+	/*private Color reconnaitreCouleur(Entite entite){
 		if(entite instanceof MurBasique || entite instanceof MurMagique || entite instanceof MurTitane){
 			return Color.BLUE;
 		}else if(entite instanceof Diamant){
@@ -78,8 +80,8 @@ public class PanneauBoulder extends JPanel{
 		}else{
 			return Color.GREEN;
 		}
-	}
-	
+	}*/
+  
 	private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
@@ -122,6 +124,10 @@ public class PanneauBoulder extends JPanel{
 	public void paintComponent(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		//barre de menu
+		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*5,0,TAILLE*10,TAILLE,null);
+		
 		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
 		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
