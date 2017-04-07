@@ -28,6 +28,12 @@ public class JoueurIARandom extends Joueur {
 		return voisin;
 	}
 	
+	private boolean deplacementPossible(JoueurIARandom joueurIARandom,
+			char toucheDroite) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public char voisinRandom(){
 		Set<Character> v = voisins();
 		if(v == null){
