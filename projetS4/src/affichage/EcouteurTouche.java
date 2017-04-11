@@ -29,7 +29,7 @@ public class EcouteurTouche implements KeyListener{
 	
 	//-------------------------Un faux keyPressed qui fonctionnne-------------------------
 	
-	int posX=1;
+	/*int posX=1;
 	int posY=1;
 	
 	@Override
@@ -52,34 +52,40 @@ public class EcouteurTouche implements KeyListener{
 			fenetre.repaint();
 			//moteur.jeu(touche);
 		}
-	}
+	}*/
 	
 	
 	//------------------------------La triste realite------------------------------------
 	
-	/*@Override
+	@Override
 	public void keyPressed(KeyEvent evt) {
 		char touche=(char) evt.getKeyCode();
 		System.out.println(touche);
 		
-		Iterator it=(Iterator) fenetre.getMoteur().joueur.getPosition().iterator();
+		//joue un tour.
+		fenetre.getMoteur().touche=touche;
+		fenetre.getMoteur().thread.notify();
+		System.out.println("resume");
+		 
+		/*/position actuelle du joueur.
+		Iterator<Position> it=fenetre.getMoteur().joueur.getPosition().iterator();
 		Position pos=(Position) it.next();
 		
 		Touche toucheConv=convertirTouche(touche);
 		
 		if(fenetre.getMoteur().deplacementPossible(toucheConv)){
 			switch(touche){
-			case KeyEvent.VK_LEFT:pos.setX(pos.getX()-1);break;
-			case KeyEvent.VK_RIGHT:pos.setX(pos.getX()+1);break;
-			case KeyEvent.VK_DOWN:pos.setY(pos.getY()+1);break;
-			case KeyEvent.VK_UP:pos.setY(pos.getY()-1);break;
+			case KeyEvent.VK_LEFT:fenetre.getMoteur().deplacerJoueur(pos.getX(), pos.getY()-1);break;
+			case KeyEvent.VK_RIGHT:fenetre.getMoteur().deplacerJoueur(pos.getX(), pos.getY()+1);break;
+			case KeyEvent.VK_DOWN:fenetre.getMoteur().deplacerJoueur(pos.getX()+1, pos.getY());break;
+			case KeyEvent.VK_UP:fenetre.getMoteur().deplacerJoueur(pos.getX()-1, pos.getY());break;
 			}
-			fenetre.getMoteur().deplacerJoueur(pos.getY(), pos.getX());
 			fenetre.repaint();
 			//moteur.jeu(touche);
-		}
-	}*/
-
+		}*/
+		fenetre.repaint();
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent arg0) {}
 	@Override

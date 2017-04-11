@@ -16,6 +16,8 @@ public class MoteurJeu {
 
 	public static final int OBSTACLE_MORTEL=1;
 	public static final int TOUCHER_MORTEL=2;
+	public char touche;
+	public Thread thread=Thread.currentThread();
 	
 	/*public static final char TOUCHE_DROITE='6';
 	public static final char TOUCHE_GAUCHE='4';
@@ -109,7 +111,7 @@ public class MoteurJeu {
 		}
 	}*/
 	
-	public void jeu(Map map){
+	public void jeu(){
 		//System.out.println("Le joueur : "+joueur.getLaPosition().getX()+","+joueur.getLaPosition().getY());
 		Touche t = Touche.MAUVAISE_TOUCHE;
 		while(true){
@@ -125,11 +127,11 @@ public class MoteurJeu {
 			int x = p.getX();
 			int y = p.getY();
 			switch(touche){
-			case '6': t = Touche.TOUCHE_DROITE; y+=1;break;
-			case '4': t = Touche.TOUCHE_GAUCHE; y-=1;break;
-			case '8': t = Touche.TOUCHE_HAUT; x-=1;break;
-			case '2': t = Touche.TOUCHE_BAS; x+=1;break;
-			case '5' : t = Touche.TOUCHE_IMMOBILE;break;
+			case KeyEvent.VK_RIGHT: t = Touche.TOUCHE_DROITE; y+=1;break;
+			case KeyEvent.VK_LEFT: t = Touche.TOUCHE_GAUCHE; y-=1;break;
+			case KeyEvent.VK_UP: t = Touche.TOUCHE_HAUT; x-=1;break;
+			case KeyEvent.VK_DOWN: t = Touche.TOUCHE_BAS; x+=1;break;
+			case KeyEvent.VK_0 : t = Touche.TOUCHE_IMMOBILE;break;
 			}
 			if(deplacementPossible(t)){
 				deplacerJoueur(x,y);
@@ -258,17 +260,14 @@ public class MoteurJeu {
 	}
 
 	private char recupererTouche() {
-		char touche='_';
-		Scanner sc=new Scanner(System.in);
-		do{
-			System.out.println("Saisissez une touche");
-			if(sc.hasNextInt()){	//Faire un test supplémentaire : si espace est appuyé avec chaine vide -> Exception RunTime
-				touche=sc.nextLine().charAt(0);
-			}
-		}while(touche!=Touche.TOUCHE_BAS.toChar()&&touche!=Touche.TOUCHE_HAUT.toChar()&&touche!=Touche.TOUCHE_DROITE.toChar()&&
-				touche!=Touche.TOUCHE_GAUCHE.toChar()&&touche!=Touche.TOUCHE_IMMOBILE.toChar());
-		//.addKeyListener(new ActionClavier());
-		//sc.close();
+		//Thread.currentThread().interrupt();
+		try {
+			thread.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Thread reprise");
 		return touche;
 	}
 

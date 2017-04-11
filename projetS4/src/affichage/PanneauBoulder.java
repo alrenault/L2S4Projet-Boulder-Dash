@@ -27,20 +27,20 @@ public class PanneauBoulder extends JPanel{
 	private final int TAILLE=24;
 	
 	private enum ImagesJeu{
-		MUR_BASIQUE (chargerImage("BoulderDashImages/Mur.png")),
-		MUR_MAGIQUE (chargerImage("BoulderDashImages/MurMagique.png")),
-		MUR_TITANE (chargerImage("BoulderDashImages/MurTitane.png")),
-		ROCHER (chargerImage("BoulderDashImages/Rocher.png")),
-		ROBIL (chargerImage("BoulderDashImages/Robil.png")),
-		LIBELLULE (chargerImage("BoulderDashImages/Libellule1.png")),
-		LUCIOLE (chargerImage("BoulderDashImages/Carre1.png")),
-		AMIBE (chargerImage("BoulderDashImages/Amibe.png")),
-		SORTIE (chargerImage("BoulderDashImages/Sortie.png")),
-		DIAMANT (chargerImage("BoulderDashImages/Diamant.png")),
-		POUSSIERE (chargerImage("BoulderDashImages/Poussiere.png")),
-		SOL (chargerImage("BoulderDashImages/Sol2.png")),
-		MENU (chargerImage("BoulderDashImages/Menu.png")),
-		DEFAULT (chargerImage("BoulderDashImages/Default.png"));
+		MUR_BASIQUE (chargerImage("src/BoulderDashImages/Mur.png")),
+		MUR_MAGIQUE (chargerImage("src/BoulderDashImages/MurMagique.png")),
+		MUR_TITANE (chargerImage("src/BoulderDashImages/MurTitane.png")),
+		ROCHER (chargerImage("src/BoulderDashImages/Rocher.png")),
+		ROBIL (chargerImage("src/BoulderDashImages/Robil.png")),
+		LIBELLULE (chargerImage("src/BoulderDashImages/Libellule1.png")),
+		LUCIOLE (chargerImage("src/BoulderDashImages/Carre1.png")),
+		AMIBE (chargerImage("src/BoulderDashImages/Amibe.png")),
+		SORTIE (chargerImage("src/BoulderDashImages/Sortie.png")),
+		DIAMANT (chargerImage("src/BoulderDashImages/Diamant.png")),
+		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
+		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
+		MENU (chargerImage("src/BoulderDashImages/Menu.png")),
+		DEFAULT (chargerImage("src/BoulderDashImages/Default.png"));
 		
 		private Image img;
 		ImagesJeu(Image img){
