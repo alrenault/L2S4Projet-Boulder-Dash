@@ -29,6 +29,9 @@ public class PanneauBoulder extends JPanel{
 	//assuprimer
 	private int nbreCoups = 0;
 	
+	/**
+	 * Une enumeration qui contient les URL vers les images du jeu.
+	 * */
 	private enum ImagesJeu{
 		MUR_BASIQUE (chargerImage("src/BoulderDashImages/Mur.png")),
 		MUR_MAGIQUE (chargerImage("src/BoulderDashImages/MurMagique.png")),

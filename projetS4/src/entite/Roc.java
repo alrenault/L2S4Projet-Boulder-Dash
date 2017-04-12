@@ -18,7 +18,7 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 	}
 
 	@Override
-	public boolean deplacer() {
+	public boolean deplacer(Entite[][] carte) {
 		// TODO Auto-generated method stub
 		return false;
 	}

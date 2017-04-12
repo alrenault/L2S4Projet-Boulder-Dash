@@ -1,6 +1,8 @@
 package entite;
 
+import moteurJeu.MoteurJeu.Touche;
+
 public interface Ennemi {
-	public void pattern();
+	public Touche pattern();
 	public void mangerJoueur();
 }

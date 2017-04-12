@@ -1,5 +1,5 @@
 package entite;
 
 public interface Deplacable {
-	public boolean deplacer();
+	public boolean deplacer(Entite[][] carte);
 }

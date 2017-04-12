@@ -51,7 +51,7 @@ public class MoteurJeu {
 	
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
-	private Espace espace;
+	public static Espace espace;
 	private Poussiere poussiere;
 	private Roc roc;
 	private Diamant diamant;
@@ -147,7 +147,7 @@ public class MoteurJeu {
 			perdu(TOUCHER_MORTEL);
 			ennemisMorts(TOUCHER_MORTEL);
 			//deplace finalement les ennemis
-			//deplacerEnnemis(tabEnnemis);
+			deplacerEnnemis();
 			ennemisMorts(OBSTACLE_MORTEL);
 			perdu(TOUCHER_MORTEL);
 			//afficher le jeu
@@ -280,17 +280,13 @@ public class MoteurJeu {
 		// TODO Auto-generated method stub
 		
 	}
-	private void afficherJeu(Map m) {
-		System.out.println(m.toString());
+	private void deplacerEnnemis(){
+		//luciole.deplacer(entite);
+		libellule.deplacer(entite);
+		//amibe.deplacer(entite);
 	}
-	private void deplacerEnnemis(Ennemi[] tabEnnemis2) {
-		// TODO Auto-generated method stub
-		
-	}
-	private void deplacerRochers(Roc[] tabRochers2) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 	
 	public Entite[][] getMap(){
 		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];

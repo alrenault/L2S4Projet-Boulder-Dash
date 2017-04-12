@@ -26,13 +26,13 @@ public class Map{
 	
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
-			throw new IllegalArgumentException("Fichier non trouvé");
+			throw new IllegalArgumentException("Fichier non trouve");
 		fichier = Paths.get(chemin);
 		try{
 			contenu = readFile(fichier, Charset.defaultCharset());
 		}
 		catch(IOException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouve");
 		}
 		this.numMap = numMap;
 		name = "Cave "+numMap;
@@ -47,7 +47,7 @@ public class Map{
 	
 	public int nbLigne(String map){
 		Scanner scanner = new Scanner(map);
-		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
+		Scanner sc = scanner.useDelimiter("\n"); //en deux etapes pour pouvoir fermer scanner
 		String ligne ="";
 		int i = 0;
 		if(sc.hasNext()){
