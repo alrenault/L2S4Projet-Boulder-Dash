@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Font;
 
@@ -37,7 +38,7 @@ public class PanneauBoulder extends JPanel{
 		LIBELLULE (chargerImage("src/BoulderDashImages/Libellule1.png")),
 		LUCIOLE (chargerImage("src/BoulderDashImages/Carre1.png")),
 		AMIBE (chargerImage("src/BoulderDashImages/Amibe.png")),
-		SORTIE (chargerImage("src/BoulderDashImages/Sortie.png")),
+		SORTIE (chargerImage("src/BoulderDashImages/Sortie2.png")),
 		DIAMANT (chargerImage("src/BoulderDashImages/Diamant.png")),
 		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
 		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
@@ -84,7 +85,20 @@ public class PanneauBoulder extends JPanel{
 		}
 	}*/
   
-	private static Image chargerImage(String adresse){
+	/**
+	 * Charge une image sans etre affectee par la transformation du projet en .jar
+	 * */
+	public static Image chargerImage(String path){
+		Image img =null;
+		try {
+			img = (Image) ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(path));
+		}catch (FileNotFoundException e) {e.printStackTrace();
+		}catch (IOException e) {e.printStackTrace();}
+		
+		return img;
+	}
+	
+	/*private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
 		    img = ImageIO.read(new File(adresse));
@@ -92,7 +106,9 @@ public class PanneauBoulder extends JPanel{
 			e.printStackTrace();
 		}
 		return img;
-	}
+	}*/
+	
+	
 	/***/
 	private Image recupererImage(Entite entite){
 		if(entite instanceof MurBasique){
