@@ -191,7 +191,9 @@ public class MoteurJeu {
 	
 	public void processEndOfTurn(){
 		//joueur.deplacer(touche);
+		//System.out.println("Position avant :\n"+diamant.toStringPosition());
 		tomber(diamant);
+		//System.out.println("Position apres :\n"+diamant.toStringPosition());
 		tomber(roc);
 		//perdu(OBSTACLE_MORTEL);
 		joueur.gagne();
@@ -232,7 +234,7 @@ public class MoteurJeu {
 		
 					
 		case 0 : //ME --- Vous pouvez diriger Rockford
-			
+					
 					while(enJeu){
 						affichage();
 						
@@ -331,7 +333,7 @@ public class MoteurJeu {
 			return false;*/
 		if(entite[x1][y1] == espace){
 			PositionTombe p1= new PositionTombe(x1,y1);
-			Position p2 = new Position(x1,y1);
+			//Position p2 = new Position(x1,y1);
 			entite[p.getX()][p.getY()] = espace; 
 			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
 			
@@ -346,6 +348,7 @@ public class MoteurJeu {
 	public void tomber(Entite e){
 		if(!(e instanceof Roc) && !(e instanceof Diamant))
 			throw new IllegalArgumentException();
+		
 		PositionTombe pos;
 		Set<PositionTombe> aTomber = new HashSet<PositionTombe>();
 		Iterator<PositionTombe> it = e.getPositionTombe().iterator();
@@ -493,6 +496,28 @@ public class MoteurJeu {
 		}
 	}
 	
+	public void resetMap(){
+		joueur.viderPosition();
+		espace.viderPosition();
+		poussiere.viderPosition();
+		roc.viderPositionTombe();
+		diamant.viderPositionTombe();
+		mur.viderPosition();
+		murTitane.viderPosition();
+		murMagique.viderPosition();
+		exit.viderPosition();
+		amibe.viderPosition();
+		luciole.viderPosition();
+		libellule.viderPosition();
+		
+		score=0; 
+		nbDiamantRecolte = 0;
+		nbTour = 0;
+		
+		construireMapEntite();
+		//reset tout ce qui est affichage aussi
+	}
+	
 	public String afficherMapEntite(){ //Temporaire avant l'affichage propre. sert aussi au test pour voir si tout se passe bien
 		String s = "";
 		for(int i=0;i<map.getHauteur();i++){
@@ -528,8 +553,12 @@ public class MoteurJeu {
 		luciole.viderPosition();
 		libellule.viderPosition();
 		
+		score=0; 
+		nbDiamantRecolte = 0;
+		nbTour = 0;
+		
 		construireMapEntite();
-		jeu();
+		//jeu();
 		
 	}
 	public void deplacerJoueur(int x, int y){
@@ -555,10 +584,10 @@ public class MoteurJeu {
 		PositionTombe pT = new PositionTombe(x,y);
 		joueur.getPosition().remove(p); //enl�ve la pos actuelle du joueur
 		if(entite[x][y] == diamant){
-			System.out.println(pT.toString());
-			System.out.println("Position diamant :\n"+diamant.toStringPosition());
-			entite[x][y].getPositionTombe().remove(pT);
-			System.out.println("Position diamant :\n"+diamant.toStringPosition());
+			//System.out.println(pT.toString());
+			//System.out.println("Position diamant :\n"+diamant.toStringPosition());
+			diamant.getPositionTombe().remove(pT);
+			//System.out.println("Position diamant :\n"+diamant.toStringPosition());
 		}
 		else
 			entite[x][y].getPosition().remove(p1);

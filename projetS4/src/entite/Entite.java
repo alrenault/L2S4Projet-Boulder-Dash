@@ -70,7 +70,7 @@ public abstract class Entite  {
 			PositionTombe p;
 			while(it.hasNext()){
 				p = it.next();
-				s+="Position : ("+p.toString()+"\n";
+				s+="Position : ("+p.getX()+","+p.getY()+")\n";
 			}
 			return s;
 		}
