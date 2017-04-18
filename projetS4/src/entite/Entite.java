@@ -11,17 +11,6 @@ public abstract class Entite  {
 	protected Set<PositionTombe> positionRoc;
 	
 	
-	//public abstract Entite buildEntity(char display, int posX, int posY);
-	/*
-	Entite(boolean traversable,boolean enJeu, char apparence,
-			int posX, int posY){
-		this.enJeu=enJeu;
-		this.traversable=traversable;
-		this.apparence=apparence;
-		this.posX=posX;
-		this.posY=posY;
-	}
-	*/
 	
 	public Entite(){
 		if(this instanceof Roc || this instanceof Diamant){

@@ -1,8 +1,6 @@
 package moteurJeu;
 
 
-//POSITION DU JOUEUR FAIL !! ESSAYER JUSTE DE LA MODIF
-
 import ia.*;
 
 import java.awt.event.KeyEvent;
@@ -96,7 +94,7 @@ public class MoteurJeu {
 	private Libellule libellule;
 	
 	private Position gagne;
-	private int score=0; //score min � avoir pour franchir la porte
+	private int score=0; //score min a avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
 	private int nbTour = 0;
 	private boolean enJeu;
@@ -163,10 +161,7 @@ public class MoteurJeu {
 	}
 	
 	public void processEndOfTurn(){
-		//joueur.deplacer(touche);
-		//System.out.println("Position avant :\n"+diamant.toStringPosition());
 		tomber(diamant);
-		//System.out.println("Position apres :\n"+diamant.toStringPosition());
 		tomber(roc);
 		//perdu(OBSTACLE_MORTEL);
 		joueur.gagne();
@@ -275,30 +270,7 @@ public class MoteurJeu {
 		else if (deplacementPossible(t)){
 			deplacerJoueur(x,y);
 		}
-		
-		
-		/*
-		if(entite[x][y] == roc){
-			System.out.println("COUCOU");
-			int x1 = x;
-			int y1 = y;
-			switch(touche){
-			case KeyEvent.VK_RIGHT: y1+=1;break;
-			case KeyEvent.VK_LEFT: y1-=1;break;
-			case KeyEvent.VK_UP: x1-=1;break;
-			case KeyEvent.VK_DOWN: x1+=1;break;
-			default : break;
-			}
-			if(entite[x][y] == roc){
-				pousserRocher(new PositionTombe(x,y));
-			}
-			else if(deplacementPossible(t)){
-				deplacerJoueur(x,y);
-				System.out.println("moteur : posX="+x+" posY="+y);
-			}
-		}*/
-		
-		
+				
 	}
 	
 	//A TROUVER L'ERREUR
@@ -313,11 +285,8 @@ public class MoteurJeu {
 		case KeyEvent.VK_DOWN: return false;
 		default : return false;
 		}
-		/*if(entite[x1+1][y1] == espace)
-			return false;*/
 		if(entite[x1][y1] == espace){
 			PositionTombe p1= new PositionTombe(x1,y1);
-			//Position p2 = new Position(x1,y1);
 			entite[p.getX()][p.getY()] = espace; 
 			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
 			
@@ -338,7 +307,6 @@ public class MoteurJeu {
 		Iterator<PositionTombe> it = e.getPositionTombe().iterator();
 		while(it.hasNext()){
 			pos = it.next();
-			//if(entite[pos.getX()+1][pos.getY()] == espace || entite[pos.getX()+1][pos.getY()] == joueur )
 				aTomber.add(pos);
 		}
 		
@@ -357,7 +325,6 @@ public class MoteurJeu {
 				aAjouter.setTombe(true);
 				e.getPositionTombe().add(aAjouter);
 				entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-			//	System.out.println("Position tombe si vide : \n"+roc.toStringPosition());
 			}
 			else{
 				if(entite[doitTomber.getX()+1][doitTomber.getY()] == joueur && doitTomber.isTombe()){
@@ -368,7 +335,6 @@ public class MoteurJeu {
 					joueur.getPosition().remove(pEspace);
 					e.getPositionTombe().add(new PositionTombe(doitTomber.getX()+1,doitTomber.getY()));
 					entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-					//System.out.println("Position tombe si joueur : \n"+roc.toStringPosition());
 					perdu();
 				}
 				else{
@@ -396,57 +362,12 @@ public class MoteurJeu {
 					PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
 					aModif.setTombe(false);
 					e.getPositionTombe().add(aModif);
-					//System.out.println("Position tombe pas : \n"+roc.toStringPosition());
 					}
 				}
 			}
 			
 		}
-		/*PositionRoc p;
-		Set<PositionRoc> lesPos = new HashSet<PositionRoc>();
-		Iterator<PositionRoc> it = roc.getPositionRoc().iterator();
-		Position pp;
-		while(it.hasNext()){
-			pp = it.next();
-			lesPos.add(new PositionRoc(pp.getX(),pp.getY()));
-		}
-		
-		Iterator<PositionRoc> it1 = lesPos.iterator();
-		while(it1.hasNext()){
-			p = it1.next();
-			if(entite[p.getX()+1][p.getY()] == espace){
-
-				
-			entite[p.getX()][p.getY()] = espace; 
-			espace.getPosition().add(p); //rajoute l'emplacement du roc dans l'ens de pos d'espace
-			
-			PositionRoc p1 = new PositionRoc(p.getX()+1,p.getY());
-			roc.getPositionRoc().remove(p); //enl�ve la pos actuelle du roc
-			espace.getPosition().remove(p1);
-			entite[p.getX()+1][p.getY()] = roc; //fait pointer sur la nouvelle pos
-			entite[p.getX()+1][p.getY()].getPositionRoc().add(p1); //rajoute l'emplacement du roc dans l'ens de pos du roc
-			p.setTombe(true);
-			System.out.println(roc.toStringPosition());
-			}
-			else if(entite[p.getX()+1][p.getY()] == joueur && p.isTombe()==true){
-				entite[p.getX()][p.getY()] = espace; 
-				espace.getPosition().add(p); //rajoute l'emplacement du roc dans l'ens de pos d'espace
-				
-				PositionRoc p1 = new PositionRoc(p.getX()+1,p.getY());
-				roc.getPositionRoc().remove(p); //enl�ve la pos actuelle du roc
-				entite[p.getX()+1][p.getY()] = roc; //fait pointer sur la nouvelle pos
-				entite[p.getX()+1][p.getY()].getPositionRoc().add(p1); //rajoute l'emplacement du roc dans l'ens de pos du roc
-				joueur.getPosition().remove(p1);
-				perdu();
-				System.out.println("COUCOU TOMBE");
-			}
-			else 
-				{
-				p.setTombe(false);
-				//System.out.println("PROBLEME ???");
-				}
-		}*/
-			
+					
 	}
 	
 	public void construireMapEntite(){
@@ -499,7 +420,6 @@ public class MoteurJeu {
 		nbTour = 0;
 		
 		construireMapEntite();
-		//reset tout ce qui est affichage aussi
 	}
 	
 	public String afficherMapEntite(){ //Temporaire avant l'affichage propre. sert aussi au test pour voir si tout se passe bien
@@ -557,11 +477,7 @@ public class MoteurJeu {
 			gagnerPoints();
 		}
 		Iterator<Position> it = joueur.getPosition().iterator();
-		Position p = it.next();
-		//Position p = joueur.getLaPosition(); //pos actuelle du joueur
-		System.out.println("ancienne position : posX="+p.getX()+" posY="+p.getY()+"\nnouvelle position : x="+x+" y="+y);
-		//getPosX()   getPosY()
-		System.out.println("entite d'avant : "+entite[x][y].getApparence());
+		Position p = it.next(); //pos actuelle du joueur
 		entite[p.getX()][p.getY()] = espace; 
 		espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
 		
@@ -569,17 +485,12 @@ public class MoteurJeu {
 		PositionTombe pT = new PositionTombe(x,y);
 		joueur.getPosition().remove(p); //enl�ve la pos actuelle du joueur
 		if(entite[x][y] == diamant){
-			//System.out.println(pT.toString());
-			//System.out.println("Position diamant :\n"+diamant.toStringPosition());
 			diamant.getPositionTombe().remove(pT);
-			//System.out.println("Position diamant :\n"+diamant.toStringPosition());
 		}
 		else
 			entite[x][y].getPosition().remove(p1);
 		entite[x][y] = joueur; //fait pointer sur la nouvelle pos
 		entite[x][y].getPosition().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
-		System.out.println("changement : "+joueur.getPosition().size());
-		//System.out.println(joueur.toStringPosition());
 		
 	}
 	
@@ -589,7 +500,6 @@ public class MoteurJeu {
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = joueur.getPosition().iterator();
 		Position p = it.next();
-		//Position p = Joueur.getLaPosition();
 		
 		switch(t1){
 		case TOUCHE_BAS:return caseLibre(p.getX()+1,p.getY());
@@ -616,11 +526,7 @@ public class MoteurJeu {
 	
 	public boolean caseLibre(int posX, int posY){
 		System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+entite.length);
-		/*//verifie les murs
-		if(posX>largeur||posX<0||posY>hauteur||posY<0){
-			System.out.println("Case non libre mur");
-			return false;
-		}*/
+
 		//verifie le contenu de la case
 		if(entite[posX][posY].isTraversable()){
 			System.out.println("Case libre");
