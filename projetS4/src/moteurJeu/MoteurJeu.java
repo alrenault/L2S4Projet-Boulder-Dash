@@ -30,12 +30,10 @@ public class MoteurJeu {
 	IA_Random random = new IA_Random();
 	char[] directions = random.getDirections();
 	
+	IA_Directive direct = new IA_Directive();
+	char[] directionsDirect = direct.getDirections();
 	
-	/*public static final char TOUCHE_DROITE='6';
-	public static final char TOUCHE_GAUCHE='4';
-	public static final char TOUCHE_HAUT='8';
-	public static final char TOUCHE_BAS='2';
-	public static final char TOUCHE_IMMOBILE='5';*/
+	
 	
 	public enum Touche {
 		TOUCHE_DROITE ((char)KeyEvent.VK_RIGHT),
@@ -62,7 +60,8 @@ public class MoteurJeu {
 		NO(-1),
 		ME(0),
 		RANDOM(1),
-		GENETIQUE(2);
+		GENETIQUE(2),
+		DIRECTIVE(3);
 		
 		private int intelligence;
 		
@@ -135,32 +134,6 @@ public class MoteurJeu {
 		jeu();
 	}
 	
-	/*public void jeu(char touche){
-		System.out.println("Le joueur : "+joueur.getLaPosition().getX()+","+joueur.getLaPosition().getY());
-		while(true){
-			System.out.println("tour de boucle");
-			//recupere la touche et tente un deplacement du joueur
-			if(deplacementPossible(touche)){
-				joueur.deplacer(touche);
-				System.out.println("moteur : posX="+joueur.posX+" posY="+joueur.posY);
-			}
-			//joueur.deplacer(touche);
-			perdu(OBSTACLE_MORTEL);
-			joueur.gagne();
-			joueur.prendObjets();
-			//joueur.sortie();
-			//deplace ensuite les rochers ( attention en dessous ! )
-			//deplacerRochers(tabRochers);
-			perdu(TOUCHER_MORTEL);
-			ennemisMorts(TOUCHER_MORTEL);
-			//deplace finalement les ennemis
-			//deplacerEnnemis(tabEnnemis);
-			ennemisMorts(OBSTACLE_MORTEL);
-			perdu(TOUCHER_MORTEL);
-			//afficher le jeu
-			afficherJeu(map);
-		}
-	}*/
 	
 	public void affichage(){
 		
@@ -260,6 +233,17 @@ public class MoteurJeu {
 					//gameOver();
 					
 		break; //!RANDOM
+		
+		case 2 : break;
+		
+		case 3 :
+			while(enJeu){
+				affichage();
+				deplacement = directions[tabia]; tabia++;
+				if(tabia==1000) intelligence = Intelligence.ME.get();
+			}
+			
+			break;
 		
 		}
 	}
@@ -537,6 +521,7 @@ public class MoteurJeu {
 			}
 		}
 	}
+	
 	
 	public void changerMap(int n){
 		map = new Map(n,chemin);
