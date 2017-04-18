@@ -84,7 +84,7 @@ public class MoteurJeu {
 	
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
-	private Espace espace;
+	public static Espace espace;
 	private Poussiere poussiere;
 	private Roc roc;
 	private Diamant diamant;
@@ -167,14 +167,13 @@ public class MoteurJeu {
 			}
 		System.out.println("IA : "+intelligence);
 		
-		/*
+		
 		try {
 			thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		fenetre.repaint();
 		
 	}
@@ -199,7 +198,7 @@ public class MoteurJeu {
 		//perdu(TOUCHER_MORTEL);
 		ennemisMorts(TOUCHER_MORTEL);
 		//deplace finalement les ennemis
-		//deplacerEnnemis(tabEnnemis);
+		deplacerEnnemis();
 		ennemisMorts(OBSTACLE_MORTEL);
 		//perdu(TOUCHER_MORTEL);
 		//afficher le jeu
@@ -260,61 +259,6 @@ public class MoteurJeu {
 	}
 	
 	
-	
-	
-		/*
-		//System.out.println("Le joueur : "+joueur.getLaPosition().getX()+","+joueur.getLaPosition().getY());
-		Touche t = Touche.MAUVAISE_TOUCHE;
-
-		while(true){
-			System.out.println("tour de boucle");
-			if(score>= (map.getDiamondRec()*map.getDiamondVal())){
-				afficherPorte();
-			}
-			//recupere la touche et tente un deplacement du joueur
-			char touche=recupererTouche();
-			System.out.println("lol1 "+joueur.getPosition().size());
-			if(joueur.getPosition().size()!=1)
-				throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
-			Iterator<Position> it = joueur.getPosition().iterator();
-			Position p = it.next();
-			
-			int x = p.getX();
-			int y = p.getY();
-			switch(touche){
-			case KeyEvent.VK_RIGHT: t = Touche.TOUCHE_DROITE; y+=1;break;
-			case KeyEvent.VK_LEFT: t = Touche.TOUCHE_GAUCHE; y-=1;break;
-			case KeyEvent.VK_UP: t = Touche.TOUCHE_HAUT; x-=1;break;
-			case KeyEvent.VK_DOWN: t = Touche.TOUCHE_BAS; x+=1;break;
-			case KeyEvent.VK_0 : t = Touche.TOUCHE_IMMOBILE;break;
-			}
-			if(entite[x][y] == roc){
-				pousserRocher(new PositionTombe(x,y));
-			}
-			else if(deplacementPossible(t)){
-				deplacerJoueur(x,y);
-				System.out.println("moteur : posX="+x+" posY="+y);
-			}
-			//joueur.deplacer(touche);
-			tomber(diamant);
-			tomber(roc);
-			//perdu(OBSTACLE_MORTEL);
-			joueur.gagne();
-			joueur.prendObjets();
-			//joueur.sortie();
-			//deplace ensuite les rochers ( attention en dessous ! )
-			//deplacerRochers(tabRochers);
-		//	perdu(TOUCHER_MORTEL);
-			ennemisMorts(TOUCHER_MORTEL);
-			//deplace finalement les ennemis
-			//deplacerEnnemis(tabEnnemis);
-			ennemisMorts(OBSTACLE_MORTEL);
-		//	perdu(TOUCHER_MORTEL);
-			//afficher le jeu
-			//afficherJeu(map);
-			System.out.println(afficherMapEntite());
-		}
-	}*/
 	
 	public void tour(char touche, Position position){
 		
@@ -713,9 +657,10 @@ public class MoteurJeu {
 	private void afficherJeu(Map m) {
 		System.out.println(m.toString());
 	}
-	private void deplacerEnnemis(Ennemi[] tabEnnemis2) {
-		// TODO Auto-generated method stub
-		
+	private void deplacerEnnemis(){
+		luciole.deplacer(entite);
+		libellule.deplacer(entite);
+		//amibe.deplacer(entite);
 	}
 	private void deplacerRochers(Roc[] tabRochers2) {
 		// TODO Auto-generated method stub

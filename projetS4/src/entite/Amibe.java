@@ -7,15 +7,17 @@ public class Amibe extends Entite implements Deplacable, Disparaitre {
 		traversable = true;
 	}
 
-	public boolean deplacer() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void disparait() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean deplacer(Entite[][] carte) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
