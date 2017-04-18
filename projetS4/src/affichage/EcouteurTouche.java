@@ -64,11 +64,10 @@ public class EcouteurTouche implements KeyListener{
 		
 		//joue un tour.
 		fenetre.getMoteur().touche=touche;
-		synchronized(fenetre.getMoteur().thread){
+		synchronized(fenetre.getMoteur().thread) {
 			fenetre.getMoteur().thread.notify();
 		}
-		System.out.println("resume");
-		 
+		
 		/*/position actuelle du joueur.
 		Iterator<Position> it=fenetre.getMoteur().joueur.getPosition().iterator();
 		Position pos=(Position) it.next();

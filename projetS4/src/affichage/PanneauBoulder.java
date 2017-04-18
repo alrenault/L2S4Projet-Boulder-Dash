@@ -3,9 +3,10 @@ package affichage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.awt.Font;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -25,7 +26,11 @@ public class PanneauBoulder extends JPanel{
 	private int debutCaseX=0;
 	private int debutCaseY=0;
 	private final int TAILLE=24;
+	//assuprimer
 	
+	/**
+	 * Une enumeration qui contient les URL vers les images du jeu.
+	 * */
 	private enum ImagesJeu{
 		MUR_BASIQUE (chargerImage("src/BoulderDashImages/Mur.png")),
 		MUR_MAGIQUE (chargerImage("src/BoulderDashImages/MurMagique.png")),
@@ -35,7 +40,7 @@ public class PanneauBoulder extends JPanel{
 		LIBELLULE (chargerImage("src/BoulderDashImages/Libellule1.png")),
 		LUCIOLE (chargerImage("src/BoulderDashImages/Carre1.png")),
 		AMIBE (chargerImage("src/BoulderDashImages/Amibe.png")),
-		SORTIE (chargerImage("src/BoulderDashImages/Sortie.png")),
+		SORTIE (chargerImage("src/BoulderDashImages/Sortie2.png")),
 		DIAMANT (chargerImage("src/BoulderDashImages/Diamant.png")),
 		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
 		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
@@ -82,6 +87,21 @@ public class PanneauBoulder extends JPanel{
 		}
 	}*/
   
+	/**
+	 * Charge une image sans etre affectee par la transformation du projet en .jar
+	 * */
+	/*
+	public static Image chargerImage(String path){
+		Image img =null;
+		try {
+			
+			img = (Image) ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(path));
+		}catch (FileNotFoundException e) {e.printStackTrace();
+		}catch (IOException e) {e.printStackTrace();}
+		
+		return img;
+	}*/
+	
 	private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
@@ -91,6 +111,8 @@ public class PanneauBoulder extends JPanel{
 		}
 		return img;
 	}
+	
+	
 	/***/
 	private Image recupererImage(Entite entite){
 		if(entite instanceof MurBasique){
@@ -120,13 +142,24 @@ public class PanneauBoulder extends JPanel{
 		}
 	}
 	
+	
+	
+	/***/
+	private Graphics dessinerMenu(Graphics g) {
+		
+		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*10,0,TAILLE*20,TAILLE,null);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font(Font.SANS_SERIF,1,15));
+		g.drawString(""+moteur.getNombreDiamants(),(this.getWidth()/2)-TAILLE*10+104,16);
+		g.drawString(""+moteur.getNombreTour(),(this.getWidth()/2)-TAILLE*10+220,16);
+		g.drawString(""+moteur.getScore(),(this.getWidth()/2)-TAILLE*10+384,16);
+		return g;
+	}
+	
 	/***/
 	public void paintComponent(Graphics g){
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		//barre de menu
-		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*5,0,TAILLE*10,TAILLE,null);
 		
 		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
@@ -142,6 +175,9 @@ public class PanneauBoulder extends JPanel{
 				g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
 			}
 		}
+		
+		//barre de menu
+		g=dessinerMenu(g);
 	}
 
 }

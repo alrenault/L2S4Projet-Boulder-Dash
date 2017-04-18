@@ -1,5 +1,8 @@
 Merge du 18/04 -- Version en vigueur / Version d'Adrien
 
+Ecrit/Lu par : Quentin
+Non lu : Alexis, Adrien, (Nicolas ?)
+
 Merge : 1
 
 - Ajout des options et de MainTest_v2 :
@@ -16,6 +19,27 @@ Merge : 2
 Abusez-en si il y a quelque chose d'important à dire.
 
 - MAJ du Menu d'Adrien (+ Coloré ; + Compteurs), ajout de Sortie2.png
+
+Merge : 3
+- Déplacement des ennemis implémentés : Fonctionne sans problème MAIS
+1) MoteurJeu.espace (les cases vides) --> est maintenant public et static
+2) Deplacable.deplacer() --> Deplacable.deplacer(Entite[][] carte)
+Cela pourrait nous poser quelques problèmes, faites y attention
+
+Merge : 4 
+- Implémentation de la dernière version du package affichage
+
+>>La version de chargerImage() pour le .jar ne fonctionne pas, j'ai repris l'ancienne en prenant le soin de garder celle qui ne marche pas bien
+
+>> Découverte d'un bug : Certains diamants ne sont pas ramassés du premier coup
+--> Problème de HashSet ?
+--> Problème avec public static espace ?
+
+
+----- Fin du Merge
+
+
+
 
 
 

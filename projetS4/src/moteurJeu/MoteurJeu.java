@@ -99,6 +99,7 @@ public class MoteurJeu {
 	private Position gagne;
 	private int score=0; //score min � avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
+	private int nbTour = 0;
 	private boolean enJeu;
 	
 	public MoteurJeu(){
@@ -107,7 +108,8 @@ public class MoteurJeu {
 		map = new Map(numMap,chemin);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 		
-		intelligence=Intelligence.RANDOM.get();
+		//CHOIX DE L'IA AU DEBUT DU JEU
+		intelligence=Intelligence.ME.get();
 		
 		
 		
@@ -161,6 +163,8 @@ public class MoteurJeu {
 	}*/
 	
 	public void affichage(){
+		
+		//System.out.println(System.getProperty("user.dir"));
 	
 		if(score>= (map.getDiamondRec()*map.getDiamondVal())){
 				afficherPorte();
@@ -261,6 +265,8 @@ public class MoteurJeu {
 	
 	
 	public void tour(char touche, Position position){
+		
+		nbTour++;
 		
 		Touche t = Touche.MAUVAISE_TOUCHE;
 		
@@ -634,7 +640,21 @@ public class MoteurJeu {
 		return touche;
 	}
 	
+	public int getNombreDiamants(){
+		return nbDiamantRecolte;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public int getNombreTour(){
+		return nbTour;
+	}
+	
+	
 	public void gagnerPoints(){
+		nbDiamantRecolte++;
 		if(nbDiamantRecolte > map.getDiamondRec()){
 			score += map.getDiamondVal() + map.getDiamondBonus();
 		}

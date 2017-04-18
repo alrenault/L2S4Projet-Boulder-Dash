@@ -12,6 +12,7 @@ public class Maintest_v1 {
 		//System.out.println(m.toString());
 		
 		MoteurJeu j = new MoteurJeu();
+		
 		//j.construireMapEntite();
 		//j.jeu();
 		//System.out.println(m.toString());
