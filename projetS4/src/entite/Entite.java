@@ -8,24 +8,21 @@ public abstract class Entite  {
 	protected boolean traversable;
 	protected char apparence;
 	protected  Set<Position> position;
+	protected Set<PositionTombe> positionRoc;
 	
 	
-	//public abstract Entite buildEntity(char display, int posX, int posY);
-	/*
-	Entite(boolean traversable,boolean enJeu, char apparence,
-			int posX, int posY){
-		this.enJeu=enJeu;
-		this.traversable=traversable;
-		this.apparence=apparence;
-		this.posX=posX;
-		this.posY=posY;
-	}
-	*/
 	
 	public Entite(){
-		position = new HashSet<Position>();
+		if(this instanceof Roc || this instanceof Diamant){
+			positionRoc = new HashSet<PositionTombe>();
+		}
+		else
+			position = new HashSet<Position>();
 	}
 	
+	public void viderPosition(){
+		position.removeAll(position);
+	}
 	
 	
 	
@@ -41,12 +38,43 @@ public abstract class Entite  {
 	}
 
 
-
-
-
 	public Set<Position> getPosition() {
 		return position;
 	}
+	
+	public Set<PositionTombe> getPositionTombe(){
+		return positionRoc;
+	}
+	
+	public void viderPositionTombe(){
+		positionRoc.removeAll(positionRoc);
+	}
+
+
+	public String toStringPosition() {
+		String s = "";
+
+		if(this instanceof Roc || this instanceof Diamant){
+			Iterator<PositionTombe> it = positionRoc.iterator();
+			PositionTombe p;
+			while(it.hasNext()){
+				p = it.next();
+				s+="Position : ("+p.getX()+","+p.getY()+")\n";
+			}
+			return s;
+		}
+		else {
+			Iterator<Position> it = position.iterator();
+			Position p;
+			while(it.hasNext()){
+				p = it.next();
+				s+="Position : "+p.toString()+"\n";
+		}
+			return s;
+	}
+	}
+	
+
 
 	
 

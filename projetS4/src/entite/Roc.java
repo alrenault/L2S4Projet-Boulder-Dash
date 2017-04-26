@@ -1,7 +1,11 @@
 package entite;
 
+import java.util.Set;
+
 public class Roc extends Entite implements Deplacable, Disparaitre {
 
+	private boolean tombe = false;
+	
 	public Roc() {
 		this.apparence = 'r';
 		traversable = false;
@@ -17,10 +21,14 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 		
 	}
 
+	
+
 	@Override
 	public boolean deplacer(Entite[][] carte) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 	
 }

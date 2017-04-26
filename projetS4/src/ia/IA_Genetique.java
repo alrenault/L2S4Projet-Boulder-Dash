@@ -3,18 +3,29 @@ import entite.IA;
 
 public class IA_Genetique implements IA {
 	
-	int i[] = new int [6] ;
-	
-	private Rockford population[] = new Rockford[100];
-	
-	public void process(){
-		
-	}
+	private Rockford thisRockford[];
+	private int population;
 
-	public IA_Genetique() {
+	public IA_Genetique(int n) {
 		// TODO Auto-generated constructor stub
 		
-		
+		//Create 100 little Rockford
+		population = n;
+		thisRockford = new Rockford[population];		
+	}
+	
+	public IA_Genetique() {
+		this(100); // Par défaut, on crée 100 Rockford
+	}
+	
+
+	private void initialisation(){
+		for(int i = 0 ; i < population ; i++){
+			thisRockford[i] = new Rockford(10000);
+		}
+	}
+	
+	public void process(){
 		
 	}
 

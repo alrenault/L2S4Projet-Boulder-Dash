@@ -26,13 +26,13 @@ public class Map{
 	
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
-			throw new IllegalArgumentException("Fichier non trouve");
+			throw new IllegalArgumentException("Fichier non trouvé");
 		fichier = Paths.get(chemin);
 		try{
 			contenu = readFile(fichier, Charset.defaultCharset());
 		}
 		catch(IOException e){
-			System.out.println("Fichier non trouve");
+			System.out.println("Fichier non trouvé");
 		}
 		this.numMap = numMap;
 		name = "Cave "+numMap;
@@ -47,7 +47,7 @@ public class Map{
 	
 	public int nbLigne(String map){
 		Scanner scanner = new Scanner(map);
-		Scanner sc = scanner.useDelimiter("\n"); //en deux etapes pour pouvoir fermer scanner
+		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
 		String ligne ="";
 		int i = 0;
 		if(sc.hasNext()){
@@ -113,7 +113,7 @@ public class Map{
 					diamondRec = Integer.parseInt(ligne);
 					break;
 				}
-				case "DiamondsValue":
+				case "DiamondValue":
 				{
 					if(sc1.hasNext())
 						ligne = sc1.next();
@@ -228,6 +228,18 @@ public class Map{
 	
 	public void setTab(int i, int j, char val){
 		tab[i][j] = val;
+	}
+
+	public int getDiamondRec() {
+		return diamondRec;
+	}
+
+	public int getDiamondVal() {
+		return diamondVal;
+	}
+
+	public int getDiamondBonus() {
+		return diamondBonus;
 	}
 	
 	

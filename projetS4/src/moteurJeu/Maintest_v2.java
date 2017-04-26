@@ -2,7 +2,7 @@ package moteurJeu;
 
 import map.Map;
 
-public class Maintest {
+public class Maintest_v2 {
 	
 	public static void testArguments(String args[]){
 		if(args.length>0){

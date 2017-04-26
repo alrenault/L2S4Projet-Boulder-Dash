@@ -27,7 +27,6 @@ public class PanneauBoulder extends JPanel{
 	private int debutCaseY=0;
 	private final int TAILLE=24;
 	//assuprimer
-	private int nbreCoups = 0;
 	
 	/**
 	 * Une enumeration qui contient les URL vers les images du jeu.
@@ -91,17 +90,19 @@ public class PanneauBoulder extends JPanel{
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
 	 * */
+	/*
 	public static Image chargerImage(String path){
 		Image img =null;
 		try {
+			
 			img = (Image) ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(path));
 		}catch (FileNotFoundException e) {e.printStackTrace();
 		}catch (IOException e) {e.printStackTrace();}
 		
 		return img;
-	}
+	}*/
 	
-	/*private static Image chargerImage(String adresse){
+	private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
 		    img = ImageIO.read(new File(adresse));
@@ -109,7 +110,7 @@ public class PanneauBoulder extends JPanel{
 			e.printStackTrace();
 		}
 		return img;
-	}*/
+	}
 	
 	
 	/***/
@@ -141,20 +142,17 @@ public class PanneauBoulder extends JPanel{
 		}
 	}
 	
-	/***/
-	public void incrementerNbreCoups() {
-		this.nbreCoups++;
-	}
+	
 	
 	/***/
-	private Graphics dessinerMenu(Graphics g, int nbreDiamants, int nbreCoups) {
+	private Graphics dessinerMenu(Graphics g) {
 		
 		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*10,0,TAILLE*20,TAILLE,null);
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.SANS_SERIF,1,15));
-		g.drawString(""+nbreDiamants,(this.getWidth()/2)-TAILLE*10+104,16);
-		g.drawString(""+nbreCoups,(this.getWidth()/2)-TAILLE*10+220,16);
-		g.drawString(""+0,(this.getWidth()/2)-TAILLE*10+384,16);
+		g.drawString(""+moteur.getNombreDiamants(),(this.getWidth()/2)-TAILLE*10+104,16);
+		g.drawString(""+moteur.getNombreTour(),(this.getWidth()/2)-TAILLE*10+220,16);
+		g.drawString(""+moteur.getScore(),(this.getWidth()/2)-TAILLE*10+384,16);
 		return g;
 	}
 	
@@ -179,7 +177,7 @@ public class PanneauBoulder extends JPanel{
 		}
 		
 		//barre de menu
-		g=dessinerMenu(g,5,nbreCoups);
+		g=dessinerMenu(g);
 	}
 
 }

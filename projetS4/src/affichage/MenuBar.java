@@ -3,13 +3,19 @@ package affichage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import moteurJeu.MoteurJeu.Intelligence;
+
 public class MenuBar extends JMenuBar{
 	
-	public MenuBar(){
+	private FenetreBoulder fenetre;
+	
+	public MenuBar(FenetreBoulder fenetre){
+		this.fenetre=fenetre;
 		this.add(new Fichier());
 	}
 	
@@ -35,6 +41,8 @@ public class MenuBar extends JMenuBar{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Le bouton de nouvelle partie");
+					fenetre.getMoteur().resetMap();
+					fenetre.repaint();
 				}
 			}
 		}
@@ -98,6 +106,16 @@ public class MenuBar extends JMenuBar{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("changement en "+intitule);
+						switch(intitule){
+						case "IA simplette":fenetre.getMoteur().changerIA(
+								Intelligence.RANDOM);
+							//fenetre.getMoteur().enJeu=false;
+							//fenetre.getMoteur().resetMap();
+							//fenetre.getMoteur().jeu();
+							fenetre.repaint();
+							break;
+						default:break;
+						}
 					}
 				}
 			}
