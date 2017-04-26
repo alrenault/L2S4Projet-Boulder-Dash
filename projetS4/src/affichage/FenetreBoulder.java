@@ -30,7 +30,7 @@ public class FenetreBoulder extends JFrame{
 		
 		this.add(panneauBoulder);
 		this.addKeyListener(ecouteurTouche);
-		this.setJMenuBar(new MenuBar());
+		this.setJMenuBar(new MenuBar(this));
 		
 		this.setBounds(50, 100, panneauBoulder.getWidth(), panneauBoulder.getHeight());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

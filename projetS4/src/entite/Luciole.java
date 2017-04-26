@@ -132,7 +132,7 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-			
+			System.out.println(this.toStringPosition());
 		//copie de l'ensemble des lucioles
 		Set<Position> ensemble=new HashSet<Position>();
 		ensemble.addAll(this.getPosition());
@@ -143,6 +143,7 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 			Position p = it.next();
 			deplacerUneLuciole(carte,p);
 		}
+		System.out.println(this.toStringPosition());
 		return true;
 	}
 	

@@ -31,47 +31,9 @@ public class MoteurJeu {
 	IA_Directive direct = new IA_Directive();
 	char[] directionsDirect = direct.getDirections();
 	
-	
-	
-	public enum Touche {
-		TOUCHE_DROITE ((char)KeyEvent.VK_RIGHT),
-		TOUCHE_GAUCHE ((char)KeyEvent.VK_LEFT),
-		TOUCHE_HAUT ((char)KeyEvent.VK_UP),
-		TOUCHE_BAS ((char)KeyEvent.VK_DOWN),
-		TOUCHE_IMMOBILE ((char)KeyEvent.VK_0),
-		MAUVAISE_TOUCHE ('_');
-		
-		private char touche;
-		
-		Touche(char t){
-			touche = t;
-		}
-		
-		public char toChar(){
-			return touche;
-		}
-		
-	}
-	
 	private int intelligence;
-	private enum Intelligence {
-		NO(-1),
-		ME(0),
-		RANDOM(1),
-		GENETIQUE(2),
-		DIRECTIVE(3);
-		
-		private int intelligence;
-		
-		Intelligence(int j){
-			intelligence=j;
-		}
-		
-		public int get(){
-			return intelligence;
-		}
-		
-	}
+	
+	//reste
 	
 	private Entite[][] entite;
 	private FenetreBoulder fenetre;
@@ -97,7 +59,60 @@ public class MoteurJeu {
 	private int score=0; //score min a avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
 	private int nbTour = 0;
-	private boolean enJeu;
+	public boolean enJeu;
+	
+	/**
+	 * Designe les differents types de touches.
+	 * */
+	
+	public enum Touche {
+		TOUCHE_DROITE ((char)KeyEvent.VK_RIGHT),
+		TOUCHE_GAUCHE ((char)KeyEvent.VK_LEFT),
+		TOUCHE_HAUT ((char)KeyEvent.VK_UP),
+		TOUCHE_BAS ((char)KeyEvent.VK_DOWN),
+		TOUCHE_IMMOBILE ((char)KeyEvent.VK_0),
+		MAUVAISE_TOUCHE ('_');
+		
+		private char touche;
+		
+		Touche(char t){
+			touche = t;
+		}
+		
+		public char toChar(){
+			return touche;
+		}
+	}
+	
+	/**
+	 * Designe les differents types d'IA.
+	 * */
+	public enum Intelligence {
+		NO(-1),
+		ME(0),
+		RANDOM(1),
+		GENETIQUE(2),
+		DIRECTIVE(3);
+		
+		private int intelligence;
+		
+		Intelligence(int j){
+			intelligence=j;
+		}
+		
+		public int get(){
+			return intelligence;
+		}
+	}
+	
+	/**
+	 * Permet a la barre de menu de changer le mode d'IA sans pour autant donner acces
+	 * a la variable.
+	 * @param Intelligence ia
+	 * */
+	public void changerIA(Intelligence ia){
+		this.intelligence=ia.get();
+	}
 	
 	public MoteurJeu(){
 		enJeu=true;
@@ -107,8 +122,6 @@ public class MoteurJeu {
 		
 		//CHOIX DE L'IA AU DEBUT DU JEU
 		intelligence=Intelligence.ME.get();
-		
-		
 		
 		joueur = (Joueur) builder.buildEntity('P');
 		espace = (Espace) builder.buildEntity(' ');
@@ -160,7 +173,11 @@ public class MoteurJeu {
 		return it.next();
 	}
 	
+	/**
+	 * Les tests de victoire / defaite qui operent en fin de tour.
+	 * */
 	public void processEndOfTurn(){
+		deplacerEnnemis();
 		tomber(diamant);
 		tomber(roc);
 		//perdu(OBSTACLE_MORTEL);
@@ -170,76 +187,64 @@ public class MoteurJeu {
 		//deplace ensuite les rochers ( attention en dessous ! )
 		//deplacerRochers(tabRochers);
 		//perdu(TOUCHER_MORTEL);
-		ennemisMorts(TOUCHER_MORTEL);
+		//ennemisMorts(TOUCHER_MORTEL);
 		//deplace finalement les ennemis
-		deplacerEnnemis();
-		ennemisMorts(OBSTACLE_MORTEL);
+		//ennemisMorts(OBSTACLE_MORTEL);
 		//perdu(TOUCHER_MORTEL);
 		//afficher le jeu
 		//afficherJeu(map);
 		System.out.println(afficherMapEntite());
 	}
 	
+	/**
+	 * Force le deplacement du joueur dans la fenetre si l'IA est differente de ME. 
+	 * */
 	public void jeu(){
 		
 		char deplacement = KeyEvent.VK_0 ;
 		
-		switch(intelligence){
-		
-		case -1 : //NO --- Rockford reste immobile
+		while(enJeu){
+			switch(intelligence){
+			case -1 : //NO --- Rockford reste immobile
+				affichage();	
+				deplacement = KeyEvent.VK_0;
+				
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+				//gameOver();	
+				
+			break; //!NO
 			
-					while(enJeu){
-						affichage();
-						
-								deplacement = KeyEvent.VK_0;
-								
-						tour(deplacement,processPosition());
-						processEndOfTurn();
-					}
-					//gameOver();
+			case 0 : //ME --- Vous pouvez diriger Rockford
+				affichage();		
+				deplacement = recupererTouche();
+				
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+				//gameOver();
 					
-		break; //!NO
+			break; //!ME
 		
+			case 1 : //RANDOM --- Joue Rockford al�atoirement
+				affichage();
+				deplacement = directions[tabia]; tabia++;
+				
+				if (tabia==1000) intelligence=Intelligence.ME.get();
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+				//gameOver();
 					
-		case 0 : //ME --- Vous pouvez diriger Rockford
-					
-					while(enJeu){
-						affichage();
-						
-								deplacement = recupererTouche();
-								
-						tour(deplacement,processPosition());
-						processEndOfTurn();
-					}
-					//gameOver();
-					
-		break; //!ME
+			break; //!RANDOM
 		
-		case 1 : //RANDOM --- Joue Rockford al�atoirement
-					while(enJeu){
-						affichage();
-						
-								deplacement = directions[tabia]; tabia++;
-								if (tabia==1000) intelligence=Intelligence.ME.get();
-								
-						tour(deplacement,processPosition());
-						processEndOfTurn();
-					}
-					//gameOver();
-					
-		break; //!RANDOM
+			case 2 : break;
 		
-		case 2 : break;
-		
-		case 3 :
-			while(enJeu){
+			case 3 :
 				affichage();
 				deplacement = directions[tabia]; tabia++;
 				if(tabia==1000) intelligence = Intelligence.ME.get();
-			}
 			
 			break;
-		
+			}
 		}
 	}
 	
@@ -298,22 +303,33 @@ public class MoteurJeu {
 		return true;
 	}
 	
+	/**
+	 * Fait tomber le rocher 
+	 * */
 	public void tomber(Entite e){
+		
+		
 		if(!(e instanceof Roc) && !(e instanceof Diamant))
 			throw new IllegalArgumentException();
+		
 		
 		PositionTombe pos;
 		Set<PositionTombe> aTomber = new HashSet<PositionTombe>();
 		Iterator<PositionTombe> it = e.getPositionTombe().iterator();
+		
 		while(it.hasNext()){
 			pos = it.next();
 				aTomber.add(pos);
 		}
 		
+		
 		Iterator<PositionTombe> it1 = aTomber.iterator();
 		PositionTombe doitTomber;
+		
 		while(it1.hasNext()){
 			doitTomber = it1.next();
+			
+			//si c'est un espace, tombe
 			if(entite[doitTomber.getX()+1][doitTomber.getY()] == espace){
 				entite[doitTomber.getX()][doitTomber.getY()] = espace;
 				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
@@ -325,19 +341,44 @@ public class MoteurJeu {
 				aAjouter.setTombe(true);
 				e.getPositionTombe().add(aAjouter);
 				entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-			}
-			else{
-				if(entite[doitTomber.getX()+1][doitTomber.getY()] == joueur && doitTomber.isTombe()){
+				
+			}else{
+				Entite surLaCase=entite[doitTomber.getX()+1][doitTomber.getY()];
+				
+				//si c'est un joueur ou une luciole, tue-les.
+				if((surLaCase == joueur || 
+						surLaCase == luciole) 
+						&& doitTomber.isTombe()){
+
 					entite[doitTomber.getX()][doitTomber.getY()] = espace;
 					espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
 					e.getPositionTombe().remove(doitTomber);
 					Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
-					joueur.getPosition().remove(pEspace);
+					//change de joueur.getPosition().remove(pEspace)
+					
+					if(surLaCase.getPosition().remove(pEspace) == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
+						Iterator<Position> it3 = surLaCase.getPosition().iterator();
+						Position pTest = null;
+						
+						while(it3.hasNext()){
+							 pTest = it3.next();
+							if(pTest.getX() ==  doitTomber.getX()+1 && pTest.getY() == doitTomber.getY()){
+								break;
+							}
+						}
+						surLaCase.getPosition().remove(pTest);
+						
+					}
 					e.getPositionTombe().add(new PositionTombe(doitTomber.getX()+1,doitTomber.getY()));
 					entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-					perdu();
-				}
-				else{
+					
+					//si l'entite ecrasee etait le joueur, fais-le perdre
+					if(surLaCase == joueur){
+						perdu();
+					}
+					
+				}else{
+					//si c'est un mur magique, transforme le rocher en diamant
 					if(entite[doitTomber.getX()+1][doitTomber.getY()] == murMagique){
 						entite[doitTomber.getX()][doitTomber.getY()] = espace;
 						espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
@@ -356,12 +397,12 @@ public class MoteurJeu {
 							roc.getPositionTombe().add(aAjouter);
 							entite[doitTomber.getX()+1][doitTomber.getY()] = roc;
 						}
-					}
-					else{
-					e.getPositionTombe().remove(doitTomber);
-					PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
-					aModif.setTombe(false);
-					e.getPositionTombe().add(aModif);
+					}else{
+						//Arrete de tomber
+						e.getPositionTombe().remove(doitTomber);
+						PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
+						aModif.setTombe(false);
+						e.getPositionTombe().add(aModif);
 					}
 				}
 			}
@@ -370,6 +411,10 @@ public class MoteurJeu {
 					
 	}
 	
+	/**
+	 * Construit la carte du jeu avec tout ses objets a partir d' un tableau a 2 dimension
+	 * obtenu en lisant le fichier contenant tout les niveaux.
+	 * */
 	public void construireMapEntite(){
 		for(int i=0;i<map.getHauteur();i++){
 			for(int j=0; j<map.getLargeur();j++){
@@ -433,6 +478,9 @@ public class MoteurJeu {
 		return s;
 	}
 	
+	/**
+	 * Ajoute la porte au jeu si le nombre de diamants est suffisant.
+	 * */
 	public void afficherPorte(){
 		for(int i=0;i<map.getHauteur();i++){
 			for(int j=0; j<map.getLargeur();j++){
@@ -442,7 +490,9 @@ public class MoteurJeu {
 		}
 	}
 	
-	
+	/**
+	 * Fait changer de carte et relance une nouvelle partie.
+	 * */
 	public void changerMap(int n){
 		map = new Map(n,chemin);
 		joueur.viderPosition();
@@ -464,8 +514,12 @@ public class MoteurJeu {
 		
 		construireMapEntite();
 		//jeu();
-		
 	}
+	
+	/**
+	 * Deplace le joueur sur la case de coordonnees (x, y)
+	 * @param int x, int y
+	 * */
 	public void deplacerJoueur(int x, int y){
 		System.out.println("lollol "+joueur.getPosition().size());
 		if(joueur.getPosition().size()!=1)
@@ -483,7 +537,7 @@ public class MoteurJeu {
 		
 		Position p1 = new Position(x,y);
 		PositionTombe pT = new PositionTombe(x,y);
-		joueur.getPosition().remove(p); //enl�ve la pos actuelle du joueur
+		joueur.getPosition().remove(p); //enleve la pos actuelle du joueur
 		if(entite[x][y] == diamant){
 			diamant.getPositionTombe().remove(pT);
 		}
@@ -494,8 +548,12 @@ public class MoteurJeu {
 		
 	}
 	
+	/**
+	 * Teste si le deplacement est possible ou non.
+	 * @return true si le deplacement est possible et false sinon.
+	 * */
 	public boolean deplacementPossible(Touche t1) {
-		System.out.println("lol "+joueur.getPosition().size());
+		//System.out.println("lol "+joueur.getPosition().size());
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = joueur.getPosition().iterator();
@@ -524,8 +582,12 @@ public class MoteurJeu {
 		return false;
 	}
 	
+	/**
+	 * Verifie si la case (posX, posY) est libre ( si elle est traversable )
+	 * @return true si la case est libre et false sinon.
+	 * */
 	public boolean caseLibre(int posX, int posY){
-		System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+entite.length);
+		//System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+entite.length);
 
 		//verifie le contenu de la case
 		if(entite[posX][posY].isTraversable()){
@@ -605,6 +667,10 @@ public class MoteurJeu {
 	private void deplacerRochers(Roc[] tabRochers2) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean estIA(Intelligence ia){
+		return ia.get() == intelligence;
 	}
 	
 	public Entite[][] getMap(){
