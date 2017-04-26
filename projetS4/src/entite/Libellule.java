@@ -7,7 +7,7 @@ import java.util.Set;
 import moteurJeu.MoteurJeu;
 import moteurJeu.MoteurJeu.Touche;
 
-public class Libellule extends Entite implements Deplacable, Disparaitre {
+public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
 	private Touche direction=Touche.TOUCHE_DROITE;
 	private boolean immobile=false;
@@ -222,5 +222,10 @@ public class Libellule extends Entite implements Deplacable, Disparaitre {
 	public void disparait() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void mangerJoueur(Entite[][] map, int x, int y) {
+		map[x][y].getPosition().clear();
 	}
 }
