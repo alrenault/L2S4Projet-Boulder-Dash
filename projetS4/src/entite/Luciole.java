@@ -132,7 +132,7 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-			System.out.println(this.toStringPosition());
+			
 		//copie de l'ensemble des lucioles
 		Set<Position> ensemble=new HashSet<Position>();
 		ensemble.addAll(this.getPosition());
@@ -143,7 +143,6 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 			Position p = it.next();
 			deplacerUneLuciole(carte,p);
 		}
-		System.out.println(this.toStringPosition());
 		return true;
 	}
 	
@@ -177,9 +176,11 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 		}
 		//si la luciole ne reste pas immobile
 		if(!immobile){
-			//nouvelle position.
-			Position pPlusUn = new Position(x,y);
-					
+			//manger le joueur ?
+			if(carte[x][y] instanceof Joueur){
+				mangerJoueur(carte,x,y);
+			}
+			
 			//deplacement
 			carte[p.getX()][p.getY()] = MoteurJeu.espace;
 			MoteurJeu.espace.getPosition().add(p); //rajoute l'emplacement de la libellule
@@ -254,8 +255,9 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * Mange le joueur ?
 	 * */
 	@Override
-	public void mangerJoueur() {
-		// TODO Auto-generated method stub
-		
+	public void mangerJoueur(Entite[][] map, int x, int y) {
+		map[x][y].getPosition().clear();
+		System.out.println("La luciole a mange le joueur");
+		//System.exit(0);
 	}
 }

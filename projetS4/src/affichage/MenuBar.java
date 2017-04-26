@@ -71,6 +71,8 @@ public class MenuBar extends JMenuBar{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("La carte "+num);
+						fenetre.getMoteur().changerMap(num);
+						fenetre.repaint();
 					}
 				}
 			}

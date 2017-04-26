@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import entite.Position;
 import moteurJeu.MoteurJeu;
+import moteurJeu.MoteurJeu.Intelligence;
 import moteurJeu.MoteurJeu.Touche;
 
 
@@ -27,64 +28,22 @@ public class EcouteurTouche implements KeyListener{
 		}
 	}
 	
-	//-------------------------Un faux keyPressed qui fonctionnne-------------------------
-	
-	/*int posX=1;
-	int posY=1;
-	
+	/**
+	 * Ecoute le clavier et reagit aux entrees si l'etat du jeu est correct
+	 * */
 	@Override
 	public void keyPressed(KeyEvent evt) {
 		char touche=(char) evt.getKeyCode();
 		System.out.println(touche);
 		
-		//Iterator it=(Iterator) fenetre.getMoteur().joueur.getPosition().iterator();
-		
-		Touche toucheConv=convertirTouche(touche);
-		
-		if(fenetre.getMoteur().deplacementPossible(toucheConv)){
-			switch(touche){
-			case KeyEvent.VK_LEFT:posX--;break;
-			case KeyEvent.VK_RIGHT:posX++;break;
-			case KeyEvent.VK_DOWN:posY++;break;
-			case KeyEvent.VK_UP:posY--;break;
-			}
-			fenetre.getMoteur().deplacerJoueur(posY, posX);
-			fenetre.repaint();
-			//moteur.jeu(touche);
-		}
-	}*/
-	
-	
-	//------------------------------La triste realite------------------------------------
-	
-	@Override
-	public void keyPressed(KeyEvent evt) {
-		char touche=(char) evt.getKeyCode();
-		System.out.println(touche);
-		
-		//joue un tour.
-		fenetre.getMoteur().touche=touche;
-		synchronized(fenetre.getMoteur().thread) {
-			fenetre.getMoteur().thread.notify();
-		}
-		
-		/*/position actuelle du joueur.
-		Iterator<Position> it=fenetre.getMoteur().joueur.getPosition().iterator();
-		Position pos=(Position) it.next();
-		
-		Touche toucheConv=convertirTouche(touche);
-		
-		if(fenetre.getMoteur().deplacementPossible(toucheConv)){
-			switch(touche){
-			case KeyEvent.VK_LEFT:fenetre.getMoteur().deplacerJoueur(pos.getX(), pos.getY()-1);break;
-			case KeyEvent.VK_RIGHT:fenetre.getMoteur().deplacerJoueur(pos.getX(), pos.getY()+1);break;
-			case KeyEvent.VK_DOWN:fenetre.getMoteur().deplacerJoueur(pos.getX()+1, pos.getY());break;
-			case KeyEvent.VK_UP:fenetre.getMoteur().deplacerJoueur(pos.getX()-1, pos.getY());break;
+		//if(fenetre.getMoteur().enJeu=true && fenetre.getMoteur().estIA(Intelligence.ME)){
+			//joue un tour.
+			fenetre.getMoteur().touche=touche;
+			synchronized(fenetre.getMoteur().thread) {
+				fenetre.getMoteur().thread.notify();
 			}
 			fenetre.repaint();
-			//moteur.jeu(touche);
-		}*/
-		fenetre.repaint();
+		//}
 	}
 	
 	@Override
