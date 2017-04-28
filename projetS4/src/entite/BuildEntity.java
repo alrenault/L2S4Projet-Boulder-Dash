@@ -27,13 +27,13 @@ public class BuildEntity{
 		
 		
 		//LES ENNEMIS
-		case 'a' : j = new Amibe(); break;  //Amibe
+		case 'a' : j = new Amibe(moteur); break;  //Amibe
 		
 		default :
 			if (apparence=='F'||apparence=='o'||apparence=='O'||apparence=='q'||apparence=='Q'){
 				j = new Luciole(moteur); break ;  //Luciole
 			}else if (apparence=='b'||apparence=='B'||apparence=='c'||apparence=='C'){
-				j = new Libellule(); break ;  //Libellule
+				j = new Libellule(moteur); break ;  //Libellule
 			}
 			
 			// -------- CARACTERE NON RECONNU -------- //

@@ -190,53 +190,10 @@ public class MoteurJeu {
 		//perdu(OBSTACLE_MORTEL);
 		joueur.gagne();
 		joueur.prendObjets();
-		//joueur.sortie();
-		//deplace ensuite les rochers ( attention en dessous ! )
-		//deplacerRochers(tabRochers);
-		//perdu(TOUCHER_MORTEL);
-		//ennemisMorts(TOUCHER_MORTEL);
-		//deplace finalement les ennemis
-		//ennemisMorts(OBSTACLE_MORTEL);
-		//perdu(TOUCHER_MORTEL);
-		//afficher le jeu
-		//afficherJeu(map);
+
 		System.out.println(afficherMapEntite());
 		}
 		
-		
-		/*if(!aGagne && !aPerdu){
-			deplacerEnnemis();
-			tomber(diamant);
-			tomber(roc);
-			//perdu(OBSTACLE_MORTEL);
-			joueur.gagne();
-			joueur.prendObjets();
-			//joueur.sortie();
-			//deplace ensuite les rochers ( attention en dessous ! )
-			//deplacerRochers(tabRochers);
-			//perdu(TOUCHER_MORTEL);
-			//ennemisMorts(TOUCHER_MORTEL);
-			//deplace finalement les ennemis
-			//ennemisMorts(OBSTACLE_MORTEL);
-			//perdu(TOUCHER_MORTEL);
-			//afficher le jeu
-			//afficherJeu(map);
-			System.out.println(afficherMapEntite());
-		}
-		else
-		{
-			aGagne = false;
-			aPerdu = false;
-			Iterator<Position> it = joueur.getPosition().iterator();
-			if(it.hasNext()){
-				Position p = it.next();
-				deplacerJoueur(p.getX(),p.getY());
-				fenetre.repaint();
-				tour(Touche.TOUCHE_IMMOBILE.toChar(),p);
-			}
-		}*/
-
-	//}
 
 	/**
 	 * Force le deplacement du joueur dans la fenetre si l'IA est differente de ME.
@@ -396,7 +353,8 @@ public class MoteurJeu {
 
 						//si c'est un joueur ou une luciole, tue-les.
 						if((surLaCase == joueur ||
-								surLaCase == luciole)
+								surLaCase == luciole ||
+								surLaCase == libellule)
 								&& doitTomber.isTombe()){
 
 							entite[doitTomber.getX()][doitTomber.getY()] = espace;
@@ -742,23 +700,19 @@ public class MoteurJeu {
 		resetMap();
 		
 	}
-	private void ennemisMorts(int toucherMortel) {
-		// TODO Auto-generated method stub
 
-	}
+	
 	private void afficherJeu(Map m) {
 		System.out.println(m.toString());
 	}
+	
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
-			//amibe.deplacer(entite);
+		amibe.deplacer(entite);
 		
 	}
-	private void deplacerRochers(Roc[] tabRochers2) {
-		// TODO Auto-generated method stub
 
-	}
 
 	public boolean estIA(Intelligence ia){
 		return ia.get() == intelligence;

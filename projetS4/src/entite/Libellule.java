@@ -11,14 +11,16 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	
 	private Touche direction=Touche.TOUCHE_DROITE;
 	private boolean immobile=false;
+	private MoteurJeu moteur;
 	
-	public Libellule() {
+	public Libellule(MoteurJeu moteur) {
 		this.apparence = 'B';
 		traversable = true;
+		this.moteur = moteur;
 	}
 	
 	/**
-	 * Verifie si la case indiquee peut être traversee relativement a la direction de la luciole.
+	 * Verifie si la case indiquee peut être traversee relativement a la direction de la libellule.
 	 * @param Entite[][] carte, int x, int y, Touche direction
 	 * @return boolean estTraversable : true si la case est traversable et false sinon.
 	 * */
@@ -36,7 +38,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	}
 	
 	/**
-	 * Retourne la direction qu'il faut suivre pour trouver la case a gauche de la luciole.
+	 * Retourne la direction qu'il faut suivre pour trouver la case a gauche de la libellule.
 	 * relativement a son orientation actuelle.
 	 * @return Touche direction
 	 * */
@@ -50,12 +52,12 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		}else if(direction==Touche.TOUCHE_DROITE){
 			return Touche.TOUCHE_BAS;
 		}else{
-			throw new IllegalStateException("La direction de la luciole ne peut prendre une autre valeur.");
+			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}
 	}
 	
 	/**
-	 * Retourne la direction qu'il faut suivre pour trouver la case a droite de la luciole.
+	 * Retourne la direction qu'il faut suivre pour trouver la case a droite de la libellule.
 	 * relativement a son orientation actuelle.
 	 * @return Touche direction
 	 * */
@@ -69,12 +71,12 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		}else if(direction==Touche.TOUCHE_DROITE){
 			return Touche.TOUCHE_HAUT;
 		}else{
-			throw new IllegalStateException("La direction de la luciole ne peut prendre une autre valeur.");
+			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}
 	}
 	
 	/**
-	 * Retourne la direction qu'il faut suivre pour trouver la case derriere la luciole.
+	 * Retourne la direction qu'il faut suivre pour trouver la case derriere la libellule.
 	 * relativement a son orientation actuelle.
 	 * @return Touche direction
 	 * */
@@ -88,12 +90,12 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		}else if(direction==Touche.TOUCHE_DROITE){
 			return Touche.TOUCHE_GAUCHE;
 		}else{
-			throw new IllegalStateException("La direction de la luciole ne peut prendre une autre valeur.");
+			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}
 	}
 	
 	/**
-	 * Fait tourner la luciole en fonction des murs qui entourent sa position.
+	 * Fait tourner la libellule en fonction des murs qui entourent sa position.
 	 * @param Entite[][] carte, int x,int y
 	 * */
 	private Touche tourner(Entite[][] carte, int x,int y, Touche direction){
@@ -134,39 +136,43 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		}else if(direction==Touche.TOUCHE_GAUCHE){
 			return !(carte[x+1][y-1] instanceof Espace) || !(carte[x+1][y+1] instanceof Joueur);
 		}else{
-			throw new IllegalStateException("La direction de la luciole ne peut prendre une autre valeur.");
+			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}
 	}
 	
 	/**
-	 * Effectue le deplacement de toutes les lucioles du plateau.
+	 * Effectue le deplacement de toutes les libellule du plateau.
 	 * @param Entite[][] carte
 	 * @return boolean enVie : renvoie true.
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-		System.out.println("les lucioles se deplacent. Il y a "+this.getPosition().size()+" lucioles.");
+		System.out.println("les libellules se deplacent. Il y a "+this.getPosition().size()+" libellule.");
 		
-		//copie de l'ensemble des lucioles
+		//copie de l'ensemble des libellules
 		Set<Position> ensemble=new HashSet<Position>();
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
 		
 		while(it.hasNext()){
 			//position actuelle
-			Position p = it.next();
-			deplacerUneLuciole(carte,p);
+			if(!moteur.isaPerdu()){
+				Position p = it.next();
+				deplacerUneLibellule(carte,p);	
+			}
+			else 
+				return false;
 		}
 		return true;
 	}
 	
 	
 	/**
-	 * Effectue le deplacement d'une luciole reperee par son emplacement sur la carte.
+	 * Effectue le deplacement d'une libellule reperee par son emplacement sur la carte.
 	 * @param Entite[][] carte, Position p
 	 * @return boolean enVie : renvoie true
 	 * */
-	private boolean deplacerUneLuciole(Entite[][] carte, Position p){
+	private boolean deplacerUneLibellule(Entite[][] carte, Position p){
 		//changer d'orientation
 		int x=0,y=0;
 		Touche nouvelleDirection=tourner(carte,p.getX(),p.getY(),p.getDirection());
@@ -178,8 +184,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 				nouvelleDirection=directionGauche(nouvelleDirection);
 			}
 		}
-		System.out.println("Nouvelle direction : _______="+nouvelleDirection);
-		//nouvelles coordonnees relatives a la direction qu'emprunte la luciole.
+		//nouvelles coordonnees relatives a la direction qu'emprunte la libellule.
 		if(nouvelleDirection==Touche.TOUCHE_BAS){
 			x=p.getX();
 			y=p.getY()+1;
@@ -196,11 +201,14 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			x=p.getX();
 			y=p.getY();
 		}
-		//si la luciole ne reste pas immobile
+		//si la libellule ne reste pas immobile
 		if(!immobile){
+			if(carte[x][y] instanceof Joueur){
+				mangerJoueur(carte,x,y);
+			}
 			//nouvelle position.
 			Position pPlusUn = new Position(x,y);
-			System.out.println("ancienne position de la luciole : posX="+p.getX()+
+			System.out.println("ancienne position de la libellule : posX="+p.getX()+
 					" posY="+p.getY()+
 					"\nnouvelle position : x="+pPlusUn.getX()+
 					" y="+pPlusUn.getY());
@@ -212,7 +220,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			this.getPosition().remove(p); //enleve la pos actuelle de this
 			carte[x][y] = this; //fait pointer sur la nouvelle pos
 			carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
-			System.out.println("changement position luciole : "+this.getPosition().size());
+			System.out.println("changement position libellule : "+this.getPosition().size());
 		}
 		return true;
 	}
@@ -227,5 +235,6 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	@Override
 	public void mangerJoueur(Entite[][] map, int x, int y) {
 		map[x][y].getPosition().clear();
+		moteur.perdu();
 	}
 }
