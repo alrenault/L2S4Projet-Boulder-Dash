@@ -53,7 +53,7 @@ public class MenuBar extends JMenuBar{
 			
 			public ChangerCarte(){
 				this.setText("Changer la carte");
-				for(int i=1;i<=10;i++){
+				for(int i=1;i<=fenetre.getMoteur().getNbMap();i++){
 					this.add(new carte(i));
 				}
 			}

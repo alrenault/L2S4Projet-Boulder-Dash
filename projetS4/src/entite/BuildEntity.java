@@ -1,9 +1,10 @@
 package entite;
 
+import moteurJeu.MoteurJeu;
 
 public class BuildEntity{
 
-	public Entite buildEntity(char apparence){
+	public Entite buildEntity(MoteurJeu moteur, char apparence){
 		
 		Entite j;
 		
@@ -30,7 +31,7 @@ public class BuildEntity{
 		
 		default :
 			if (apparence=='F'||apparence=='o'||apparence=='O'||apparence=='q'||apparence=='Q'){
-				j = new Luciole(); break ;  //Luciole
+				j = new Luciole(moteur); break ;  //Luciole
 			}else if (apparence=='b'||apparence=='B'||apparence=='c'||apparence=='C'){
 				j = new Libellule(); break ;  //Libellule
 			}
