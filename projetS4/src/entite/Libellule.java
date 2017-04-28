@@ -145,7 +145,6 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-		System.out.println("les lucioles se deplacent. Il y a "+this.getPosition().size()+" lucioles.");
 		
 		//copie de l'ensemble des lucioles
 		Set<Position> ensemble=new HashSet<Position>();
@@ -178,7 +177,6 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 				nouvelleDirection=directionGauche(nouvelleDirection);
 			}
 		}
-		System.out.println("Nouvelle direction : _______="+nouvelleDirection);
 		//nouvelles coordonnees relatives a la direction qu'emprunte la luciole.
 		if(nouvelleDirection==Touche.TOUCHE_BAS){
 			x=p.getX();
@@ -212,7 +210,6 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			this.getPosition().remove(p); //enleve la pos actuelle de this
 			carte[x][y] = this; //fait pointer sur la nouvelle pos
 			carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
-			System.out.println("changement position luciole : "+this.getPosition().size());
 		}
 		return true;
 	}
