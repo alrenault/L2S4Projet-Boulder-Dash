@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import entite.*;
 import map.Map;
@@ -37,9 +36,10 @@ public class MoteurJeu {
 
 	private Entite[][] entite;
 	private FenetreBoulder fenetre;
-	private int numMap = 1;
+	private int numMap;
 	private Map map;
-	private String chemin = "src/BD01plus.bd";
+	private String chemin;
+	private String nomFichier;
 
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
@@ -55,7 +55,7 @@ public class MoteurJeu {
 	private Luciole luciole;
 	private Libellule libellule;
 
-	private Position gagne;
+	//private Position gagne;
 	private int score=0; //score min a avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
 	private int nbTour = 0;
@@ -117,9 +117,12 @@ public class MoteurJeu {
 		this.intelligence=ia.get();
 	}
 
-	public MoteurJeu(){
+	public MoteurJeu(int numMap, String fichier){
 		enJeu=true;
-		//System.out.println("coucou\n");
+
+		this.chemin = "src/"+fichier;
+		this.nomFichier = fichier;
+		this.numMap = numMap;
 		map = new Map(numMap,chemin);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
@@ -138,20 +141,25 @@ public class MoteurJeu {
 		amibe = (Amibe) builder.buildEntity(this,'a');
 		luciole = (Luciole) builder.buildEntity(this,'F');
 		libellule = (Libellule) builder.buildEntity(this,'B');
+				
 
 		fenetre=new FenetreBoulder(this);
 		construireMapEntite();
 
-		Iterator<Position> it = exit.getPosition().iterator();
+		/*Iterator<Position> it = exit.getPosition().iterator();
 		if(it.hasNext())
-			gagne = it.next();
+			gagne = it.next();*/
 		jeu();
+	}
+	
+	//cas de base
+	public MoteurJeu(){
+		this(1,"BD01plus.bd");	
 	}
 
 
 	public void affichage(){
 
-		//System.out.println(System.getProperty("user.dir"));
 
 		if(score>= (map.getDiamondRec()*map.getDiamondVal())){
 				afficherPorte();
@@ -618,8 +626,9 @@ public class MoteurJeu {
 		case TOUCHE_GAUCHE:return caseLibre(p.getX(),p.getY()-1);
 		case TOUCHE_DROITE:return caseLibre(p.getX(),p.getY()+1);
 		case TOUCHE_IMMOBILE:return true;
+		default:return false;
 		}
-		return false;
+		
 	}
 
 	/**
@@ -704,8 +713,6 @@ public class MoteurJeu {
 }
 
 	public void perdu() {
-		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
-		//enJeu=false;
 		aPerdu = true;
 		resetMap();
 		
@@ -719,8 +726,7 @@ public class MoteurJeu {
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
-		amibe.deplacer(entite);
-		
+		amibe.deplacer(entite);	
 	}
 
 
@@ -729,12 +735,6 @@ public class MoteurJeu {
 	}
 
 	public Entite[][] getEntite(){
-		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];
-		for(int i=0;i<mapRetour.length;i++){
-			for(int j=0;j<mapRetour.length;j++){
-				mapRetour[i][j]=(Entite) entite[i][j].clone();
-			}
-		}*/
 		return entite;
 	}
 	
@@ -758,13 +758,20 @@ public class MoteurJeu {
 		return aPerdu;
 	}
 
-	public int getHauteur() {
+	public int getHauteurMap() {
 		return map.getHauteur();
 	}
 	
-	public int getLargeur() {
+	public int getLargeurMap() {
 		return map.getLargeur();
 	}
 	
-
+	
+	public String getNomFichier(){
+		return nomFichier;
+	}
+	
+	public int getNumMap(){
+		return numMap;
+	}
 }
