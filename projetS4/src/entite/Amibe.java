@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.RandomAccess;
 import java.util.Set;
 
+import moteurJeu.MoteurJeu;
 import moteurJeu.MoteurJeu.Touche;
 
 /**
@@ -16,13 +17,15 @@ import moteurJeu.MoteurJeu.Touche;
  * */
 public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	private int seuil=0;
+	private MoteurJeu moteur;
 	
 	/**
 	 * Le constructeur d'Amibe.
 	 * */
-	public Amibe() {
+	public Amibe(MoteurJeu moteur) {
 		this.apparence = 'a';
 		traversable = true;
+		this.moteur = moteur;
 	}
 
 	/**
@@ -49,23 +52,27 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
 		
-		//choisit aleatoirement les parties de l'amibe et les multiplie peut-Ãªtre si possible
+		//choisit aleatoirement les parties de l'amibe et les multiplie peut-être si possible
 		while(true){
-			System.out.println("Un tour de boucle");
+			
 			if(it.hasNext()){
 				Position pos=it.next();
 				ArrayList<Position> voisins=trouverVoisins(carte, pos);
 				//s'il y a des cases pour faire le traitement
 				if(voisins.size() > 0){
-					System.out.println("Nombre de voisins : "+voisins.size());
 					//prend un voisin au hasard et passe a la suite
 					caseMultiplication = aleaVoisins(voisins);
 					//teste aleatoirement s'il y a deplacement ici
+					if(carte[caseMultiplication.getX()][caseMultiplication.getY()] instanceof Joueur){
+						mangerJoueur(carte,caseMultiplication.getX(),caseMultiplication.getY());
+					}
+					
 					if(doitDeplacer(caseMultiplication)){
 						//multiplie l'amibe
-						System.out.println("Case ajoutee : "+caseMultiplication);
 						position.add(caseMultiplication);
 						carte[caseMultiplication.getX()][caseMultiplication.getY()] = this;
+						
+						
 					}
 					return true;
 				}
@@ -83,7 +90,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * Exprime si oui ou non l'amibe va se deplacer.
 	 * Le programme de deplacement est fait de telle sorte que :
 	 * -Au 1er tour, l'Amibe a 0% de chances de se deplacer.
-	 * -Au 2Ã¨me tour, l'Amibe a 1 chance sur 2 de se delacer
+	 * -Au 2ème tour, l'Amibe a 1 chance sur 2 de se delacer
 	 * -Les chances montent a 2/3, 3/4, 4/5 etc jusqu'a ce que l'Amibe se deplace
 	 * -Une fois le deplacement effectue, les chances de se deplacer reviennent a 0 et on
 	 * recommence du debut. 
@@ -181,7 +188,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 
 	/**
-	 * Verifie si la case indiquee peut Ãªtre traversee relativement a la direction de la luciole.
+	 * Verifie si la case indiquee peut être traversee relativement a la direction de la luciole.
 	 * @param Entite[][] carte, int x, int y, Touche direction
 	 * @return boolean estTraversable : true si la case est traversable et false sinon.
 	 * */
@@ -203,6 +210,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	@Override
 	public void mangerJoueur(Entite[][] map, int x, int y) {
 		map[x][y].getPosition().clear();
+		moteur.perdu();
 	}
 	
 	

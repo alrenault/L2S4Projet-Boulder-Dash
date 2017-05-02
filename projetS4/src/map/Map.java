@@ -10,6 +10,7 @@ public class Map{
 	private Path fichier;
 	private String contenu;
 	
+	private int nbMap = 0; //nombre de map
 	private int numMap;
 	private int hauteur;
 	private int largeur;
@@ -36,6 +37,7 @@ public class Map{
 		}
 		this.numMap = numMap;
 		name = "Cave "+numMap;
+		nbMap();
 		findMap();
 		//placerJoueur();
 	}
@@ -45,6 +47,16 @@ public class Map{
 		return new String(encoded, encoding);
 	}
 	
+	public void nbMap(){
+		Scanner sc = new Scanner(contenu);
+		String ligne ="";
+		while(sc.hasNext()){
+			ligne = sc.next();
+			if(ligne.equals("[map]")){
+				nbMap++;
+			}
+		}
+	}
 	public int nbLigne(String map){
 		Scanner scanner = new Scanner(map);
 		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
@@ -241,6 +253,20 @@ public class Map{
 	public int getDiamondBonus() {
 		return diamondBonus;
 	}
+
+	public int getNumMap() {
+		return numMap;
+	}
+
+	public void setNumMap(int numMap) {
+		this.numMap = numMap;
+	}
+
+	public int getNbMap() {
+		return nbMap;
+	}
+	
+	
 	
 	
 }

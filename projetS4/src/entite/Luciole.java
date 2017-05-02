@@ -9,12 +9,14 @@ import moteurJeu.MoteurJeu.Touche;
 
 public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
+	private MoteurJeu moteur;
 	private boolean immobile = false; 
 	
 	/**
 	 * Le constructeur de la classe.
 	 */
-	public Luciole() {
+	public Luciole(MoteurJeu moteur) {
+		this.moteur = moteur;
 		this.apparence = 'F';
 		traversable = true;;
 	}
@@ -132,16 +134,19 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-			
 		//copie de l'ensemble des lucioles
 		Set<Position> ensemble=new HashSet<Position>();
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
-		
 		while(it.hasNext()){
 			//position actuelle
-			Position p = it.next();
-			deplacerUneLuciole(carte,p);
+			if(!moteur.isaPerdu()){
+				Position p = it.next();
+				deplacerUneLuciole(carte,p);	
+			}
+			else 
+				return false;
+
 		}
 		return true;
 	}
@@ -180,14 +185,16 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 			if(carte[x][y] instanceof Joueur){
 				mangerJoueur(carte,x,y);
 			}
+			if(!moteur.isaPerdu()){
+				//deplacement
+				carte[p.getX()][p.getY()] = MoteurJeu.espace;
+				MoteurJeu.espace.getPosition().add(p); //rajoute l'emplacement de la libellule
+						
+				this.getPosition().remove(p); //enleve la pos actuelle de this
+				carte[x][y] = this; //fait pointer sur la nouvelle pos
+				carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
+			}
 			
-			//deplacement
-			carte[p.getX()][p.getY()] = MoteurJeu.espace;
-			MoteurJeu.espace.getPosition().add(p); //rajoute l'emplacement de la libellule
-					
-			this.getPosition().remove(p); //enleve la pos actuelle de this
-			carte[x][y] = this; //fait pointer sur la nouvelle pos
-			carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
 		}
 		return true;
 	}
@@ -258,6 +265,8 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	public void mangerJoueur(Entite[][] map, int x, int y) {
 		map[x][y].getPosition().clear();
 		System.out.println("La luciole a mange le joueur");
+		//moteur.setEnJeu(false);
+		moteur.perdu();
 		//System.exit(0);
 	}
 }

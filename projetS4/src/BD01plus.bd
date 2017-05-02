@@ -24,19 +24,56 @@ Colors=Black Black Red Blue Green
 
 [map]
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-WP............wwcccccccccww.........   W
-Wd..............wcccccccw........... a W
-Wd...............wcccccw............ a W
-Wd................wcccw............. a W
-W.................wcccw............. a W
-W..................wcw..............   W
+WP............wwcccccccccww.........aaaW
+Wd..............wcccccccw...........aaaW
+Wd...............wcccccw............aaaW
+Wd................wcccw.............aaaW
+W.................wcccw.............aaaW
+W..................wcw..............aaaW
 W..................wcw.................W
 W..................wcw.................W
-Wrrrrr..............w......  ..........W
-W.. ................w......  ..........W
-W.. ................X......  ..........W
-WMMMMM..............w......  ..........W
-W     .............wqw.....a ..........W
+Wrrrrr..............w..................W
+W.. ................w..................W
+W.. ................X..................W
+WMMMMM..............w..................W
+W     .............wqw.................W
+W q   .............wqw.................W
+W..................wqw.................W
+W.................wqqqw................W
+W.................wqqqw................W
+W................wqqqqqw...............W
+W...............wqqqqqqqw..............W
+W.............wwqqqqqqqqqww............W
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+[/map]
+[/cave]
+
+
+[cave]
+Name=Cave 1
+CaveDelay=6
+CaveTime=150
+DiamondsRequired=3
+DiamondValue=30 15
+AmoebaTime=135
+MagicWallTime=6
+Colors=Black Black Red Blue Green
+
+[map]
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WP............wwcccccccccww.........raaW
+Wd..............wcccccccw...........raaW
+Wd...............wcccccw............raaW
+Wd................wcccw.............raaW
+W.................wcccw.............raaW
+W..................wcw..............rrrW
+W..................wcw.................W
+W..................wcw.................W
+Wrrrrr..............w..................W
+W.. ................w..................W
+W.. ................X..................W
+WMMMMM..............w..................W
+W     .............wqw.................W
 W q   .............wqw.................W
 W..................wqw.................W
 W.................wqqqw................W

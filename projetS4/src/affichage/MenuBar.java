@@ -53,7 +53,7 @@ public class MenuBar extends JMenuBar{
 			
 			public ChangerCarte(){
 				this.setText("Changer la carte");
-				for(int i=1;i<=10;i++){
+				for(int i=1;i<=fenetre.getMoteur().getNbMap();i++){
 					this.add(new carte(i));
 				}
 			}
@@ -84,7 +84,7 @@ public class MenuBar extends JMenuBar{
 			
 			public ChangerIA(){
 				this.setText("Changer IA");
-				for(int i=0;i<6;i++){
+				for(int i=0;i<5;i++){
 					this.add(new IA(i));
 				}
 			}
@@ -94,12 +94,11 @@ public class MenuBar extends JMenuBar{
 				
 				public IA(int num){
 					switch(num){
-					case 0:intitule="Pas d'IA";break;
-					case 1:intitule="IA simplette";break;
-					case 2:intitule="IA evoluee";break;
-					case 3:intitule="IA directive";break;
-					case 4:intitule="IA genetique";break;
-					case 5:intitule="IA parfaite";break;
+					case 0:intitule="IA simplette";break;
+					case 1:intitule="IA evoluee";break;
+					case 2:intitule="IA directive";break;
+					case 3:intitule="IA genetique";break;
+					case 4:intitule="IA parfaite";break;
 					}
 					this.setText(intitule);
 					this.addActionListener(new actionCarte());
@@ -110,13 +109,6 @@ public class MenuBar extends JMenuBar{
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("changement en "+intitule);
 						switch(intitule){
-						case "Pas d'IA":fenetre.getMoteur().changerIA(
-								Intelligence.ME);
-							//fenetre.getMoteur().enJeu=false;
-							//fenetre.getMoteur().resetMap();
-							//fenetre.getMoteur().jeu();
-							fenetre.repaint();
-							break;
 						case "IA simplette":fenetre.getMoteur().changerIA(
 								Intelligence.RANDOM);
 							//fenetre.getMoteur().enJeu=false;
