@@ -181,6 +181,7 @@ public class MoteurJeu {
 	 * */
 	public void processEndOfTurn(){
 		if(aGagne || aPerdu){
+			//Réinitialisation des bool pour pouvoir recommencer correctement une partie
 			aGagne = false;
 			aPerdu = false;
 		}
@@ -295,11 +296,20 @@ public class MoteurJeu {
 		if(entite[x1][y1] == espace){
 			PositionTombe p1= new PositionTombe(x1,y1);
 			entite[p.getX()][p.getY()] = espace;
-			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
-
-			roc.getPositionTombe().remove(p1); //enleve la pos actuelle du joueur
+			espace.getPosition().add(p); //rajoute l'emplacement du rocher dans l'ens de pos d'espace
+			
+			//Obligé car sinon roc.getPositionTombe().remove(p1); renvoie false 
+			Iterator<PositionTombe> it = roc.getPositionTombe().iterator();
+			while(it.hasNext()){
+				PositionTombe pT = it.next();
+				if(pT.getX() == p.getX() && pT.getY() == p.getY()){
+					roc.getPositionTombe().remove(pT);
+					break;
+				}
+			}
+			//roc.getPositionTombe().remove(p1); //enleve la pos actuelle du rocher
 			entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
-			entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
+			entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du rocher dans l'ens de pos du rocher
 			deplacerJoueur(p.getX(),p.getY());
 		}
 		return true;
@@ -718,7 +728,7 @@ public class MoteurJeu {
 		return ia.get() == intelligence;
 	}
 
-	public Entite[][] getMap(){
+	public Entite[][] getEntite(){
 		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];
 		for(int i=0;i<mapRetour.length;i++){
 			for(int j=0;j<mapRetour.length;j++){
@@ -747,7 +757,14 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
+
+	public int getHauteur() {
+		return map.getHauteur();
+	}
 	
+	public int getLargeur() {
+		return map.getLargeur();
+	}
 	
 
 }
