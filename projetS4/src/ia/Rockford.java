@@ -1,7 +1,6 @@
 package ia;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Random;
 
 //import moteurJeu.MoteurJeu.Touche;
@@ -12,8 +11,14 @@ public class Rockford {
 	
 	private int score;
 	private char directions[];
-	private ArrayList<Character> directionList = new ArrayList<Character>();
 	private char oneDirection[] = new char[]
+			/*{
+				Touche.TOUCHE_HAUT,
+				Touche.TOUCHE_DROITE,
+				Touche.TOUCHE_BAS,
+				Touche.TOUCHE_GAUCHE,
+				Touche.TOUCHE_IMMOBILE
+			};*/
 			{
 				KeyEvent.VK_LEFT,
 				KeyEvent.VK_RIGHT,
@@ -38,9 +43,7 @@ public class Rockford {
 		directions = new char[n];
 		for (int i = 0 ; i < n ; i++){
 			directions[i] = randomTouche();
-			directionList.add(randomTouche());
 		}
-		
 		
 		//score = 2n --- n pas
 		//directions
