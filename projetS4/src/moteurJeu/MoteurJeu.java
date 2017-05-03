@@ -5,9 +5,11 @@ import ia.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import entite.*;
 import map.Map;
@@ -20,26 +22,31 @@ public class MoteurJeu {
 	public char touche;
 	public Thread thread=Thread.currentThread();
 
-	//IA
-
-
-	public int tabia = 0;
+	//IA ---------------------------
+	private int intelligence; //Intelligence sélectionnée pour le jeu
 	IA_Random random = new IA_Random();
+	IA_Genetique genetique = new IA_Genetique();
+	//IA_Directive direct = new IA_Directive();
+
+	//------------------------------------
+	//Parcours avec Tableaux
+	public int tabia = 0;
+	
 	char[] directions = random.getDirections();
+	//char[] directionsDirect = direct.getDirections();
 
-	IA_Directive direct = new IA_Directive();
-	char[] directionsDirect = direct.getDirections();
-
-	private int intelligence;
+	//------------------------------------
+	//Parcours avec Listes
+	ArrayList<Character> directionList = genetique.getDirectionList();
+	
 
 	//reste
 
 	private Entite[][] entite;
 	private FenetreBoulder fenetre;
-	private int numMap;
+	private int numMap = 1;
 	private Map map;
-	private String chemin;
-	private String nomFichier;
+	private String chemin = "src/BD01plus.bd";
 
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
@@ -55,7 +62,7 @@ public class MoteurJeu {
 	private Luciole luciole;
 	private Libellule libellule;
 
-	//private Position gagne;
+	private Position gagne;
 	private int score=0; //score min a avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
 	private int nbTour = 0;
@@ -117,12 +124,9 @@ public class MoteurJeu {
 		this.intelligence=ia.get();
 	}
 
-	public MoteurJeu(int numMap, String fichier){
+	public MoteurJeu(){
 		enJeu=true;
-
-		this.chemin = "src/"+fichier;
-		this.nomFichier = fichier;
-		this.numMap = numMap;
+		//System.out.println("coucou\n");
 		map = new Map(numMap,chemin);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
@@ -141,25 +145,20 @@ public class MoteurJeu {
 		amibe = (Amibe) builder.buildEntity(this,'a');
 		luciole = (Luciole) builder.buildEntity(this,'F');
 		libellule = (Libellule) builder.buildEntity(this,'B');
-				
 
 		fenetre=new FenetreBoulder(this);
 		construireMapEntite();
 
-		/*Iterator<Position> it = exit.getPosition().iterator();
+		Iterator<Position> it = exit.getPosition().iterator();
 		if(it.hasNext())
-			gagne = it.next();*/
+			gagne = it.next();
 		jeu();
-	}
-	
-	//cas de base
-	public MoteurJeu(){
-		this(1,"BD01plus.bd");	
 	}
 
 
 	public void affichage(){
 
+		//System.out.println(System.getProperty("user.dir"));
 
 		if(score>= (map.getDiamondRec()*map.getDiamondVal())){
 				afficherPorte();
@@ -189,7 +188,6 @@ public class MoteurJeu {
 	 * */
 	public void processEndOfTurn(){
 		if(aGagne || aPerdu){
-			//Réinitialisation des bool pour pouvoir recommencer correctement une partie
 			aGagne = false;
 			aPerdu = false;
 		}
@@ -304,20 +302,11 @@ public class MoteurJeu {
 		if(entite[x1][y1] == espace){
 			PositionTombe p1= new PositionTombe(x1,y1);
 			entite[p.getX()][p.getY()] = espace;
-			espace.getPosition().add(p); //rajoute l'emplacement du rocher dans l'ens de pos d'espace
-			
-			//Obligé car sinon roc.getPositionTombe().remove(p1); renvoie false 
-			Iterator<PositionTombe> it = roc.getPositionTombe().iterator();
-			while(it.hasNext()){
-				PositionTombe pT = it.next();
-				if(pT.getX() == p.getX() && pT.getY() == p.getY()){
-					roc.getPositionTombe().remove(pT);
-					break;
-				}
-			}
-			//roc.getPositionTombe().remove(p1); //enleve la pos actuelle du rocher
+			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
+
+			roc.getPositionTombe().remove(p1); //enleve la pos actuelle du joueur
 			entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
-			entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du rocher dans l'ens de pos du rocher
+			entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
 			deplacerJoueur(p.getX(),p.getY());
 		}
 		return true;
@@ -626,9 +615,8 @@ public class MoteurJeu {
 		case TOUCHE_GAUCHE:return caseLibre(p.getX(),p.getY()-1);
 		case TOUCHE_DROITE:return caseLibre(p.getX(),p.getY()+1);
 		case TOUCHE_IMMOBILE:return true;
-		default:return false;
 		}
-		
+		return false;
 	}
 
 	/**
@@ -713,6 +701,8 @@ public class MoteurJeu {
 }
 
 	public void perdu() {
+		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
+		//enJeu=false;
 		aPerdu = true;
 		resetMap();
 		
@@ -726,7 +716,8 @@ public class MoteurJeu {
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
-		amibe.deplacer(entite);	
+		amibe.deplacer(entite);
+		
 	}
 
 
@@ -734,7 +725,13 @@ public class MoteurJeu {
 		return ia.get() == intelligence;
 	}
 
-	public Entite[][] getEntite(){
+	public Entite[][] getMap(){
+		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];
+		for(int i=0;i<mapRetour.length;i++){
+			for(int j=0;j<mapRetour.length;j++){
+				mapRetour[i][j]=(Entite) entite[i][j].clone();
+			}
+		}*/
 		return entite;
 	}
 	
@@ -757,21 +754,7 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
+	
+	
 
-	public int getHauteurMap() {
-		return map.getHauteur();
-	}
-	
-	public int getLargeurMap() {
-		return map.getLargeur();
-	}
-	
-	
-	public String getNomFichier(){
-		return nomFichier;
-	}
-	
-	public int getNumMap(){
-		return numMap;
-	}
 }
