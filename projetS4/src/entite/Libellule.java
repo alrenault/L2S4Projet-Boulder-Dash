@@ -214,8 +214,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 					" y="+pPlusUn.getY());
 					
 			//deplacement
-			carte[p.getX()][p.getY()] = MoteurJeu.espace;
-			MoteurJeu.espace.getPosition().add(p); //rajoute l'emplacement de la libellule
+			moteur.ajouterUnEspace(p); //rajoute l'emplacement de la libellule a Espace
 					
 			this.getPosition().remove(p); //enleve la pos actuelle de this
 			carte[x][y] = this; //fait pointer sur la nouvelle pos
