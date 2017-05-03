@@ -43,7 +43,7 @@ public class MoteurJeu {
 
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
-	public static Espace espace;
+	private static Espace espace;
 	private Poussiere poussiere;
 	private Roc roc;
 	private Diamant diamant;
@@ -282,144 +282,416 @@ public class MoteurJeu {
 
 	//A TROUVER L'ERREUR
 	public boolean pousserRocher(Position p){
-	//	System.out.println("COUCOU");
-		int x1 = p.getX();
-		int y1 = p.getY();
-		switch(touche){
-		case KeyEvent.VK_RIGHT: y1+=1;break;
-		case KeyEvent.VK_LEFT: y1-=1;break;
-		case KeyEvent.VK_UP: return false;
-		case KeyEvent.VK_DOWN: return false;
-		default : return false;
+		//	System.out.println("COUCOU");
+			int x1 = p.getX();
+			int y1 = p.getY();
+			switch(touche){
+			case KeyEvent.VK_RIGHT: y1+=1;break;
+			case KeyEvent.VK_LEFT: y1-=1;break;
+			case KeyEvent.VK_UP: return false;
+			case KeyEvent.VK_DOWN: return false;
+			default : return false;
+			}
+			if(entite[x1][y1] == espace){
+				PositionTombe p1= new PositionTombe(x1,y1);
+				
+				//rajoute l'emplacement du rocher dans l'ens de pos d'espace
+				ajouterUnEspace(p);
+				
+				//Obligé car sinon roc.getPositionTombe().remove(p1); renvoie false 
+				Iterator<PositionTombe> it = roc.getPositionTombe().iterator();
+				while(it.hasNext()){
+					PositionTombe pT = it.next();
+					if(pT.getX() == p.getX() && pT.getY() == p.getY()){
+						roc.getPositionTombe().remove(pT);
+						break;
+					}
+				}
+				//roc.getPositionTombe().remove(p1); //enleve la pos actuelle du rocher
+				entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
+				entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du rocher dans l'ens de pos du rocher
+				deplacerJoueur(p.getX(),p.getY());
+			}
+			return true;
 		}
-		if(entite[x1][y1] == espace){
-			PositionTombe p1= new PositionTombe(x1,y1);
-			entite[p.getX()][p.getY()] = espace;
-			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
+	
+	/**
+	 * Utile pour ameliorer la lisibilite de la methode tomber
+	 * @param PositionTombe doitTomber, Entite e
+	 * */
+	private void tombeSiEspace(PositionTombe doitTomber, Entite e){
+		if(doitTomber == null){
+			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
+		}
+		if(e == null){
+			throw new NullPointerException("impossible de faire tomber un null");
+		}
+		
+		ajouterUnEspace(doitTomber);
 
-			roc.getPositionTombe().remove(p1); //enleve la pos actuelle du joueur
-			entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
-			entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
-			deplacerJoueur(p.getX(),p.getY());
+		e.getPositionTombe().remove(doitTomber);
+		Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
+		espace.getPosition().remove(pEspace);
+		PositionTombe aAjouter = new PositionTombe(doitTomber.getX()+1,doitTomber.getY());
+		aAjouter.setTombe(true);
+		
+		entite[doitTomber.getX()+1][doitTomber.getY()] = e;
+		if(entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
+				entite[doitTomber.getX()+2][doitTomber.getY()] != joueur && 
+				entite[doitTomber.getX()+2][doitTomber.getY()] != murMagique &&
+				!(entite[doitTomber.getX()+2][doitTomber.getY()] instanceof Ennemi))
+			aAjouter.setTombe(false);
+		
+		e.getPositionTombe().add(aAjouter);
+	}
+	
+	/**
+	 * Utile pour ameliorer la lisibilite de la methode tomber
+	 * @param PositionTombe doitTomber, Entite e
+	 * */
+	private void tombeDeCote(PositionTombe doitTomber, Entite e) {
+		if(doitTomber == null){
+			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
 		}
-		return true;
+		if(e == null){
+			throw new NullPointerException("impossible de faire tomber un null");
+		}
+		
+		//si le rocher est en mouvement
+		if(doitTomber.isTombe()){
+			doitTomber.setTombe(false);
+			//si on est pas sur le bord gauche
+			
+				
+				entite[doitTomber.getX()][doitTomber.getY()] = espace;
+				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
+				
+				//s'il y a des espaces a droite et en bas a droite au moins.
+				if(doitTomber.getY()<entite[0].length && 
+					entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
+					entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace){
+					//tombe en diagonale a droite
+					
+					e.getPositionTombe().remove(doitTomber);
+					/*if( == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
+						Iterator<PositionTombe> it3 = e.getPositionTombe().iterator();
+						PositionTombe pTest = null;
+
+						while(it3.hasNext()){
+							pTest = it3.next();
+							if(pTest.getX() ==  doitTomber.getX() && pTest.getY() == doitTomber.getY()){
+								System.out.println("\n\n\n________\n_________\n________\ntombe de cote\n\n\n_______\n\n\n_________\n");
+								System.out.println("ca fonctionne ? + "+e.getPositionTombe().remove(pTest));
+								break;
+							}
+						}
+					}*/
+					
+					Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()+1);
+					espace.getPosition().remove(pEspace);
+					
+					entite[doitTomber.getX()+1][doitTomber.getY()+1] = e; //fait pointer sur la nouvelle pos
+					PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()+1);
+					e.getPositionTombe().add(pE);
+					System.out.println(e.toStringPosition());
+				}else if(doitTomber.getY()>0 && 
+						entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
+						entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace){
+				//tombe en diagonale a gauche
+				
+				e.getPositionTombe().remove(doitTomber);
+				
+				Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()-1);
+				espace.getPosition().remove(pEspace);
+				
+				entite[doitTomber.getX()+1][doitTomber.getY()-1] = e; //fait pointer sur la nouvelle pos
+				PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()-1);
+				e.getPositionTombe().add(pE);
+				System.out.println(e.toStringPosition());
+			}// if il y a des cases libres a droite ou a gauche
+			
+		}else{
+			doitTomber.setTombe(true);
+		}
+	}
+	
+	private void reglerLaMisere(Entite surLaCase, Position pEspace, Position p){
+		if(surLaCase.getPosition().remove(pEspace) == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
+			Iterator<Position> it3 = surLaCase.getPosition().iterator();
+			Position pTest = null;
+
+			while(it3.hasNext()){
+				 pTest = it3.next();
+				if(pTest.getX() ==  p.getX()+1 && pTest.getY() == p.getY()){
+					break;
+				}
+			}
+			surLaCase.getPosition().remove(pTest);
+		}
+	}
+
+	/**
+	 * Utile pour ameliorer la lisibilite de la methode tomber
+	 * @param PositionTombe doitTomber, Entite e
+	 * */
+	private void tueLesVivants(PositionTombe doitTomber, Entite e, Entite surLaCase){
+		if(doitTomber == null){
+			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
+		}
+		if(e == null){
+			throw new NullPointerException("impossible de faire tomber un null");
+		}
+		if(surLaCase == null){
+			throw new NullPointerException("surLaCase il y a un null");
+		}
+		
+			entite[doitTomber.getX()][doitTomber.getY()] = espace;
+			espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
+			e.getPositionTombe().remove(doitTomber);
+			Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
+			//change de joueur.getPosition().remove(pEspace)
+
+			reglerLaMisere(surLaCase,pEspace,doitTomber);
+			
+			e.getPositionTombe().add(new PositionTombe(doitTomber.getX()+1,doitTomber.getY()));
+			entite[doitTomber.getX()+1][doitTomber.getY()] = e;
+
+			//si l'entite ecrasee etait le joueur, fais-le perdre
+			if(surLaCase == joueur){
+				perdu();
+			}
+	}
+	
+	/**
+	 * Utile pour ameliorer la lisibilite de la methode tomber
+	 * @param PositionTombe doitTomber, Entite e
+	 * */
+	private void transformeLesRochersEnDiamants(PositionTombe doitTomber, Entite e){
+		if(doitTomber == null){
+			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
+		}
+		if(e == null){
+			throw new NullPointerException("impossible de faire tomber un null");
+		}
+		
+		entite[doitTomber.getX()][doitTomber.getY()] = espace;
+		espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
+
+		e.getPositionTombe().remove(doitTomber);
+		Position pAModif = new Position(doitTomber.getX()+1,doitTomber.getY());
+		espace.getPosition().remove(pAModif);
+		PositionTombe aAjouter = new PositionTombe(doitTomber.getX()+1,doitTomber.getY());
+		aAjouter.setTombe(true);
+
+		if(e instanceof Roc){
+			diamant.getPositionTombe().add(aAjouter);
+			entite[doitTomber.getX()+1][doitTomber.getY()] = diamant;
+		}
+		else{
+			roc.getPositionTombe().add(aAjouter);
+			entite[doitTomber.getX()+1][doitTomber.getY()] = roc;
+		}
+	}
+	
+	/**
+	 * Teste si le rocher ou le diamant au dessus d'un rocher peut tomber ou non.
+	 * @param PositionTombe doitTomber
+	 * @return true si la chute est possible et false sinon
+	 * */
+	private boolean peutTomber(PositionTombe doitTomber){
+		if(doitTomber == null){
+			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
+		}
+		
+		return entite[doitTomber.getX()+1][doitTomber.getY()] == roc &&
+				((entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
+				entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace) ||
+				(entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
+				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
+	}
+	
+	private void explose(Position p){
+		if(p == null){
+			throw new NullPointerException("La position pour l'explosion est a null");
+		}
+		
+		if(peutExploser(p)){
+			//retire les cases autour de la position
+			testIndestructible(p);//milieu
+			testIndestructible(new Position(p.getX()-1,p.getY()));//dessus
+			testIndestructible(new Position(p.getX()-1,p.getY()+1));//dessus-droite
+			testIndestructible(new Position(p.getX(),p.getY()+1));//droite
+			testIndestructible(new Position(p.getX()+1,p.getY()+1));//droite-dessous
+			testIndestructible(new Position(p.getX()+1,p.getY()));//dessous
+			testIndestructible(new Position(p.getX()+1,p.getY()-1));//dessous-gauche
+			testIndestructible(new Position(p.getX(),p.getY()-1));//gauche
+			testIndestructible(new Position(p.getX()-1,p.getY()-1));//gauche-dessus
+		}
+	}
+	
+	/**
+	 * Teste si la case a la position p est destructible ou non. 
+	 * Si la case est hors-carte elle n'est pas detruite.
+	 * @param Position p
+	 * */
+	private void testIndestructible(Position p) {
+		if(p == null){
+			throw new NullPointerException("impossible de tester une case null");
+		}
+		if(!isaPerdu()){
+			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique){
+				if(entiteCarte(p) == roc || entiteCarte(p) == diamant){
+					System.out.println("___________\n\n"+p+"_____\n_______+tombe :");
+					//+entiteCarte(p).getPositionTombe().remove(p)
+					//if(entiteCarte(p).getPositionTombe().remove(p)==false){
+					
+					Position posExtraite = recupererPosition(entiteCarte(p),p);
+					entiteCarte(p).getPositionTombe().remove(posExtraite);
+					//reglerLaMisere(entiteCarte(p),p,p);
+					
+					//}
+					//reglerLaMisere(entiteCarte(p),p,p);
+				}else{
+					System.out.println("___________\n\n"+p+"_____\n_______+tombe pas :"+entiteCarte(p).getPosition().remove(p));
+					Position posExtraite = recupererPosition(entiteCarte(p),p);
+					entiteCarte(p).getPosition().remove(posExtraite);
+					//entiteCarte(p).getPosition().remove(p);
+					//reglerLaMisere(entiteCarte(p),p,p);
+				}
+				//si la case a exploser est le joueur, alors c'est perdu.
+				if(entiteCarte(p)==joueur){
+					perdu();
+				}else{
+					ajouterUnEspace(p);
+				}
+			}
+		}
+	}
+	
+	private Position recupererPosition(Entite e, Position p){
+		Iterator<?> it=null;
+		if(e == roc || e == diamant){
+			it=e.getPositionTombe().iterator();
+		}else{
+			it=e.getPosition().iterator();
+		}
+		while(it.hasNext()){
+			Position sortie=(Position) it.next();
+			if(sortie.getX() == p.getX() && sortie.getY() == p.getY()){
+				System.out.println("Une sortie !");
+				return sortie;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Teste si la case de coordonnees (x,y) existe ou non
+	 * @param int x,int y
+	 * @return true si la case existe et false sinon
+	 * */
+	public boolean estCaseExistante(int x,int y){
+		return x>=0 && y >=0 && x < entite.length && y <entite[0].length;
+	}
+	
+	/**
+	 * Teste si la case de coordonnees (x,y) existe ou non
+	 * @param Position p
+	 * @return true si la case existe et false sinon
+	 * */
+	public boolean estCaseExistante(Position p){
+		if(p == null){
+			throw new NullPointerException("impossible de voir si une case null existe");
+		}
+		return estCaseExistante(p.getX(),p.getY());
+	}
+	
+	/**
+	 * Renvoie l'entite present sur la carte a la position p
+	 * @param Position p
+	 * @return Entite entite
+	 */
+	public Entite entiteCarte(Position p){
+		if(p == null){
+			throw new NullPointerException("impossible de tester une case null");
+		}
+		return entite[p.getX()][p.getY()];
 	}
 
 	/**
 	 * Fait tomber le rocher
 	 * */
 	public void tomber(Entite e){
-			if(!(e instanceof Roc) && !(e instanceof Diamant))
-				throw new IllegalArgumentException();
+		if(!(e instanceof Roc) && !(e instanceof Diamant)){
+			throw new IllegalArgumentException();
+		}
 
+		PositionTombe pos;
+		Set<PositionTombe> aTomber = new HashSet<PositionTombe>();
+		Iterator<PositionTombe> it = e.getPositionTombe().iterator();
 
-			PositionTombe pos;
-			Set<PositionTombe> aTomber = new HashSet<PositionTombe>();
-			Iterator<PositionTombe> it = e.getPositionTombe().iterator();
+		//copie la liste des positions de rocher pour faire le traitement separement
+		while(it.hasNext()){
+			pos = it.next();
+			aTomber.add(pos);
+		}
 
-			while(it.hasNext()){
-				pos = it.next();
-					aTomber.add(pos);
-			}
+		Iterator<PositionTombe> it1 = aTomber.iterator();
+		PositionTombe doitTomber;
 
-
-			Iterator<PositionTombe> it1 = aTomber.iterator();
-			PositionTombe doitTomber;
-
-			while(it1.hasNext()){
-				doitTomber = it1.next();
-				if(!aPerdu){
+		//pour chaque rocher a faire tomber
+		while(it1.hasNext()){
+			doitTomber = it1.next();
+			//si le joueur a perdu, interrompt les operations
+			if(!aPerdu){
+				Position posSuivante=new Position(doitTomber.getX()+1,doitTomber.getY());
+				if(doitTomber.isTombe() && peutExploser(posSuivante)){
+					//explose si la cible du dessous est valide, sinon se deplace
+					explose(posSuivante);
+				}else if(entite[doitTomber.getX()+1][doitTomber.getY()] == espace){
 					//si c'est un espace, tombe
-					if(entite[doitTomber.getX()+1][doitTomber.getY()] == espace){
-						entite[doitTomber.getX()][doitTomber.getY()] = espace;
-						espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
-
-						e.getPositionTombe().remove(doitTomber);
-						Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
-						espace.getPosition().remove(pEspace);
-						PositionTombe aAjouter = new PositionTombe(doitTomber.getX()+1,doitTomber.getY());
-						aAjouter.setTombe(true);
-						
-						entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-						if(entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
-								entite[doitTomber.getX()+2][doitTomber.getY()] != joueur && 
-								entite[doitTomber.getX()+2][doitTomber.getY()] != murMagique)
-							aAjouter.setTombe(false);
-						
-						e.getPositionTombe().add(aAjouter);
-
+					tombeSiEspace(doitTomber,e);
+				}else if(peutTomber(doitTomber)){
+					//si c'est un rocher ou un diamant, et qu'il y a de la place a gauche ou a droite, tombe de cote
+					tombeDeCote(doitTomber,e);
+				}else{
+					Entite surLaCase=entiteCarte(posSuivante);
+					
+					//si c'est un joueur ou une luciole, tue-les.
+					if((surLaCase == joueur ||
+							surLaCase == luciole ||
+							surLaCase == libellule)
+							&& doitTomber.isTombe()){
+						tueLesVivants(doitTomber,e, surLaCase);
+					
+					}else if(entite[doitTomber.getX()+1][doitTomber.getY()] == murMagique){
+						//si c'est un mur magique, transforme le rocher en diamant
+						transformeLesRochersEnDiamants(doitTomber,e);
 					}else{
-						Entite surLaCase=entite[doitTomber.getX()+1][doitTomber.getY()];
+						//Arrete de tomber
+						e.getPositionTombe().remove(doitTomber);
+						PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
+						aModif.setTombe(false);
+						e.getPositionTombe().add(aModif);
+					}//else
+				}//else
+			}else{
+				break;
+			}//else -> if a perdu
+		}//while
+	}//tomber
 
-						//si c'est un joueur ou une luciole, tue-les.
-						if((surLaCase == joueur ||
-								surLaCase == luciole ||
-								surLaCase == libellule)
-								&& doitTomber.isTombe()){
-
-							entite[doitTomber.getX()][doitTomber.getY()] = espace;
-							espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
-							e.getPositionTombe().remove(doitTomber);
-							Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
-							//change de joueur.getPosition().remove(pEspace)
-
-							if(surLaCase.getPosition().remove(pEspace) == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
-								Iterator<Position> it3 = surLaCase.getPosition().iterator();
-								Position pTest = null;
-
-								while(it3.hasNext()){
-									 pTest = it3.next();
-									if(pTest.getX() ==  doitTomber.getX()+1 && pTest.getY() == doitTomber.getY()){
-										break;
-									}
-								}
-								surLaCase.getPosition().remove(pTest);
-
-							}
-							e.getPositionTombe().add(new PositionTombe(doitTomber.getX()+1,doitTomber.getY()));
-							entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-
-							//si l'entite ecrasee etait le joueur, fais-le perdre
-							if(surLaCase == joueur){
-								perdu();
-							}
-
-						}else{
-							//si c'est un mur magique, transforme le rocher en diamant
-							if(entite[doitTomber.getX()+1][doitTomber.getY()] == murMagique){
-								entite[doitTomber.getX()][doitTomber.getY()] = espace;
-								espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
-
-								e.getPositionTombe().remove(doitTomber);
-								Position pAModif = new Position(doitTomber.getX()+1,doitTomber.getY());
-								espace.getPosition().remove(pAModif);
-								PositionTombe aAjouter = new PositionTombe(doitTomber.getX()+1,doitTomber.getY());
-								aAjouter.setTombe(true);
-
-								if(e instanceof Roc){
-									diamant.getPositionTombe().add(aAjouter);
-									entite[doitTomber.getX()+1][doitTomber.getY()] = diamant;
-								}
-								else{
-									roc.getPositionTombe().add(aAjouter);
-									entite[doitTomber.getX()+1][doitTomber.getY()] = roc;
-								}
-							}else{
-								//Arrete de tomber
-								e.getPositionTombe().remove(doitTomber);
-								PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
-								aModif.setTombe(false);
-								e.getPositionTombe().add(aModif);
-							}
-						}
-					}
-
-				}
-
-				}
-
-				
-		
+	/**
+	 * Teste si la case de position p peut exploser
+	 * @param Position p
+	 * @return true si la case peut exploser et false sinon
+	 * */
+	private boolean peutExploser(Position p) {
+		return entite[p.getX()][p.getY()] == joueur ||
+				entite[p.getX()][p.getY()] == luciole ||
+				entite[p.getX()][p.getY()] == libellule ||
+				entite[p.getX()][p.getY()] == amibe ||
+				entite[p.getX()][p.getY()] == mur;
 	}
 
 	/**
@@ -560,9 +832,9 @@ public class MoteurJeu {
 			}
 			Iterator<Position> it = joueur.getPosition().iterator();
 			Position p = it.next(); //pos actuelle du joueur
-			entite[p.getX()][p.getY()] = espace;
-			espace.getPosition().add(p); //rajoute l'emplacement du joueur dans l'ens de pos d'espace
-
+			//rajoute l'emplacement du joueur dans l'ens de pos d'espace
+			ajouterUnEspace(p);
+			
 			Position p1 = new Position(x,y);
 			PositionTombe pT = new PositionTombe(x,y);
 			joueur.getPosition().remove(p); //enleve la pos actuelle du joueur
@@ -576,6 +848,18 @@ public class MoteurJeu {
 		}
 		
 
+	}
+
+	/**
+	 * Ajoute un espace a la position indiquee
+	 * @param Position p
+	 * */
+	public void ajouterUnEspace(Position p) {
+		if(p == null){
+			throw new NullPointerException("Impossible d'ajouter un espace a une position null");
+		}
+		entite[p.getX()][p.getY()] = espace;
+		espace.getPosition().add(p);
 	}
 
 	/**
