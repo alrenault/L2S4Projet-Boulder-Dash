@@ -61,7 +61,7 @@ public class PanneauBoulder extends JPanel{
 	/***/
 	PanneauBoulder(MoteurJeu moteur){
 		this.moteur=moteur;
-		Entite[][] tab=moteur.getMap();
+		Entite[][] tab=moteur.getEntite();
 		largeurGrille=tab.length;
 		longueurGrille=tab[0].length;
 		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.2));
@@ -164,7 +164,7 @@ public class PanneauBoulder extends JPanel{
 		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
 		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
-		Entite[][] tab=moteur.getMap();
+		Entite[][] tab=moteur.getEntite();
 		
 		for(int i=0;i<largeurGrille;i++){
 			for(int j=0;j<longueurGrille;j++){
