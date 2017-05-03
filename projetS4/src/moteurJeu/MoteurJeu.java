@@ -54,6 +54,7 @@ public class MoteurJeu {
 	private Amibe amibe;
 	private Luciole luciole;
 	private Libellule libellule;
+	private Explosion explosion;
 
 	private Position gagne;
 	private int score=0; //score min a avoir pour franchir la porte
@@ -138,6 +139,7 @@ public class MoteurJeu {
 		amibe = (Amibe) builder.buildEntity(this,'a');
 		luciole = (Luciole) builder.buildEntity(this,'F');
 		libellule = (Libellule) builder.buildEntity(this,'B');
+		explosion = (Explosion) builder.buildEntity(this,'E');
 
 		fenetre=new FenetreBoulder(this);
 		construireMapEntite();
@@ -194,6 +196,17 @@ public class MoteurJeu {
 		System.out.println(afficherMapEntite());
 		}
 		
+
+	private void effacerExplosions() {
+		HashSet<Position> faux=new HashSet<Position>(explosion.getPosition());
+		Iterator<Position> it=faux.iterator();
+		
+		while(it.hasNext()){
+			Position p = it.next();
+			ajouterUnEspace(p);
+			explosion.getPosition().remove(p);
+		}
+	}
 
 	/**
 	 * Force le deplacement du joueur dans la fenetre si l'IA est differente de ME.
@@ -253,6 +266,9 @@ public class MoteurJeu {
 		System.out.println("Perdu ? "+ aPerdu);
 		System.out.println("Gagné ? "+ aGagne);
 		System.out.println("Position joueur : "+joueur.getPosition());
+		
+		//fait disparaitre les explosions
+		effacerExplosions();
 
 		nbTour++;
 
@@ -336,11 +352,11 @@ public class MoteurJeu {
 		aAjouter.setTombe(true);
 		
 		entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-		if(entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
+		/*if(entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
 				entite[doitTomber.getX()+2][doitTomber.getY()] != joueur && 
 				entite[doitTomber.getX()+2][doitTomber.getY()] != murMagique &&
 				!(entite[doitTomber.getX()+2][doitTomber.getY()] instanceof Ennemi))
-			aAjouter.setTombe(false);
+			aAjouter.setTombe(false);*/
 		
 		e.getPositionTombe().add(aAjouter);
 	}
@@ -560,9 +576,12 @@ public class MoteurJeu {
 				}
 				//si la case a exploser est le joueur, alors c'est perdu.
 				if(entiteCarte(p)==joueur){
+					//on n'ajoute pas d'explosion quand le joueur perd car sinon,
+					//apres le reset il reste un morceau d'explosion
 					perdu();
 				}else{
-					ajouterUnEspace(p);
+					entite[p.getX()][p.getY()] = explosion;
+					explosion.getPosition().add(p);
 				}
 			}
 		}

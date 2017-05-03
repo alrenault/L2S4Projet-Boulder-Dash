@@ -45,6 +45,7 @@ public class PanneauBoulder extends JPanel{
 		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
 		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
 		MENU (chargerImage("src/BoulderDashImages/Menu.png")),
+		EXPLOSION (chargerImage("src/BoulderDashImages/RocherExplose1.png")),
 		DEFAULT (chargerImage("src/BoulderDashImages/Default.png"));
 		
 		private Image img;
@@ -137,6 +138,8 @@ public class PanneauBoulder extends JPanel{
 			return ImagesJeu.LIBELLULE.get();
 		}else if(entite instanceof Amibe){
 			return ImagesJeu.AMIBE.get();
+		}else if(entite instanceof Explosion){
+			return ImagesJeu.EXPLOSION.get();
 		}else{
 			return ImagesJeu.DEFAULT.get();
 		}

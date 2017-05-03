@@ -29,6 +29,10 @@ public class BuildEntity{
 		//LES ENNEMIS
 		case 'a' : j = new Amibe(moteur); break;  //Amibe
 		
+		//L'EXPLOSION
+		
+		case 'E' : j = new Explosion(moteur); break; //Explosion
+		
 		default :
 			if (apparence=='F'||apparence=='o'||apparence=='O'||apparence=='q'||apparence=='Q'){
 				j = new Luciole(moteur); break ;  //Luciole
@@ -39,7 +43,7 @@ public class BuildEntity{
 			// -------- CARACTERE NON RECONNU -------- //
 			else{ j = new Espace() ; break ;}
 
-		}
+		}	
 		return j;
 	}
 	
