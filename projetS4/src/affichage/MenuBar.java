@@ -17,6 +17,8 @@ public class MenuBar extends JMenuBar{
 	public MenuBar(FenetreBoulder fenetre){
 		this.fenetre=fenetre;
 		this.add(new Fichier());
+		this.add(new ChangerIA());
+		this.add(new ChangerCarte());
 	}
 	
 	public class Fichier extends JMenu{
@@ -24,8 +26,6 @@ public class MenuBar extends JMenuBar{
 		public Fichier(){
 			this.setText("Fichier");
 			this.add(new NouvellePartie());
-			this.add(new ChangerCarte());
-			this.add(new ChangerIA());
 		}
 		/**
 		 * Onglet de nouvelle partie.
@@ -42,85 +42,88 @@ public class MenuBar extends JMenuBar{
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Le bouton de nouvelle partie");
 					fenetre.getMoteur().resetMap();
+					fenetre.ecrireMessage("nouvelle partie", 1);
+					fenetre.repaint();
+				}
+			}
+		}//NouvellePartie
+	}//Fichier
+	
+	/**
+	 * Menu de changement des IA
+	 * */
+	public class ChangerIA extends JMenu{
+		
+		public ChangerIA(){
+			this.setText("Changer IA");
+			for(int i=0;i<5;i++){
+				this.add(new IA(i));
+			}
+		}
+		
+		public class IA extends JMenuItem{
+			private String intitule="IA";
+			
+			public IA(int num){
+				switch(num){
+				case 0:intitule="IA simplette";break;
+				case 1:intitule="IA evoluee";break;
+				case 2:intitule="IA directive";break;
+				case 3:intitule="IA genetique";break;
+				case 4:intitule="IA parfaite";break;
+				}
+				this.setText(intitule);
+				this.addActionListener(new actionCarte());
+			}
+			
+			public class actionCarte implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("changement en "+intitule);
+					switch(intitule){
+					case "IA simplette":fenetre.getMoteur().changerIA(
+							Intelligence.RANDOM);
+						//fenetre.getMoteur().enJeu=false;
+						//fenetre.getMoteur().resetMap();
+						//fenetre.getMoteur().jeu();
+						fenetre.repaint();
+						break;
+					default:break;
+					}
+				}
+			}
+		}//class IA
+	}//changerIA
+	
+	/**
+	 * Menu de changement de carte.
+	 * */
+	public class ChangerCarte extends JMenu{
+		
+		public ChangerCarte(){
+			this.setText("Changer la carte");
+			for(int i=1;i<=fenetre.getMoteur().getNbMap();i++){
+				this.add(new carte(i));
+			}
+		}
+		
+		public class carte extends JMenuItem{
+			private int num;
+			
+			public carte(int num){
+				this.num=num;
+				this.setText("carte"+num);
+				this.addActionListener(new actionCarte());
+			}
+			
+			public class actionCarte implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("La carte "+num);
+					fenetre.getMoteur().changerMap(num);
 					fenetre.repaint();
 				}
 			}
 		}
-		/**
-		 * Menu de changement de carte.
-		 * */
-		public class ChangerCarte extends JMenu{
-			
-			public ChangerCarte(){
-				this.setText("Changer la carte");
-				for(int i=1;i<=fenetre.getMoteur().getNbMap();i++){
-					this.add(new carte(i));
-				}
-			}
-			
-			public class carte extends JMenuItem{
-				private int num;
-				
-				public carte(int num){
-					this.num=num;
-					this.setText("carte"+num);
-					this.addActionListener(new actionCarte());
-				}
-				
-				public class actionCarte implements ActionListener{
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("La carte "+num);
-						fenetre.getMoteur().changerMap(num);
-						fenetre.repaint();
-					}
-				}
-			}
-		}
-		/**
-		 * Menu de changement des IA
-		 * */
-		public class ChangerIA extends JMenu{
-			
-			public ChangerIA(){
-				this.setText("Changer IA");
-				for(int i=0;i<5;i++){
-					this.add(new IA(i));
-				}
-			}
-			
-			public class IA extends JMenuItem{
-				private String intitule="IA";
-				
-				public IA(int num){
-					switch(num){
-					case 0:intitule="IA simplette";break;
-					case 1:intitule="IA evoluee";break;
-					case 2:intitule="IA directive";break;
-					case 3:intitule="IA genetique";break;
-					case 4:intitule="IA parfaite";break;
-					}
-					this.setText(intitule);
-					this.addActionListener(new actionCarte());
-				}
-				
-				public class actionCarte implements ActionListener{
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("changement en "+intitule);
-						switch(intitule){
-						case "IA simplette":fenetre.getMoteur().changerIA(
-								Intelligence.RANDOM);
-							//fenetre.getMoteur().enJeu=false;
-							//fenetre.getMoteur().resetMap();
-							//fenetre.getMoteur().jeu();
-							fenetre.repaint();
-							break;
-						default:break;
-						}
-					}
-				}
-			}
-		}
-	} 
+	}//changerCarte
 }

@@ -21,7 +21,13 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 		
 	}
 
-	
+	/**
+	 * @return String texte
+	 */
+	@Override
+	public String toString() {
+		return "Roc [positionRoc=" + positionRoc + ", traversable=" + traversable +"]";
+	}
 
 	@Override
 	public boolean deplacer(Entite[][] carte) {

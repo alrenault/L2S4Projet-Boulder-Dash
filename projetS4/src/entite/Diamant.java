@@ -21,9 +21,12 @@ public class Diamant extends Entite implements Deplacable, Disparaitre {
 		return false;
 	}
 
-	
-	
-
-	
+	/**
+	 * @return String texte
+	 */
+	@Override
+	public String toString() {
+		return "Diamant [positionRoc= " + positionRoc + ", traversable=" + traversable + "]";
+	}
 
 }

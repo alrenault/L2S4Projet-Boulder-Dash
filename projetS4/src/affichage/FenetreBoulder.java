@@ -37,8 +37,13 @@ public class FenetreBoulder extends JFrame{
 		this.setVisible(true);
 	}
 
-	
-	
+	/**
+	 * Ecrit un message dans le panneau
+	 * @param String message, int duree
+	 * */
+	public void ecrireMessage(String message, int duree){
+		panneauBoulder.ecrireMessage(message, duree);
+	}
 	
 	/**
 	 * Retourne la reference vers le moteur.

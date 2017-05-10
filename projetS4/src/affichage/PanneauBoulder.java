@@ -15,7 +15,11 @@ import entite.*;
 import moteurJeu.MoteurJeu;
 
 /**
- * 
+ * Classe correspondant au panneau d'affichage du jeu. Chaque appel a repaint()
+ * va raffraichir cette classe qui va recalculer l'affichage a modifier.
+ * @author PITROU Adrien
+ * @since 14/04/17
+ * @version 1.0
  */
 public class PanneauBoulder extends JPanel{
 
@@ -26,7 +30,8 @@ public class PanneauBoulder extends JPanel{
 	private int debutCaseX=0;
 	private int debutCaseY=0;
 	private final int TAILLE=24;
-	//assuprimer
+	private String message="coucou";
+	private int duree=2;
 	
 	/**
 	 * Une enumeration qui contient les URL vers les images du jeu.
@@ -45,6 +50,7 @@ public class PanneauBoulder extends JPanel{
 		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
 		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
 		MENU (chargerImage("src/BoulderDashImages/Menu.png")),
+		EXPLOSION (chargerImage("src/BoulderDashImages/RocherExplose1.png")),
 		DEFAULT (chargerImage("src/BoulderDashImages/Default.png"));
 		
 		private Image img;
@@ -58,35 +64,24 @@ public class PanneauBoulder extends JPanel{
 	
 	//Images img=Images.MUR_BASIQUE;
 
-	/***/
+	/**
+	 * La constructeur de la classe
+	 * @param MoteurJeu moteur
+	 * */
 	PanneauBoulder(MoteurJeu moteur){
 		this.moteur=moteur;
+		raffraichirLongueurEtLargeur();
+		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.3));
+	}
+  
+	private void raffraichirLongueurEtLargeur(){
 		Entite[][] tab=moteur.getMap();
 		largeurGrille=tab.length;
 		longueurGrille=tab[0].length;
-		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.2));
 	}
-	/***/
-	/*private Color reconnaitreCouleur(Entite entite){
-		if(entite instanceof MurBasique || entite instanceof MurMagique || entite instanceof MurTitane){
-			return Color.BLUE;
-		}else if(entite instanceof Diamant){
-			return Color.YELLOW;
-		}else if(entite instanceof Espace){
-			return Color.WHITE;
-		}else if(entite instanceof Poussiere){
-			return Color.PINK;
-		}else if(entite instanceof Joueur || entite instanceof Exit){
-			return Color.CYAN;
-		}else if(entite instanceof Roc){
-			return Color.GRAY;
-		}else if(entite instanceof Luciole || entite instanceof Libellule){
-			return new Color(255,0,255);
-		}else{
-			return Color.GREEN;
-		}
-	}*/
-  
+	
+	
+	
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
 	 * */
@@ -102,6 +97,11 @@ public class PanneauBoulder extends JPanel{
 		return img;
 	}*/
 	
+	/**
+	 * Effectue le chargement des images du jeu.
+	 * @param String adresse
+	 * @return Image image
+	 * */
 	private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
@@ -112,8 +112,20 @@ public class PanneauBoulder extends JPanel{
 		return img;
 	}
 	
+	/**
+	 * Ecrit un message sur la fenetre d'une duree duree
+	 * @param String message, int duree
+	 * */
+	public void ecrireMessage(String message, int duree){
+		this.message=message;
+		this.duree=duree;
+	}
 	
-	/***/
+	/**
+	 * Recupere l'image associee a une Entite
+	 * @param Entite entite
+	 * @return Image image
+	 * */
 	private Image recupererImage(Entite entite){
 		if(entite instanceof MurBasique){
 			return ImagesJeu.MUR_BASIQUE.get();
@@ -137,14 +149,18 @@ public class PanneauBoulder extends JPanel{
 			return ImagesJeu.LIBELLULE.get();
 		}else if(entite instanceof Amibe){
 			return ImagesJeu.AMIBE.get();
+		}else if(entite instanceof Explosion){
+			return ImagesJeu.EXPLOSION.get();
 		}else{
 			return ImagesJeu.DEFAULT.get();
 		}
 	}
 	
-	
-	
-	/***/
+	/**
+	 * Dessine la barre de menu du jeu
+	 * @param Graphics g
+	 * @return Un Graphics avec la barre de menu.
+	 * */
 	private Graphics dessinerMenu(Graphics g) {
 		
 		g.drawImage(ImagesJeu.MENU.get(),(this.getWidth()/2)-TAILLE*10,0,TAILLE*20,TAILLE,null);
@@ -156,8 +172,14 @@ public class PanneauBoulder extends JPanel{
 		return g;
 	}
 	
-	/***/
+	/**
+	 * Redessine le jeu quand appele par repaint()
+	 * @param Graphics g
+	 * */
 	public void paintComponent(Graphics g){
+		//au cas ou la grille n'aurait pas la meme taille que la precedente
+		raffraichirLongueurEtLargeur();
+		
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -178,6 +200,12 @@ public class PanneauBoulder extends JPanel{
 		
 		//barre de menu
 		g=dessinerMenu(g);
+		
+		//messages
+		if(duree>0){
+			g.drawString(message, 10, getHeight()-10);
+			duree--;
+		}
 	}
 
 }
