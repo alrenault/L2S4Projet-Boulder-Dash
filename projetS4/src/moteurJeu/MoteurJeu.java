@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
-import java.util.Scanner;
+import java.util.List;
 
 import entite.*;
 import map.Map;
@@ -26,12 +26,12 @@ public class MoteurJeu {
 
 	//IA
 
+
 	public int tabia = 0;
 	IA_Random random = new IA_Random();
 	char[] directions = random.getDirections();
-
-	IA_Directive direct = new IA_Directive();
-	char[] directionsDirect = direct.getDirections();
+	private IA_Directive directive;
+	private List<Character> chemin_direct;
 
 	private int intelligence;
 
@@ -39,9 +39,10 @@ public class MoteurJeu {
 
 	private Entite[][] entite;
 	private FenetreBoulder fenetre;
-	private int numMap = 1;
+	private int numMap;
 	private Map map;
-	private String chemin = "src/BD01plus.bd";
+	private String chemin;
+	private String nomFichier;
 
 	private BuildEntity builder = new BuildEntity();
 	public Joueur joueur;
@@ -58,7 +59,7 @@ public class MoteurJeu {
 	private Libellule libellule;
 	private Explosion explosion;
 
-	private Position gagne;
+	//private Position gagne;
 	private int score=0; //score min a avoir pour franchir la porte
 	private int nbDiamantRecolte = 0;
 	private int nbTour = 0;
@@ -66,6 +67,8 @@ public class MoteurJeu {
 	private boolean enJeu;
 	private boolean aGagne;
 	private boolean aPerdu;
+	private boolean porteAffiche = false;
+	private Position posPorte;
 
 	/**
 	 * Designe les differents types de touches.
@@ -120,14 +123,17 @@ public class MoteurJeu {
 		this.intelligence=ia.get();
 	}
 
-	public MoteurJeu(){
+	public MoteurJeu(int numMap, String fichier){
 		enJeu=true;
-		//System.out.println("coucou\n");
+
+		this.chemin = "src/"+fichier;
+		this.nomFichier = fichier;
+		this.numMap = numMap;
 		map = new Map(numMap,chemin);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
 		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.ME.get();
+		intelligence=Intelligence.DIRECTIVE.get();
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
@@ -146,12 +152,17 @@ public class MoteurJeu {
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
 
-		Iterator<Position> it = exit.getPosition().iterator();
+		/*Iterator<Position> it = exit.getPosition().iterator();
 		if(it.hasNext())
-			gagne = it.next();
+			gagne = it.next();*/
+		/*IA_Directive monIA = new IA_Directive(this);
+		monIA.plusCourtCheminDiamant();*/
+		
+		directive = new IA_Directive(this);
+		chemin_direct = directive.actionList();
 		jeu();
 	}
-	
+
 	public MoteurJeu(String[] nomVar){
 		for(int i=0;i<nomVar.length;i++){
 			switch(nomVar[i]){
@@ -163,25 +174,29 @@ public class MoteurJeu {
 		}
 		new MoteurJeu();
 	}
+	
+	//cas de base
+	public MoteurJeu(){
+		this(5,"BD01plus.bd");	
+	}
 
 
 	public void affichage(){
 
-		//System.out.println(System.getProperty("user.dir"));
 
-		if(score>= (map.getDiamondRec()*map.getDiamondVal())){
+		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
-		System.out.println("IA : "+intelligence);
+		//System.out.println("IA : "+intelligence);
 
 
 		try {
-			thread.sleep(100);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		getFenetre().repaint();
+		fenetre.repaint();
 
 	}
 
@@ -197,6 +212,7 @@ public class MoteurJeu {
 	 * */
 	public void processEndOfTurn(){
 		if(aGagne || aPerdu){
+			//Réinitialisation des bool pour pouvoir recommencer correctement une partie
 			aGagne = false;
 			aPerdu = false;
 		}
@@ -207,7 +223,7 @@ public class MoteurJeu {
 		joueur.gagne();
 		joueur.prendObjets();
 
-		System.out.println(afficherMapEntite());
+		//System.out.println(afficherMapEntite());
 		}
 		
 
@@ -266,8 +282,16 @@ public class MoteurJeu {
 
 			case 3 :
 				affichage();
-				deplacement = directions[tabia]; tabia++;
-				if(tabia==1000) intelligence = Intelligence.ME.get();
+				//System.out.println("dans jeu : "+chemin_direct.toString());
+				if(!chemin_direct.isEmpty()){
+					deplacement = chemin_direct.get(0);
+					chemin_direct.remove(chemin_direct.get(0));
+					tour(deplacement,processPosition());
+					processEndOfTurn();
+				}
+				else
+					enJeu = false;
+				
 
 			break;
 			}
@@ -277,10 +301,10 @@ public class MoteurJeu {
 
 
 	public void tour(char touche, Position position){
-		System.out.println("Perdu ? "+ aPerdu);
+		/*System.out.println("Perdu ? "+ aPerdu);
 		System.out.println("Gagné ? "+ aGagne);
-		System.out.println("Position joueur : "+joueur.getPosition());
-		
+		System.out.println("Position joueur : "+joueur.getPosition());*/
+
 		//fait disparaitre les explosions
 		effacerExplosions();
 
@@ -292,7 +316,7 @@ public class MoteurJeu {
 		int x = position.getX();
 		int y = position.getY();
 
-		System.out.println("IA DEPLACEMENT :" +touche+" Tour : " + tabia);
+		//System.out.println("IA DEPLACEMENT :" +touche+" Tour : " + tabia);
 		switch(touche){
 			case KeyEvent.VK_RIGHT: t = Touche.TOUCHE_DROITE; y+=1;break;
 			case KeyEvent.VK_LEFT: t = Touche.TOUCHE_GAUCHE; y-=1;break;
@@ -310,7 +334,6 @@ public class MoteurJeu {
 
 	}
 
-	//A TROUVER L'ERREUR
 	public boolean pousserRocher(Position p){
 		//	System.out.println("COUCOU");
 			int x1 = p.getX();
@@ -785,7 +808,7 @@ public class MoteurJeu {
 				case 'd': nouveauTab[i][j] = diamant; break;
 				case 'w': nouveauTab[i][j] = mur; break;
 				case 'W': nouveauTab[i][j] = murTitane; break;
-				case 'X': nouveauTab[i][j] = espace; break;
+				case 'X': nouveauTab[i][j] = espace; posPorte = new Position(i,j);break;
 				case 'M': nouveauTab[i][j] = murMagique; break;
 				case 'a': nouveauTab[i][j] = amibe; break;
 				default:
@@ -829,6 +852,7 @@ public class MoteurJeu {
 					entite[i][j] = exit;
 			}
 		}
+		porteAffiche = true;
 	}
 
 	/**
@@ -971,6 +995,7 @@ public class MoteurJeu {
 		case TOUCHE_IMMOBILE:return true;
 		default : return false;
 		}
+		
 	}
 
 	/**
@@ -995,10 +1020,8 @@ public class MoteurJeu {
 			}
 		}
 		if(entite[posX][posY].isTraversable()){
-			System.out.println("Case libre");
 			return true;
 		}
-		System.out.println("Case non libre");
 		return false;
 	}
 
@@ -1014,7 +1037,7 @@ public class MoteurJeu {
 
 	private char recupererTouche() {
 		//Thread.currentThread().interrupt();
-		synchronized(getFenetre().getMoteur().thread){
+		synchronized(fenetre.getMoteur().thread){
 			try {
 				thread.wait();
 			} catch (InterruptedException e) {
@@ -1056,11 +1079,10 @@ public class MoteurJeu {
 	public void gagner(){
 		aGagne = true;
 		changerMap(++numMap);
-	}
+		
+}
 
 	public void perdu() {
-		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
-		//enJeu=false;
 		getFenetre().ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
 		resetMap();
@@ -1075,8 +1097,7 @@ public class MoteurJeu {
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
-		amibe.deplacer(entite);
-		
+		amibe.deplacer(entite);	
 	}
 
 
@@ -1084,13 +1105,7 @@ public class MoteurJeu {
 		return ia.get() == intelligence;
 	}
 
-	public Entite[][] getMap(){
-		/*Entite[][] mapRetour = new Entite[entite.length][entite[0].length];
-		for(int i=0;i<mapRetour.length;i++){
-			for(int j=0;j<mapRetour.length;j++){
-				mapRetour[i][j]=(Entite) entite[i][j].clone();
-			}
-		}*/
+	public Entite[][] getEntite(){
 		return entite;
 	}
 	
@@ -1113,7 +1128,7 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
-
+	
 	/**
 	 * Renvoie le pointeur vers la fenêtre principale
 	 * @return FenetreBoulder fenetre
@@ -1122,4 +1137,50 @@ public class MoteurJeu {
 		return fenetre;
 	}
 
+	public int getHauteurMap() {
+		return map.getHauteur();
+	}
+	
+	public int getLargeurMap() {
+		return map.getLargeur();
+	}
+	
+	
+	public String getNomFichier(){
+		return nomFichier;
+	}
+	
+	public int getNumMap(){
+		return numMap;
+	}
+
+	public boolean isPorteAffiche() {
+		return porteAffiche;
+	}
+
+	public Set<PositionTombe> getPositionDiamant() {
+		return diamant.getPositionTombe();
+	}
+	
+	public Set<Position> getPositionJoueur() {
+		return joueur.getPosition();
+	}
+	
+	/*public int getDiamondValue(){
+		return map.getDiamondVal();
+	}
+	
+	public int getScoreAAvoir(){
+		return map.getDiamondRec()*map.getDiamondVal();
+	}*/
+	
+	public int getNbDiamandRec(){
+		return map.getDiamondRec();
+	}
+	
+	public Position getPosPorte(){
+		System.out.println("LA PORTE !!! "+posPorte.toString());
+		return posPorte;
+			
+	}
 }

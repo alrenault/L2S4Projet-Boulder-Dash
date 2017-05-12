@@ -75,7 +75,7 @@ public class PanneauBoulder extends JPanel{
 	}
   
 	private void raffraichirLongueurEtLargeur(){
-		Entite[][] tab=moteur.getMap();
+		Entite[][] tab=moteur.getEntite();
 		largeurGrille=tab.length;
 		longueurGrille=tab[0].length;
 	}
@@ -186,7 +186,7 @@ public class PanneauBoulder extends JPanel{
 		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
 		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
-		Entite[][] tab=moteur.getMap();
+		Entite[][] tab=moteur.getEntite();
 		
 		for(int i=0;i<largeurGrille;i++){
 			for(int j=0;j<longueurGrille;j++){
