@@ -155,9 +155,9 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		Iterator<Position> it = ensemble.iterator();
 		
 		while(it.hasNext()){
-			//pour le debugage de tomber
+			//pour le debugage de libellule
 			if(moteur.MODE_DEBUG_LIBELLULE){
-				System.out.println("ABouger : "+toString());
+				System.out.println("ABougerLibellule : "+toString());
 				synchronized(moteur.getFenetre().getMoteur().thread){
 					try {
 						moteur.thread.wait();

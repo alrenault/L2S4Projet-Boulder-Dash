@@ -139,6 +139,19 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
 		while(it.hasNext()){
+			//pour le debugage de luciole
+			if(moteur.MODE_DEBUG_LUCIOLE){
+				System.out.println("ABougerLuciole : "+toString());
+				synchronized(moteur.getFenetre().getMoteur().thread){
+					try {
+						moteur.thread.wait();
+					} catch (InterruptedException exp) {
+						// TODO Auto-generated catch block
+						exp.printStackTrace();
+					}
+				}
+				moteur.getFenetre().repaint();
+			}
 			//position actuelle
 			if(!moteur.isaPerdu()){
 				Position p = it.next();

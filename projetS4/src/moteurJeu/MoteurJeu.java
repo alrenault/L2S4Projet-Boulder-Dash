@@ -20,11 +20,11 @@ public class MoteurJeu {
 	public static final int TOUCHER_MORTEL=2;
 	public char touche;
 	public Thread thread=Thread.currentThread();
-	public boolean MODE_DEBUG_TOMBER=false;
-	public boolean MODE_DEBUG_LIBELLULE=false;
+	public static boolean MODE_DEBUG_TOMBER=false;
+	public static boolean MODE_DEBUG_LIBELLULE=false;
+	public static boolean MODE_DEBUG_LUCIOLE=false;
 
 	//IA
-
 
 	public int tabia = 0;
 	IA_Random random = new IA_Random();
@@ -150,6 +150,18 @@ public class MoteurJeu {
 		if(it.hasNext())
 			gagne = it.next();
 		jeu();
+	}
+	
+	public MoteurJeu(String[] nomVar){
+		for(int i=0;i<nomVar.length;i++){
+			switch(nomVar[i]){
+			case "tombe":MODE_DEBUG_TOMBER = true; System.out.println("DEB_TOM = "+MODE_DEBUG_TOMBER); break;
+			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
+			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
+			default : System.out.println("FaitChier");
+			}
+		}
+		new MoteurJeu();
 	}
 
 
