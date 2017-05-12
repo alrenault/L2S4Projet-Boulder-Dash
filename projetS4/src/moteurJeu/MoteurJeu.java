@@ -1,5 +1,5 @@
 package moteurJeu;
-
+//quand on meurt, probleme avec les libellule et amibe qui font encore un mouvement et ne sont donc pas reset comme il faut
 
 import ia.*;
 
@@ -133,7 +133,7 @@ public class MoteurJeu {
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
 		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.DIRECTIVE.get();
+		intelligence=Intelligence.ME.get();
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
@@ -177,7 +177,7 @@ public class MoteurJeu {
 	
 	//cas de base
 	public MoteurJeu(){
-		this(5,"BD01plus.bd");	
+		this(6,"BD01plus.bd");	
 	}
 
 
@@ -222,6 +222,8 @@ public class MoteurJeu {
 		//perdu(OBSTACLE_MORTEL);
 		joueur.gagne();
 		joueur.prendObjets();
+		
+		//System.out.println("COUCOU "+libellule.getPosition());
 
 		//System.out.println(afficherMapEntite());
 		}
@@ -288,9 +290,31 @@ public class MoteurJeu {
 					chemin_direct.remove(chemin_direct.get(0));
 					tour(deplacement,processPosition());
 					processEndOfTurn();
+					chemin_direct = directive.actionList();
 				}
-				else
-					enJeu = false;
+				else {
+					if(directive.diamantAccessible().size() != 0){
+						chemin_direct = directive.actionList();
+						deplacement = chemin_direct.get(0);
+						chemin_direct.remove(chemin_direct.get(0));
+						tour(deplacement,processPosition());
+						processEndOfTurn();
+					}
+					else{
+						int cpt = 0;
+						while(directive.diamantAccessible().size() == 0 && cpt<map.getHauteur()){
+							tour((char)KeyEvent.VK_0,processPosition());
+							processEndOfTurn();
+						}
+						if(cpt == map.getHauteur()){
+							break;
+						}
+						
+					}
+					
+				}
+				
+					
 				
 
 			break;
@@ -616,7 +640,7 @@ public class MoteurJeu {
 			throw new NullPointerException("impossible de tester une case null");
 		}
 		if(!isaPerdu()){
-			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique && entiteCarte(p) != diamant){
+			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique && entiteCarte(p) != diamant && entiteCarte(p) != espace){
 				if(entiteCarte(p) == roc || entiteCarte(p) == diamant){
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe :");
 					//+entiteCarte(p).getPositionTombe().remove(p)
@@ -625,7 +649,8 @@ public class MoteurJeu {
 					supprimerPositionTombeEntite(pos);
 				}else{
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe pas :"+entiteCarte(p).getPosition().remove(p));
-					supprimerPositionEntite(p);
+					System.out.println("l'entite "+entite[p.getX()][p.getY()].getApparence());
+					System.out.println("test explositon "+supprimerPositionEntite(p));
 				}
 				//si la case a exploser est le joueur, alors c'est perdu.
 				if(entiteCarte(p)==joueur){
@@ -657,7 +682,7 @@ public class MoteurJeu {
 		while(it.hasNext()){
 			Position sortie=(Position) it.next();
 			if(sortie.getX() == p.getX() && sortie.getY() == p.getY()){
-				System.out.println("Une sortie !");
+				//System.out.println("Une sortie !");
 				return sortie;
 			}
 		}
@@ -875,13 +900,14 @@ public class MoteurJeu {
 		amibe.viderPosition();
 		luciole.viderPosition();
 		libellule.viderPosition();
-
+		chemin_direct.clear();
 		
 		score=0;
 		nbDiamantRecolte = 0;
 		nbTour = 0;
 		
 		construireMapEntite();
+		System.out.println(afficherMapEntite());
 	}
 	
 	public void changerMap(int n){
@@ -1179,8 +1205,13 @@ public class MoteurJeu {
 	}
 	
 	public Position getPosPorte(){
-		System.out.println("LA PORTE !!! "+posPorte.toString());
-		return posPorte;
-			
+		//System.out.println("LA PORTE !!! "+posPorte.toString());
+		return posPorte;	
 	}
+
+	public int getNbDiamantRecolte() {
+		return nbDiamantRecolte;
+	}
+	
+	
 }

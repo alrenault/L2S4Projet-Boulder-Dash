@@ -69,9 +69,14 @@ public class IA_Directive implements IA{
 		
 		//System.out.println("cheminTotal : "+cheminTotal.toString());
 			
-		if(nbDiamRecupere >= nbDiamRec){
-			List<Position> cheminPorte = plusCourtCheminPorte(pCC.get(pCC.size()-1));
-			
+		if(moteur.getNbDiamantRecolte() >= moteur.getNbDiamandRec()){
+			chemin.clear();
+			Iterator<Position> it = moteur.getPositionJoueur().iterator();
+			Position j = null;
+			if(it.hasNext())
+				j = it.next();
+			List<Position> cheminPorte = plusCourtCheminPorte(j/*pCC.get(pCC.size()-1)*/);
+			System.out.println("chemin "+cheminPorte.toString());
 			for(int i=0;i<cheminPorte.size()-1;i++){
 				//System.out.println("LE NOMBRE !!! "+ (pCC.get(i).getX() - pCC.get(i+1).getX()));
 				if(cheminPorte.get(i).getX() - cheminPorte.get(i+1).getX() == -1){
@@ -88,6 +93,7 @@ public class IA_Directive implements IA{
 				}
 			//chemin.addAll();
 			}
+			
 		}
 		return chemin;
 		
@@ -248,7 +254,7 @@ public class IA_Directive implements IA{
 			break;
 		}
 
-		for(int i=0;i<poidCase.length;i++){
+		/*for(int i=0;i<poidCase.length;i++){
 			for(int j=0;j<poidCase[i].length;j++){
 				System.out.print(poidCase[i][j]+" ");
 			}
@@ -258,13 +264,13 @@ public class IA_Directive implements IA{
 		Iterator<Position> it4 = listFinale.iterator();
 		while(it4.hasNext()){
 			System.out.println(it4.next());
-		}
+		}*/
 		return listFinale;
 	}
 	
 	public List<Position> plusCourtCheminPorte(Position posInit){
 		
-		Position porte = moteur.getPosPorte();
+		Position porte = new Position(moteur.getPosPorte().getX(),moteur.getPosPorte().getY());
 		List<Position> listPos = new ArrayList<Position>();
 		
 		Set<Position> atteint = new HashSet<Position>();
@@ -342,7 +348,7 @@ public class IA_Directive implements IA{
 			break;
 		}*/
 
-		System.out.println("Pour la porte");
+		/*System.out.println("Pour la porte");
 		for(int i=0;i<poidCase.length;i++){
 			for(int j=0;j<poidCase[i].length;j++){
 				System.out.print(poidCase[i][j]+" ");
@@ -353,7 +359,7 @@ public class IA_Directive implements IA{
 		Iterator<Position> it4 = listPos.iterator();
 		while(it4.hasNext()){
 			System.out.println(it4.next());
-		}
+		}*/
 		return listPos;
 		
 	}
