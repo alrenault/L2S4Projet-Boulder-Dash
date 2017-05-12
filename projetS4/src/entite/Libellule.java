@@ -155,6 +155,19 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		Iterator<Position> it = ensemble.iterator();
 		
 		while(it.hasNext()){
+			//pour le debugage de libellule
+			if(moteur.MODE_DEBUG_LIBELLULE){
+				System.out.println("ABougerLibellule : "+toString());
+				synchronized(moteur.getFenetre().getMoteur().thread){
+					try {
+						moteur.thread.wait();
+					} catch (InterruptedException exp) {
+						// TODO Auto-generated catch block
+						exp.printStackTrace();
+					}
+				}
+				moteur.getFenetre().repaint();
+			}
 			//position actuelle
 			if(!moteur.isaPerdu()){
 				Position p = it.next();
@@ -229,6 +242,16 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	public void disparait() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	
+	
+	/**
+	 * @return String texte
+	 */
+	@Override
+	public String toString() {
+		return "Libellule [ position=" + position+"]";
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class EcouteurTouche implements KeyListener{
 			synchronized(fenetre.getMoteur().thread) {
 				fenetre.getMoteur().thread.notify();
 			}
-			fenetre.repaint();
+			//fenetre.repaint();
 		//}
 	}
 	

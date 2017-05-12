@@ -20,9 +20,11 @@ public class MoteurJeu {
 	public static final int TOUCHER_MORTEL=2;
 	public char touche;
 	public Thread thread=Thread.currentThread();
+	public static boolean MODE_DEBUG_TOMBER=false;
+	public static boolean MODE_DEBUG_LIBELLULE=false;
+	public static boolean MODE_DEBUG_LUCIOLE=false;
 
 	//IA
-
 
 	public int tabia = 0;
 	IA_Random random = new IA_Random();
@@ -141,13 +143,25 @@ public class MoteurJeu {
 		libellule = (Libellule) builder.buildEntity(this,'B');
 		explosion = (Explosion) builder.buildEntity(this,'E');
 
-		fenetre=new FenetreBoulder(this);
+		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
 
 		Iterator<Position> it = exit.getPosition().iterator();
 		if(it.hasNext())
 			gagne = it.next();
 		jeu();
+	}
+	
+	public MoteurJeu(String[] nomVar){
+		for(int i=0;i<nomVar.length;i++){
+			switch(nomVar[i]){
+			case "tombe":MODE_DEBUG_TOMBER = true; System.out.println("DEB_TOM = "+MODE_DEBUG_TOMBER); break;
+			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
+			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
+			default : System.out.println("FaitChier");
+			}
+		}
+		new MoteurJeu();
 	}
 
 
@@ -167,7 +181,7 @@ public class MoteurJeu {
 			e.printStackTrace();
 		}
 
-		fenetre.repaint();
+		getFenetre().repaint();
 
 	}
 
@@ -345,9 +359,13 @@ public class MoteurJeu {
 		
 		ajouterUnEspace(doitTomber);
 
-		e.getPositionTombe().remove(doitTomber);
+		//e.getPositionTombe().remove(doitTomber);
+		supprimerPositionTombeEntite(doitTomber, e);
+		
 		Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
-		espace.getPosition().remove(pEspace);
+		//espace.getPosition().remove(pEspace);
+		supprimerPositionEntite(pEspace,espace);
+		
 		PositionTombe aAjouter = new PositionTombe(doitTomber.getX()+1,doitTomber.getY());
 		aAjouter.setTombe(true);
 		
@@ -376,54 +394,49 @@ public class MoteurJeu {
 		//si le rocher est en mouvement
 		if(doitTomber.isTombe()){
 			doitTomber.setTombe(false);
-			//si on est pas sur le bord gauche
-			
 				
+			//s'il y a des espaces a droite et en bas a droite au moins.
+			if(doitTomber.getY()<entite[0].length && 
+				entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
+				entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace){
+				//tombe en diagonale a droite
+				//ajout des espaces
 				entite[doitTomber.getX()][doitTomber.getY()] = espace;
 				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
 				
-				//s'il y a des espaces a droite et en bas a droite au moins.
-				if(doitTomber.getY()<entite[0].length && 
-					entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
-					entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace){
-					//tombe en diagonale a droite
+				//e.getPositionTombe().remove(doitTomber);
+				supprimerPositionTombeEntite(doitTomber, e);
 					
-					e.getPositionTombe().remove(doitTomber);
-					/*if( == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
-						Iterator<PositionTombe> it3 = e.getPositionTombe().iterator();
-						PositionTombe pTest = null;
-
-						while(it3.hasNext()){
-							pTest = it3.next();
-							if(pTest.getX() ==  doitTomber.getX() && pTest.getY() == doitTomber.getY()){
-								System.out.println("\n\n\n________\n_________\n________\ntombe de cote\n\n\n_______\n\n\n_________\n");
-								System.out.println("ca fonctionne ? + "+e.getPositionTombe().remove(pTest));
-								break;
-							}
-						}
-					}*/
+				Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()+1);
+				//espace.getPosition().remove(pEspace);
+				supprimerPositionEntite(pEspace, espace);
 					
-					Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()+1);
-					espace.getPosition().remove(pEspace);
-					
-					entite[doitTomber.getX()+1][doitTomber.getY()+1] = e; //fait pointer sur la nouvelle pos
-					PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()+1);
-					e.getPositionTombe().add(pE);
-					System.out.println(e.toStringPosition());
-				}else if(doitTomber.getY()>0 && 
-						entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
-						entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace){
+				entite[doitTomber.getX()+1][doitTomber.getY()+1] = e; //fait pointer sur la nouvelle pos
+				PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()+1);
+				//pE.setTombe(true);
+				e.getPositionTombe().add(pE);
+				//System.out.println(e.toStringPosition());
+			}else if(doitTomber.getY()>0 && 
+				entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
+				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace){
 				//tombe en diagonale a gauche
+				//ajout des espaces
+				entite[doitTomber.getX()][doitTomber.getY()] = espace;
+				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
 				
-				e.getPositionTombe().remove(doitTomber);
-				
+				//e.getPositionTombe().remove(doitTomber);	
+				supprimerPositionTombeEntite(doitTomber, e);
+					
 				Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()-1);
-				espace.getPosition().remove(pEspace);
-				
+				//espace.getPosition().remove(pEspace);
+				supprimerPositionEntite(pEspace, espace);
+				//System.out.println("_____apres suppression____\n\n__ :"+espace.toStringPosition());	
+					
 				entite[doitTomber.getX()+1][doitTomber.getY()-1] = e; //fait pointer sur la nouvelle pos
 				PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()-1);
+				//pE.setTombe(true);
 				e.getPositionTombe().add(pE);
-				System.out.println(e.toStringPosition());
+				//System.out.println(e.toStringPosition());
 			}// if il y a des cases libres a droite ou a gauche
 			
 		}else{
@@ -545,6 +558,31 @@ public class MoteurJeu {
 		}
 	}
 	
+	private boolean supprimerPositionEntite(Position p){
+		return supprimerPositionEntite(p,entiteCarte(p));
+	}
+	
+	private boolean supprimerPositionTombeEntite(PositionTombe p){
+		return supprimerPositionTombeEntite(p,entiteCarte(p));
+	}
+	
+	private boolean supprimerPositionEntite(Position p, Entite e){
+		Position posExtraite = recupererPosition(e,p);
+		return e.getPosition().remove(posExtraite);
+	}
+	
+	private boolean supprimerPositionTombeEntite(PositionTombe p, Entite e){
+		PositionTombe posExtraite = (PositionTombe) recupererPosition(e,p);
+		if(posExtraite != null){//attention aux explosions !
+			posExtraite.setTombe(true);
+			if(e.getPositionTombe().remove(posExtraite)==false){
+				posExtraite.setTombe(false);
+				return e.getPositionTombe().remove(posExtraite);
+			}//si le test n'a pas marche pour tombe = true
+		}//if la position existe ( explosions )
+		return true;
+	}
+	
 	/**
 	 * Teste si la case a la position p est destructible ou non. 
 	 * Si la case est hors-carte elle n'est pas detruite.
@@ -555,30 +593,25 @@ public class MoteurJeu {
 			throw new NullPointerException("impossible de tester une case null");
 		}
 		if(!isaPerdu()){
-			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique){
+			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique && entiteCarte(p) != diamant){
 				if(entiteCarte(p) == roc || entiteCarte(p) == diamant){
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe :");
 					//+entiteCarte(p).getPositionTombe().remove(p)
 					//if(entiteCarte(p).getPositionTombe().remove(p)==false){
-					
-					Position posExtraite = recupererPosition(entiteCarte(p),p);
-					entiteCarte(p).getPositionTombe().remove(posExtraite);
-					//reglerLaMisere(entiteCarte(p),p,p);
-					
-					//}
-					//reglerLaMisere(entiteCarte(p),p,p);
+					PositionTombe pos=new PositionTombe(p.getX(),p.getY());
+					supprimerPositionTombeEntite(pos);
 				}else{
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe pas :"+entiteCarte(p).getPosition().remove(p));
-					Position posExtraite = recupererPosition(entiteCarte(p),p);
-					entiteCarte(p).getPosition().remove(posExtraite);
-					//entiteCarte(p).getPosition().remove(p);
-					//reglerLaMisere(entiteCarte(p),p,p);
+					supprimerPositionEntite(p);
 				}
 				//si la case a exploser est le joueur, alors c'est perdu.
 				if(entiteCarte(p)==joueur){
 					//on n'ajoute pas d'explosion quand le joueur perd car sinon,
 					//apres le reset il reste un morceau d'explosion
 					perdu();
+				}else if(entiteCarte(p)==luciole || entiteCarte(p)==libellule || entiteCarte(p)==amibe){
+					entite[p.getX()][p.getY()] = diamant;
+					diamant.getPositionTombe().add(new PositionTombe(p.getX(),p.getY()));
 				}else{
 					entite[p.getX()][p.getY()] = explosion;
 					explosion.getPosition().add(p);
@@ -587,6 +620,10 @@ public class MoteurJeu {
 		}
 	}
 	
+	/**
+	 * Une methode qui evite les problemes courants qui surviennent quand on doit
+	 * supprimer une position d'un HashSet.
+	 * */
 	private Position recupererPosition(Entite e, Position p){
 		Iterator<?> it=null;
 		if(e == roc || e == diamant){
@@ -660,6 +697,19 @@ public class MoteurJeu {
 
 		//pour chaque rocher a faire tomber
 		while(it1.hasNext()){
+			//pour le debugage de tomber
+			if(MODE_DEBUG_TOMBER){
+				System.out.println("ATomber : "+e.toString());
+				getFenetre().repaint();
+				synchronized(getFenetre().getMoteur().thread){
+					try {
+						thread.wait();
+					} catch (InterruptedException exp) {
+						// TODO Auto-generated catch block
+						exp.printStackTrace();
+					}
+				}
+			}
 			doitTomber = it1.next();
 			//si le joueur a perdu, interrompt les operations
 			if(!aPerdu){
@@ -682,13 +732,16 @@ public class MoteurJeu {
 							surLaCase == libellule)
 							&& doitTomber.isTombe()){
 						tueLesVivants(doitTomber,e, surLaCase);
-					
+						
 					}else if(entite[doitTomber.getX()+1][doitTomber.getY()] == murMagique){
 						//si c'est un mur magique, transforme le rocher en diamant
 						transformeLesRochersEnDiamants(doitTomber,e);
 					}else{
 						//Arrete de tomber
-						e.getPositionTombe().remove(doitTomber);
+						//e.getPositionTombe().remove(doitTomber);
+						doitTomber.setTombe(false);
+						supprimerPositionTombeEntite(doitTomber, e);
+							
 						PositionTombe aModif = new PositionTombe(doitTomber.getX(),doitTomber.getY());
 						aModif.setTombe(false);
 						e.getPositionTombe().add(aModif);
@@ -718,32 +771,37 @@ public class MoteurJeu {
 	 * obtenu en lisant le fichier contenant tout les niveaux.
 	 * */
 	public void construireMapEntite(){
+		//nouveau tableau avec nouvelle taille en X et Y
+		Entite[][] nouveauTab = new Entite[map.getHauteur()][map.getLargeur()];
+		
 		for(int i=0;i<map.getHauteur();i++){
 			for(int j=0; j<map.getLargeur();j++){
 
 				switch(map.getTab(i,j)){
-				case ' ': entite[i][j] = espace; break;
-				case 'P': entite[i][j] = joueur; break;
-				case '.': entite[i][j] = poussiere; break;
-				case 'r': entite[i][j] = roc; break;
-				case 'd': entite[i][j] = diamant; break;
-				case 'w': entite[i][j] = mur; break;
-				case 'W': entite[i][j] = murTitane; break;
-				case 'X': entite[i][j] = espace; break;
-				case 'M': entite[i][j] = murMagique; break;
-				case 'a': entite[i][j] = amibe; break;
+				case ' ': nouveauTab[i][j] = espace; break;
+				case 'P': nouveauTab[i][j] = joueur; break;
+				case '.': nouveauTab[i][j] = poussiere; break;
+				case 'r': nouveauTab[i][j] = roc; break;
+				case 'd': nouveauTab[i][j] = diamant; break;
+				case 'w': nouveauTab[i][j] = mur; break;
+				case 'W': nouveauTab[i][j] = murTitane; break;
+				case 'X': nouveauTab[i][j] = espace; break;
+				case 'M': nouveauTab[i][j] = murMagique; break;
+				case 'a': nouveauTab[i][j] = amibe; break;
 				default:
 					if(map.getTab(i,j) == 'F' || map.getTab(i,j) == 'o' || map.getTab(i,j) == 'O' || map.getTab(i,j) == 'q' || map.getTab(i,j) == 'Q')
-						{entite[i][j] = luciole; break;}
+						{nouveauTab[i][j] = luciole; break;}
 					if( map.getTab(i,j) == 'b' || map.getTab(i,j) == 'B' || map.getTab(i,j) == 'c' || map.getTab(i,j) == 'C')
-						{entite[i][j] = libellule; break; }
+						{nouveauTab[i][j] = libellule; break; }
 					else
-						{entite[i][j] = espace; break ; }
+						{nouveauTab[i][j] = espace; break ; }
 				}
-				if(entite[i][j] == roc || entite[i][j] == diamant)
-					entite[i][j].getPositionTombe().add(new PositionTombe(i,j));
+				if(nouveauTab[i][j] == roc || nouveauTab[i][j] == diamant)
+					nouveauTab[i][j].getPositionTombe().add(new PositionTombe(i,j));
 				else
-					entite[i][j].getPosition().add(new Position(i,j));
+					nouveauTab[i][j].getPosition().add(new Position(i,j));
+				
+				entite=nouveauTab;//memorise le nouveau tableau
 			}
 		}
 	}
@@ -911,8 +969,8 @@ public class MoteurJeu {
 		case TOUCHE_GAUCHE:return caseLibre(p.getX(),p.getY()-1);
 		case TOUCHE_DROITE:return caseLibre(p.getX(),p.getY()+1);
 		case TOUCHE_IMMOBILE:return true;
+		default : return false;
 		}
-		return false;
 	}
 
 	/**
@@ -956,13 +1014,13 @@ public class MoteurJeu {
 
 	private char recupererTouche() {
 		//Thread.currentThread().interrupt();
-		synchronized(fenetre.getMoteur().thread){
-		try {
-			thread.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		synchronized(getFenetre().getMoteur().thread){
+			try {
+				thread.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Thread reprise");
 		return touche;
@@ -980,7 +1038,9 @@ public class MoteurJeu {
 		return nbTour;
 	}
 
-
+	/**
+	 * Fait gagner des points au joueur quand il prend des diamants.
+	 * */
 	public void gagnerPoints(){
 		nbDiamantRecolte++;
 		if(nbDiamantRecolte > map.getDiamondRec()){
@@ -990,24 +1050,27 @@ public class MoteurJeu {
 			score += map.getDiamondVal();
 	}
 
+	/**
+	 * Fait gagner le joueur. Fait aussi changer de carte.
+	 * */
 	public void gagner(){
 		aGagne = true;
 		changerMap(++numMap);
-		
-}
+	}
 
 	public void perdu() {
 		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
 		//enJeu=false;
+		getFenetre().ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
 		resetMap();
 		
 	}
 
 	
-	private void afficherJeu(Map m) {
+	/*private void afficherJeu(Map m) {
 		System.out.println(m.toString());
-	}
+	}*/
 	
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
@@ -1050,7 +1113,13 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
-	
-	
+
+	/**
+	 * Renvoie le pointeur vers la fenêtre principale
+	 * @return FenetreBoulder fenetre
+	 * */
+	public FenetreBoulder getFenetre() {
+		return fenetre;
+	}
 
 }
