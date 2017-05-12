@@ -1,3 +1,38 @@
+12/05 -- IA Directive + Alexis/Master
+- IA directive fonctionne
+- Merge principalement du moteur (explosion, restructuration de la méthode tombe, IA directive)
+- Rajout du mode DEBUG
+
+------------------------------------------------------------------------------
+
+
+
+28/04/2017 -- Version du jeu suffisante
+
+- Mécaniques de Jeu :
+  Les ennemis tuent, se déplacent, les rochers tombent, les diamants sont récupérables, murs magiques opérationnels, on peut mourrir ou gagner et accéder au niveau supérieur, etc.
+
+  --> Il manque : les explosions, quelques détails pour les ennemis, ...
+
+- Interface Graphique Opérationnelle, compteur de points, de diamants, ...
+
+- IA :
+1) Random - OK
+2) Génétique - En cours
+3) Directive - En cours
+4) Directive Evoluée - Nom commencée
+5) Parfaite - Non commencée
+
+
+
+
+------------------------------------------------------------------------------
+
+
+
+
+
+
 Merge du 18/04 -- Version en vigueur / Version d'Adrien
 
 Ecrit/Lu par : Quentin
@@ -37,9 +72,3 @@ Merge : 4
 
 
 ----- Fin du Merge
-
-
-
-
-
-
