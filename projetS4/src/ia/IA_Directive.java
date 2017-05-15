@@ -9,8 +9,7 @@ import java.util.Set;
 import com.sun.glass.events.KeyEvent;
 
 import entite.Diamant;
-
-
+import entite.Ennemi;
 import entite.Entite;
 import entite.IA;
 import moteurJeu.MoteurJeu;
@@ -43,40 +42,23 @@ public class IA_Directive implements IA{
 		while(it.hasNext()){
 			it.next();*/
 			List<Character> chemin = new ArrayList<Character>();
-			List<Position> pCC = plusCourtCheminDiamant(diamantAccessible());
 		//	System.out.println("avant action : "+pCC.toString());
 			
 			
-			for(int i=0;i<pCC.size()-1;i++){
-				//System.out.println("LE NOMBRE !!! "+ (pCC.get(i).getX() - pCC.get(i+1).getX()));
-				if(pCC.get(i).getX() - pCC.get(i+1).getX() == -1){
-					chemin.add((char)KeyEvent.VK_DOWN);
-				}
-				else if(pCC.get(i).getX() - pCC.get(i+1).getX() == 1){
-					chemin.add((char)KeyEvent.VK_UP);
-				}
-				else if(pCC.get(i).getY() - pCC.get(i+1).getY() == -1){
-					chemin.add((char)KeyEvent.VK_RIGHT);
-				}
-				else if(pCC.get(i).getY() - pCC.get(i+1).getY() == 1){
-					chemin.add((char)KeyEvent.VK_LEFT);
-				}
-				/*else
-					throw new IllegalArgumentException("Deplacement impossible");*/
-			}
+			
 			//cheminTotal.addAll(chemin);
 		//}
 		
-		System.out.println("cheminTotal : "+pCC.toString());
 			
 		if(moteur.getNbDiamantRecolte() >= moteur.getNbDiamandRec()){
+			System.out.println("LA PORTE");
 			chemin.clear();
 			Iterator<Position> it = moteur.getPositionJoueur().iterator();
 			Position j = null;
 			if(it.hasNext())
 				j = it.next();
 			List<Position> cheminPorte = plusCourtCheminPorte(j/*pCC.get(pCC.size()-1)*/);
-			System.out.println("chemin "+cheminPorte.toString());
+		//	System.out.println("chemin "+cheminPorte.toString());
 			for(int i=0;i<cheminPorte.size()-1;i++){
 				//System.out.println("LE NOMBRE !!! "+ (pCC.get(i).getX() - pCC.get(i+1).getX()));
 				if(cheminPorte.get(i).getX() - cheminPorte.get(i+1).getX() == -1){
@@ -94,6 +76,28 @@ public class IA_Directive implements IA{
 			//chemin.addAll();
 			}
 			
+		}
+		else{
+			List<Position> pCC = plusCourtCheminDiamant(diamantAccessible());
+			for(int i=0;i<pCC.size()-1;i++){
+				//System.out.println("LE NOMBRE !!! "+ (pCC.get(i).getX() - pCC.get(i+1).getX()));
+				if(pCC.get(i).getX() - pCC.get(i+1).getX() == -1){
+					chemin.add((char)KeyEvent.VK_DOWN);
+				}
+				else if(pCC.get(i).getX() - pCC.get(i+1).getX() == 1){
+					chemin.add((char)KeyEvent.VK_UP);
+				}
+				else if(pCC.get(i).getY() - pCC.get(i+1).getY() == -1){
+					chemin.add((char)KeyEvent.VK_RIGHT);
+				}
+				else if(pCC.get(i).getY() - pCC.get(i+1).getY() == 1){
+					chemin.add((char)KeyEvent.VK_LEFT);
+				}
+				/*else
+					throw new IllegalArgumentException("Deplacement impossible");*/
+			}
+		//	System.out.println("cheminTotal : "+pCC.toString());
+
 		}
 		return chemin;
 		
@@ -253,8 +257,8 @@ public class IA_Directive implements IA{
 		if(nbDiamRecupere >= nbDiamRec)
 			break;
 		}
-
-		/*for(int i=0;i<poidCase.length;i++){
+		System.out.println("Affichage diamant");
+		for(int i=0;i<poidCase.length;i++){
 			for(int j=0;j<poidCase[i].length;j++){
 				System.out.print(poidCase[i][j]+" ");
 			}
@@ -264,7 +268,7 @@ public class IA_Directive implements IA{
 		Iterator<Position> it4 = listFinale.iterator();
 		while(it4.hasNext()){
 			System.out.println(it4.next());
-		}*/
+		}
 		return listFinale;
 	}
 	
@@ -297,6 +301,9 @@ public class IA_Directive implements IA{
 				voisin = it2.next();
 				if(!atteint.contains(voisin)){
 					atteint.add(voisin);
+					/*if(moteur.getEntite()[voisin.getX()][voisin.getY()] instanceof Ennemi){
+						poidCase[voisin.getX()][voisin.getY()] = -1;
+					}*/
 					poidCase[voisin.getX()][voisin.getY()] = poidCase[tete.getX()][tete.getY()]+1;
 					fifo.add(voisin);
 				}
@@ -310,12 +317,12 @@ public class IA_Directive implements IA{
 	/*	List<Position> listPos = new ArrayList<Position>();
 		listPos.add(posDiamantProche);
 		Position posActuelle = new Position(posDiamantProche.getX(),posDiamantProche.getY());*/
-		System.out.println("test porte "+porte.toString());
+		//System.out.println("test porte "+porte.toString());
 		Position laPorte = new Position(porte.getX(),porte.getY());
 		listPos.add(laPorte);
 		Position posActuelle = porte;
 		for(int i= tailleChemin;i>0;i--)/*while(tailleChemin>=0)*/{
-			System.out.println("la liste "+listPos.toString());
+			//System.out.println("la liste "+listPos.toString());
 			Position suivant;
 			if(poidCase[posActuelle.getX()][posActuelle.getY()+1] == i-1){
 				suivant = new Position(posActuelle.getX(),posActuelle.getY()+1);
@@ -333,7 +340,7 @@ public class IA_Directive implements IA{
 				suivant = new Position(posActuelle.getX()-1,posActuelle.getY());
 				listPos.add(suivant);
 			}
-			System.out.println("AU SUIVANT : "+suivant);
+			///System.out.println("AU SUIVANT : "+suivant);
 
 			posActuelle.setX(suivant.getX());
 			posActuelle.setY(suivant.getY());
@@ -348,15 +355,15 @@ public class IA_Directive implements IA{
 			break;
 		}*/
 
-		/*System.out.println("Pour la porte");
-		for(int i=0;i<poidCase.length;i++){
+	//	System.out.println("Pour la porte");
+		/*for(int i=0;i<poidCase.length;i++){
 			for(int j=0;j<poidCase[i].length;j++){
 				System.out.print(poidCase[i][j]+" ");
 			}
 			System.out.println();
-		}
+		}*/
 		
-		Iterator<Position> it4 = listPos.iterator();
+		/*Iterator<Position> it4 = listPos.iterator();
 		while(it4.hasNext()){
 			System.out.println(it4.next());
 		}*/

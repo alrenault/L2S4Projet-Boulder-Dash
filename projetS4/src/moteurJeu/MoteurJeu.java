@@ -14,65 +14,226 @@ import entite.*;
 import map.Map;
 import affichage.FenetreBoulder;
 
+/**
+ * Classe centrale de boulder dash creant le moteur de jeu se chargeant de tout coordonner
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ * 
+ */
+
 public class MoteurJeu {
 
-	public static final int OBSTACLE_MORTEL=1;
-	public static final int TOUCHER_MORTEL=2;
+	//public static final int OBSTACLE_MORTEL=1;
+	//public static final int TOUCHER_MORTEL=2;
+	/**
+	 * Char representant la touche appuye
+	 */
 	public char touche;
+	
+	/**
+	 * 
+	 */
 	public Thread thread=Thread.currentThread();
+	
+	/**
+	 * Boolean represantant si le jeu est en pause ou non
+	 */
 	private boolean enPause =false;
+	
+	/**
+	 * Mode debug pour tomber
+	 */
 	public static boolean MODE_DEBUG_TOMBER=false;
+	
+	/**
+	 * Mode debug pour les libellules
+	 */
 	public static boolean MODE_DEBUG_LIBELLULE=false;
+	
+	/**
+	 * Mode debug pour les lucioles
+	 */
 	public static boolean MODE_DEBUG_LUCIOLE=false;
 
 	//IA
 
-
+	/**
+	 * 
+	 */
 	public int tabia = 0;
+	
+	/**
+	 * Creation de l'IA random
+	 */
 	IA_Random random = new IA_Random();
+	
+	/**
+	 * Tableau de directions de l'IA random
+	 */
 	char[] directions = random.getDirections();
+	
+	/**
+	 * Creation de l'IA directive
+	 */
 	private IA_Directive directive;
+	
+	/**
+	 * Liste de Character (representant les touches) de l'IA directive
+	 */
 	private List<Character> chemin_direct;
 
+	/**
+	 * Int representant l'IA utilise :
+	 * -1 : No
+	 * 0 : Pas d'IA
+	 * 1 : Random
+	 * 2 : Genetique
+	 * 3 : Directive
+	 */
 	private int intelligence;
 
 	//reste
 
+	/**
+	 * Tableau d'entite representant la map
+	 */
 	private Entite[][] entite;
+	
+	/**
+	 * Creation de la fenetre pour l'affichage graphique
+	 */
 	private FenetreBoulder fenetre;
+	
+	/**
+	 * Numero de la map en cours d'utilisation
+	 */
 	private int numMap;
+	
+	/**
+	 * Map en cours d'utilisation
+	 */
 	private Map map;
+	
+	/**
+	 * Chemin vers le fichier où se trouve la map
+	 */
 	private String chemin;
+	
+	/**
+	 * Nom du fichier où se trouve la map
+	 */
 	private String nomFichier;
 
+	/**
+	 * Le construteur de toutes les entites se trouvant sur la map
+	 */
 	private BuildEntity builder = new BuildEntity();
+	
+	/**
+	 * Entite representant le joueur
+	 */
 	public Joueur joueur;
-	private static Espace espace;
+	
+	/**
+	 * Entite representant l'espace
+	 */
+	private Espace espace;
+	
+	/**
+	 * Entite representant la poussiere
+	 */
 	private Poussiere poussiere;
+	
+	/**
+	 * Entite representant le rocher
+	 */
 	private Roc roc;
+	
+	/**
+	 * Entite representant le diamant
+	 */
 	private Diamant diamant;
+	
+	/**
+	 * Entite representant le mur basique
+	 */
 	private MurBasique mur;
+	
+	/**
+	 * Entite representant le mur de titane
+	 */
 	private MurTitane murTitane;
+	/**
+	 * Entite representant le mur magique
+	 */
 	private MurMagique murMagique;
+	
+	/**
+	 * Entite representant la sortie
+	 */
 	private Exit exit;
+	
+	/**
+	 * Entite representant l'amibe
+	 */
 	private Amibe amibe;
+	
+	/**
+	 * Entite representant la luciole
+	 */
 	private Luciole luciole;
+	
+	/**
+	 * Entite representant la libellule
+	 */
 	private Libellule libellule;
+	
+	/**
+	 * Entite representant l'explosion
+	 */
 	private Explosion explosion;
 
 	//private Position gagne;
-	private int score=0; //score min a avoir pour franchir la porte
+	/**
+	 * Score de la partie en cours
+	 */
+	private int score=0; 
+	
+	/**
+	 * Nombre de diamant deja recolte
+	 */
 	private int nbDiamantRecolte = 0;
+	
+	/**
+	 * Nombre de tours (de deplacements)
+	 */
 	private int nbTour = 0;
 	
-	private boolean enJeu;
+	//private boolean enJeu;
+	
+	/**
+	 * Boolean servant a savoir si on a gagne le niveau
+	 */
 	private boolean aGagne;
+	
+	/**
+	 * Boolean servant a savoir si on a perdu le niveau
+	 */
 	private boolean aPerdu;
+	
+	/**
+	 * Boolean servant a savoir si la porte est affichee ou non
+	 */
 	private boolean porteAffiche = false;
+	
+	/**
+	 * Position de la porte
+	 */
 	private Position posPorte;
 
 	/**
-	 * Designe les differents types de touches.
+	 * Definition d'une touche en fonction d'un char
 	 * */
 
 	public enum Touche {
@@ -95,7 +256,7 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Designe les differents types d'IA.
+	 * Definition de l'intelligence en fonction d'un int
 	 * */
 	public enum Intelligence {
 		NO(-1),
@@ -123,9 +284,14 @@ public class MoteurJeu {
 	public void changerIA(Intelligence ia){
 		this.intelligence=ia.get();
 	}
-
+	
+	/**
+	 * Constructeur general de la classe MoteurJeu
+	 * @param numMap Numero de la map voulue
+	 * @param fichier Nom du fichier où se trouve la map
+	 */
 	public MoteurJeu(int numMap, String fichier){
-		enJeu=true;
+		//enJeu=true;
 
 		this.chemin = "src/"+fichier;
 		this.nomFichier = fichier;
@@ -134,7 +300,7 @@ public class MoteurJeu {
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
 		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.DIRECTIVE.get();
+		intelligence=Intelligence.ME.get();
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
@@ -164,34 +330,35 @@ public class MoteurJeu {
 		jeu();
 	}
 
+	/**
+	 * Constructeur de la classe MoteurJeu pour le mode Debug
+	 * @param nomVar Tableau de parametre rentre par l'utilisateur pour debugguer
+	 */
 	public MoteurJeu(String[] nomVar){
 		for(int i=0;i<nomVar.length;i++){
 			switch(nomVar[i]){
-			case "tombe":MODE_DEBUG_TOMBER = true; System.out.println("DEB_TOM = "+MODE_DEBUG_TOMBER); break;
+			case "tombe":MODE_DEBUG_TOMBER = true; break;
 			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
 			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
-			default : System.out.println("FaitChier");
 			}
 		}
 		new MoteurJeu();
 	}
 	
-	//cas de base
+	/**
+	 * Constructeur de test de la classe MoteurJeu
+	 */
 	public MoteurJeu(){
-		this(10,"BD01plus.bd");	
+		this(2,"BD01plus.bd");	
 	}
 
-
+	/**
+	 * Affiche tour par tour la map sur l'interface graphique
+	 */
 	public void affichage(){
-
-		//System.out.println(System.getProperty("user.dir"));
-
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
-		//System.out.println("IA : "+intelligence);
-
-
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -202,6 +369,11 @@ public class MoteurJeu {
 
 	}
 
+	/**
+	 * Renvoi la position du joueur
+	 * @throws Si le joueur n'a aucune ou plusieurs positions renvoi une erreur
+	 * @return Retourne la position du joueur
+	 */
 	public Position processPosition(){
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
@@ -210,7 +382,8 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Les tests de victoire / defaite qui operent en fin de tour.
+	 * Fait toutes les actions de fin de tour : deplace les autres entites, test si on a gagne. 
+	 * Reinitialise aGagne ou aPerdu pour recommencer une nouvelle partie.
 	 * */
 	public void processEndOfTurn(){
 		if(aGagne || aPerdu){
@@ -223,16 +396,13 @@ public class MoteurJeu {
 		deplacerEnnemis();
 		tomber(diamant);
 		tomber(roc);
-		//perdu(OBSTACLE_MORTEL);
 		joueur.gagne();
 		joueur.prendObjets();
-		
-		//System.out.println("COUCOU "+libellule.getPosition());
-
-		//System.out.println(afficherMapEntite());
 		}
 		
-
+	/**
+	 * Efface les explosions au debut d'un tour
+	 */
 	private void effacerExplosions() {
 		HashSet<Position> faux=new HashSet<Position>(explosion.getPosition());
 		Iterator<Position> it=faux.iterator();
@@ -245,13 +415,14 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Force le deplacement du joueur dans la fenetre si l'IA est differente de ME.
+	 * Appelle les differentes methodes du jeu en fontion de l'intelligence utilise actuellement
 	 * */
 	public void jeu(){
 
 		char deplacement = KeyEvent.VK_0 ;
 
-		while(enJeu){
+		while(true/*enJeu*/){
+			int cpt = 0;
 			deplacement = KeyEvent.VK_0;
 			
 			//pour inserer une pause en cliquant sur la menuBar
@@ -287,18 +458,16 @@ public class MoteurJeu {
 
 				tour(deplacement,processPosition());
 				processEndOfTurn();
-				//gameOver();
 
 			break; //!ME
 
-			case 1 : //RANDOM --- Joue Rockford al�atoirement
+			case 1 : //RANDOM --- Joue Rockford aleatoirement
 				affichage();
 				deplacement = directions[tabia]; tabia++;
 
 				if (tabia==1000) intelligence=Intelligence.ME.get();
 				tour(deplacement,processPosition());
 				processEndOfTurn();
-				//gameOver();
 
 			break; //!RANDOM
 
@@ -306,7 +475,6 @@ public class MoteurJeu {
 
 			case 3 :
 				affichage();
-				//System.out.println("dans jeu : "+chemin_direct.toString());
 				if(!chemin_direct.isEmpty()){
 					deplacement = chemin_direct.get(0);
 					chemin_direct.remove(chemin_direct.get(0));
@@ -323,7 +491,6 @@ public class MoteurJeu {
 						processEndOfTurn();
 					}
 					else{
-						int cpt = 0;
 						while(directive.diamantAccessible().size() == 0 && cpt<map.getHauteur() && intelligence == Intelligence.DIRECTIVE.get()){
 							tour((char)KeyEvent.VK_0,processPosition());
 							processEndOfTurn();
@@ -349,29 +516,29 @@ public class MoteurJeu {
 						}
 						if(cpt >= map.getHauteur()){
 							intelligence = Intelligence.ME.get();
-						}
-						
+						}	
 					}
-					
 				}
-				
-					
-				
-
 			break;
 			}
 		}
 	}
 
+	/**
+	 * Test si la touche correspond au sur place
+	 * @param touche Touche que l'on veut tester
+	 * @return Retourne true si la touche correspond a KeyEvent.VK_0 sinon false
+	 */
 	private boolean isIndefini(char touche){
 		return touche == KeyEvent.VK_0;
 	}
-
+	
+	/**
+	 * Methode simulant un tour de jeu pour un joueur
+	 * @param touche La touche appuye par l'utilisateur pour la prochaine position du joueur
+	 * @param position Position actuelle du joueur
+	 */
 	public void tour(char touche, Position position){
-		/*System.out.println("Perdu ? "+ aPerdu);
-		System.out.println("Gagné ? "+ aGagne);
-		System.out.println("Position joueur : "+joueur.getPosition());*/
-
 		//fait disparaitre les explosions
 		effacerExplosions();
 
@@ -383,7 +550,6 @@ public class MoteurJeu {
 		int x = position.getX();
 		int y = position.getY();
 
-		//System.out.println("IA DEPLACEMENT :" +touche+" Tour : " + tabia);
 		switch(touche){
 			case KeyEvent.VK_RIGHT: t = Touche.TOUCHE_DROITE; y+=1;break;
 			case KeyEvent.VK_LEFT: t = Touche.TOUCHE_GAUCHE; y-=1;break;
@@ -401,6 +567,11 @@ public class MoteurJeu {
 
 	}
 
+	/**
+	 * Methode permettant de pousser un rocher
+	 * @param p Position du rocher a pousser
+	 * @return Retourne false si ce n'est pas possible et true sinon
+	 */
 	public boolean pousserRocher(Position p){
 		//	System.out.println("COUCOU");
 			int x1 = p.getX();
@@ -436,8 +607,9 @@ public class MoteurJeu {
 		}
 	
 	/**
-	 * Utile pour ameliorer la lisibilite de la methode tomber
-	 * @param PositionTombe doitTomber, Entite e
+	 * Fait tomber une entite pouvant tomber (Roc ou Diamant) s'il y a un espace en dessous
+	 * @param doitTomber Position de l'entite pouvant tomber
+	 * @param e Reference vers le type d'entite devant tomber
 	 * */
 	private void tombeSiEspace(PositionTombe doitTomber, Entite e){
 		if(doitTomber == null){
@@ -460,18 +632,22 @@ public class MoteurJeu {
 		aAjouter.setTombe(true);
 		
 		entite[doitTomber.getX()+1][doitTomber.getY()] = e;
-		/*if(entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
+		
+		//Pour faire directement arreter de tomber un diamant pour eviter de se faire ecraser dans certains cas
+		if(e instanceof Diamant && 
+				entite[doitTomber.getX()+2][doitTomber.getY()] != espace && 
 				entite[doitTomber.getX()+2][doitTomber.getY()] != joueur && 
 				entite[doitTomber.getX()+2][doitTomber.getY()] != murMagique &&
 				!(entite[doitTomber.getX()+2][doitTomber.getY()] instanceof Ennemi))
-			aAjouter.setTombe(false);*/
+			aAjouter.setTombe(false);
 		
 		e.getPositionTombe().add(aAjouter);
 	}
 	
 	/**
-	 * Utile pour ameliorer la lisibilite de la methode tomber
-	 * @param PositionTombe doitTomber, Entite e
+	 * Fait tomber une entite pouvant tomber de cote
+	 * @param doitTomber L'entite devant tomber
+	 * @param e Reference vers le type d'entite devant tomber
 	 * */
 	private void tombeDeCote(PositionTombe doitTomber, Entite e) {
 		if(doitTomber == null){
@@ -494,18 +670,14 @@ public class MoteurJeu {
 				entite[doitTomber.getX()][doitTomber.getY()] = espace;
 				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
 				
-				//e.getPositionTombe().remove(doitTomber);
 				supprimerPositionTombeEntite(doitTomber, e);
 					
 				Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()+1);
-				//espace.getPosition().remove(pEspace);
 				supprimerPositionEntite(pEspace, espace);
 					
 				entite[doitTomber.getX()+1][doitTomber.getY()+1] = e; //fait pointer sur la nouvelle pos
 				PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()+1);
-				//pE.setTombe(true);
 				e.getPositionTombe().add(pE);
-				//System.out.println(e.toStringPosition());
 			}else if(doitTomber.getY()>0 && 
 				entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
 				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace){
@@ -513,20 +685,15 @@ public class MoteurJeu {
 				//ajout des espaces
 				entite[doitTomber.getX()][doitTomber.getY()] = espace;
 				espace.getPosition().add(new Position(doitTomber.getX(),doitTomber.getY()));
-				
-				//e.getPositionTombe().remove(doitTomber);	
+					
 				supprimerPositionTombeEntite(doitTomber, e);
 					
 				Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY()-1);
-				//espace.getPosition().remove(pEspace);
 				supprimerPositionEntite(pEspace, espace);
-				//System.out.println("_____apres suppression____\n\n__ :"+espace.toStringPosition());	
 					
 				entite[doitTomber.getX()+1][doitTomber.getY()-1] = e; //fait pointer sur la nouvelle pos
 				PositionTombe pE = new PositionTombe(doitTomber.getX()+1,doitTomber.getY()-1);
-				//pE.setTombe(true);
 				e.getPositionTombe().add(pE);
-				//System.out.println(e.toStringPosition());
 			}// if il y a des cases libres a droite ou a gauche
 			
 		}else{
@@ -534,7 +701,13 @@ public class MoteurJeu {
 		}
 	}
 	
-	private void reglerLaMisere(Entite surLaCase, Position pEspace, Position p){
+	/**
+	 * Methode permettant de forcer le remove dans le cas ou celui ci ne fonctionne pas alors qu'il le devrait
+	 * @param surLaCase Entite dont on veut remove la position
+	 * @param pEspace La position que l'on veut enlever
+	 * @param p
+	 */
+	private void forceRemove(Entite surLaCase, Position pEspace, Position p){
 		if(surLaCase.getPosition().remove(pEspace) == false){ //Oblige de faire cela car pour les lucioles renvoie toujours false mais fonctionne pour le joueur
 			Iterator<Position> it3 = surLaCase.getPosition().iterator();
 			Position pTest = null;
@@ -550,8 +723,10 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Utile pour ameliorer la lisibilite de la methode tomber
-	 * @param PositionTombe doitTomber, Entite e
+	 * Methode permettant de tuer les entites vivantes par une entite tombant
+	 * @param doitTomber Position de l'entite tombant
+	 * @param e Reference vers l'entite tombant
+	 * @param surLaCase Reference vers l'entite a tuer
 	 * */
 	private void tueLesVivants(PositionTombe doitTomber, Entite e, Entite surLaCase){
 		if(doitTomber == null){
@@ -570,7 +745,7 @@ public class MoteurJeu {
 			Position pEspace = new Position(doitTomber.getX()+1,doitTomber.getY());
 			//change de joueur.getPosition().remove(pEspace)
 
-			reglerLaMisere(surLaCase,pEspace,doitTomber);
+			forceRemove(surLaCase,pEspace,doitTomber);
 			
 			e.getPositionTombe().add(new PositionTombe(doitTomber.getX()+1,doitTomber.getY()));
 			entite[doitTomber.getX()+1][doitTomber.getY()] = e;
@@ -582,8 +757,9 @@ public class MoteurJeu {
 	}
 	
 	/**
-	 * Utile pour ameliorer la lisibilite de la methode tomber
-	 * @param PositionTombe doitTomber, Entite e
+	 * Permet de transformer les rochers en diamants et vis versa
+	 * @param doitTomber Position de l'entite a transformer
+	 * @param e Reference vers le type d'entite a transformer
 	 * */
 	private void transformeLesRochersEnDiamants(PositionTombe doitTomber, Entite e){
 		if(doitTomber == null){
@@ -614,7 +790,7 @@ public class MoteurJeu {
 	
 	/**
 	 * Teste si le rocher ou le diamant au dessus d'un rocher peut tomber ou non.
-	 * @param PositionTombe doitTomber
+	 * @param  doitTomber Position de l'entite devant tomber
 	 * @return true si la chute est possible et false sinon
 	 * */
 	private boolean peutTomber(PositionTombe doitTomber){
@@ -629,6 +805,10 @@ public class MoteurJeu {
 				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
 	}
 	
+	/**
+	 * Permet de faire exploser les entites ecrasee par un rocher
+	 * @param p La position où se trouve l'explosion
+	 */
 	private void explose(Position p){
 		if(p == null){
 			throw new NullPointerException("La position pour l'explosion est a null");
@@ -648,19 +828,31 @@ public class MoteurJeu {
 		}
 	}
 	
-	private boolean supprimerPositionEntite(Position p){
+	/*private boolean supprimerPositionEntite(Position p){
 		return supprimerPositionEntite(p,entiteCarte(p));
-	}
+	}*/
 	
-	private boolean supprimerPositionTombeEntite(PositionTombe p){
+	/*private boolean supprimerPositionTombeEntite(PositionTombe p){
 		return supprimerPositionTombeEntite(p,entiteCarte(p));
-	}
+	}*/
 	
+	/**
+	 * Supprime la position d'une entite
+	 * @param p Position de l'entite
+	 * @param e Reference vers le type d'entite a supprimer
+	 * @return Retourne le resultat du remove
+	 */
 	private boolean supprimerPositionEntite(Position p, Entite e){
 		Position posExtraite = recupererPosition(e,p);
 		return e.getPosition().remove(posExtraite);
 	}
 	
+	/**
+	 * Supprime la position d'une entite devant tomber (Roc ou Diamant)
+	 * @param p Position de l'entite
+	 * @param e Reference vers le type d'entite a supprimer
+	 * @return Retourne le resultat du remove
+	 */
 	private boolean supprimerPositionTombeEntite(PositionTombe p, Entite e){
 		PositionTombe posExtraite = (PositionTombe) recupererPosition(e,p);
 		if(posExtraite != null){//attention aux explosions !
@@ -676,7 +868,7 @@ public class MoteurJeu {
 	/**
 	 * Teste si la case a la position p est destructible ou non. 
 	 * Si la case est hors-carte elle n'est pas detruite.
-	 * @param Position p
+	 * @param Position p Position a tester
 	 * */
 	private void testIndestructible(Position p) {
 		if(p == null){
@@ -689,10 +881,10 @@ public class MoteurJeu {
 					//+entiteCarte(p).getPositionTombe().remove(p)
 					//if(entiteCarte(p).getPositionTombe().remove(p)==false){
 					PositionTombe pos=new PositionTombe(p.getX(),p.getY());
-					supprimerPositionTombeEntite(pos);
+					supprimerPositionTombeEntite(pos,entiteCarte(p));
 				}else{
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe pas :"+entiteCarte(p).getPosition().remove(p));
-					supprimerPositionEntite(p);
+					supprimerPositionEntite(p,entiteCarte(p));
 				}
 				//si la case a exploser est le joueur, alors c'est perdu.
 				if(entiteCarte(p)==joueur){
@@ -712,7 +904,9 @@ public class MoteurJeu {
 	
 	/**
 	 * Une methode qui evite les problemes courants qui surviennent quand on doit
-	 * supprimer une position d'un HashSet.
+	 * supprimer une position d'un HashSet utilise lors de la suppression.
+	 * @param e Reference vers l'entite dont on veut trouver la position
+	 * @param p Position a tester
 	 * */
 	private Position recupererPosition(Entite e, Position p){
 		Iterator<?> it=null;
@@ -724,7 +918,6 @@ public class MoteurJeu {
 		while(it.hasNext()){
 			Position sortie=(Position) it.next();
 			if(sortie.getX() == p.getX() && sortie.getY() == p.getY()){
-				//System.out.println("Une sortie !");
 				return sortie;
 			}
 		}
@@ -733,7 +926,8 @@ public class MoteurJeu {
 	
 	/**
 	 * Teste si la case de coordonnees (x,y) existe ou non
-	 * @param int x,int y
+	 * @param x Coordonnee en x
+	 * @param y Coordonnee en y
 	 * @return true si la case existe et false sinon
 	 * */
 	public boolean estCaseExistante(int x,int y){
@@ -741,8 +935,8 @@ public class MoteurJeu {
 	}
 	
 	/**
-	 * Teste si la case de coordonnees (x,y) existe ou non
-	 * @param Position p
+	 * Teste si la case de position p existe ou non
+	 * @param p Position a tester
 	 * @return true si la case existe et false sinon
 	 * */
 	public boolean estCaseExistante(Position p){
@@ -754,8 +948,8 @@ public class MoteurJeu {
 	
 	/**
 	 * Renvoie l'entite present sur la carte a la position p
-	 * @param Position p
-	 * @return Entite entite
+	 * @param p La position ou l'on veut l'entite
+	 * @return L'entite que l'on cherche
 	 */
 	public Entite entiteCarte(Position p){
 		if(p == null){
@@ -765,7 +959,8 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Fait tomber le rocher
+	 * Fait tomber une entite pouvant tomber (Roc ou Diamant)
+	 * @param e L'entite devant tomber
 	 * */
 	public void tomber(Entite e){
 		if(!(e instanceof Roc) && !(e instanceof Diamant)){
@@ -790,8 +985,8 @@ public class MoteurJeu {
 			//pour le debugage de tomber
 			if(MODE_DEBUG_TOMBER){
 				System.out.println("ATomber : "+e.toString());
-				getFenetre().repaint();
-				synchronized(getFenetre().getMoteur().thread){
+				fenetre.repaint();
+				synchronized(fenetre.getMoteur().thread){
 					try {
 						thread.wait();
 					} catch (InterruptedException exp) {
@@ -845,7 +1040,7 @@ public class MoteurJeu {
 
 	/**
 	 * Teste si la case de position p peut exploser
-	 * @param Position p
+	 * @param p Position a tester
 	 * @return true si la case peut exploser et false sinon
 	 * */
 	private boolean peutExploser(Position p) {
@@ -857,8 +1052,9 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Construit la carte du jeu avec tout ses objets a partir d' un tableau a 2 dimension
-	 * obtenu en lisant le fichier contenant tout les niveaux.
+	 * Construit la carte du jeu avec tout ses objets a partir d'un tableau a 2 dimensions de char
+	 * obtenu en lisant le fichier contenant tous les niveaux. Utilise des reference vers les entites
+	 * creee plus haut
 	 * */
 	public void construireMapEntite(){
 		//nouveau tableau avec nouvelle taille en X et Y
@@ -897,8 +1093,11 @@ public class MoteurJeu {
 	}
 
 
-
-	public String afficherMapEntite(){ //Temporaire avant l'affichage propre. sert aussi au test pour voir si tout se passe bien
+	/**
+	 * Methode de debug renvoyant la map d'entite (leur apparence)
+	 * @return Retourne une chaine de caractere representant la map d'entite
+	 */
+	public String afficherMapEntite(){ 
 		String s = "";
 		for(int i=0;i<map.getHauteur();i++){
 			for(int j=0;j<map.getLargeur();j++){
@@ -910,7 +1109,7 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Ajoute la porte au jeu si le nombre de diamants est suffisant.
+	 * Ajoute la porte a la map d'entite si on a recuperer le nombre adequat de diamant
 	 * */
 	public void afficherPorte(){
 		for(int i=0;i<map.getHauteur();i++){
@@ -923,13 +1122,11 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Fait changer de carte et relance une nouvelle partie.
+	 * Reset la map : 
+	 * Vide les positions, remet le score, le nombre de diamant recupere a 0.
+	 * Reconstruit la meme map qu'au depart et relance la partie
 	 * */
-	
 	public void resetMap(){
-		/*aGagne = false;
-		aPerdu = false;*/
-		
 		joueur.viderPosition();
 		espace.viderPosition();
 		poussiere.viderPosition();
@@ -952,9 +1149,13 @@ public class MoteurJeu {
 		System.out.println(afficherMapEntite());
 	}
 	
+	/**
+	 * Change la map par celle conrespondant au numero passe en parametre.
+	 * Vide les positions des entites, remet le score et le nombre de diamant recupere a 0
+	 * Lance la partie sur cette nouvelle map
+	 * @param n Numero de la nouvelle map
+	 */
 	public void changerMap(int n){
-		/*aGagne = false;
-		aPerdu = false;*/
 		fenetre.ecrireMessage("Changement en carte "+n, 2);
 		enPause=false;
 		
@@ -980,15 +1181,12 @@ public class MoteurJeu {
 		nbTour = 0;
 
 		construireMapEntite();
-		//fenetre.getMoteur().resetMap();
-		//fenetre.repaint();
-		System.out.println("Position joueur : "+joueur.getPosition());
-		//jeu();
 	}
 
 	/**
 	 * Deplace le joueur sur la case de coordonnees (x, y)
-	 * @param int x, int y
+	 * @param x Coordonnee x de la nouvelle position
+	 * @param y Coordonnee y de la nouvelle position
 	 * */
 	public void deplacerJoueur(int x, int y){
 		if(joueur.getPosition().size()!=1)
@@ -1023,7 +1221,7 @@ public class MoteurJeu {
 
 	/**
 	 * Ajoute un espace a la position indiquee
-	 * @param Position p
+	 * @param p Position ou il faut ajouter un espace
 	 * */
 	public void ajouterUnEspace(Position p) {
 		if(p == null){
@@ -1034,11 +1232,11 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Teste si le deplacement est possible ou non.
+	 * Teste si le deplacement est possible ou non en ayant appuyer sur une certaine touche.
+	 * @param Touche utilise par le joueur
 	 * @return true si le deplacement est possible et false sinon.
 	 * */
 	public boolean deplacementPossible(Touche t1) {
-		//System.out.println("lol "+joueur.getPosition().size());
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
 		Iterator<Position> it = joueur.getPosition().iterator();
@@ -1070,11 +1268,11 @@ public class MoteurJeu {
 
 	/**
 	 * Verifie si la case (posX, posY) est libre ( si elle est traversable )
+	 * @param posX Coordonne en x de la case a tester
+	 * @param posY Coordonne en y de la case a tester
 	 * @return true si la case est libre et false sinon.
 	 * */
 	public boolean caseLibre(int posX, int posY){
-		//System.out.println("Emplacement : "+posX+" "+posY+" longueur, largeur :"+entite.length);
-
 		//verifie le contenu de la case
 		if(entite[posX][posY] instanceof Ennemi)
 			return false;
@@ -1095,18 +1293,12 @@ public class MoteurJeu {
 		return false;
 	}
 
-	public class ActionClavier implements KeyListener{
-		//inutiles
-		public void keyTyped(KeyEvent e) {}
-		public void keyReleased(KeyEvent e) {}
-		//recupère la touche
-		public void keyPressed(KeyEvent evt) {
 
-		}
-	}
-
+	/**
+	 * Permet de recuperer une touche entre au clavier
+	 * @return Retourne la touche
+	 */
 	private char recupererTouche() {
-		//Thread.currentThread().interrupt();
 		synchronized(fenetre.getMoteur().thread){
 			try {
 				thread.wait();
@@ -1115,24 +1307,11 @@ public class MoteurJeu {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Thread reprise");
 		return touche;
 	}
-
-	public int getNombreDiamants(){
-		return nbDiamantRecolte;
-	}
-
-	public int getScore(){
-		return score;
-	}
-
-	public int getNombreTour(){
-		return nbTour;
-	}
-
+	
 	/**
-	 * Fait gagner des points au joueur quand il prend des diamants.
+	 * Fait gagner des points au joueur quand il prend des diamants en incrementant le score.
 	 * */
 	public void gagnerPoints(){
 		nbDiamantRecolte++;
@@ -1151,8 +1330,11 @@ public class MoteurJeu {
 		changerMap(++numMap);
 	}
 
+	/**
+	 * Fait perdre le joueur. Fait aussi reset la carte.
+	 */
 	public void perdu() {
-		getFenetre().ecrireMessage("Vous etes mort !", 1);
+		fenetre.ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
 		resetMap();
 		
@@ -1163,37 +1345,84 @@ public class MoteurJeu {
 		System.out.println(m.toString());
 	}*/
 	
+	/**
+	 * Permet de deplacer les ennemis de la map
+	 */
 	private void deplacerEnnemis(){
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
 		amibe.deplacer(entite);	
 	}
+	
+	/**
+	 * Getter du nombre de diamants
+	 * @return Retourne le nombre de diamants
+	 */
+	public int getNombreDiamants(){
+		return nbDiamantRecolte;
+	}
 
+	/**
+	 * Getter du score
+	 * @return Retourne le score
+	 */
+	public int getScore(){
+		return score;
+	}
 
+	/**
+	 * Getter du nombre de tour
+	 * @return Retourne le nombre de tour
+	 */
+	public int getNombreTour(){
+		return nbTour;
+	}
+
+	/**
+	 * Teste si l'Ia passe en parametre correspond a celle utilise actuellement
+	 * @param ia IA a tester
+	 * @return Retourne true si l'IA correspond a intelligence sinon false
+	 */
 	public boolean estIA(Intelligence ia){
 		return ia.get() == intelligence;
 	}
 
+	/**
+	 * Getter du tableau d'entite entite
+	 * @return Retourne entite
+	 */
 	public Entite[][] getEntite(){
 		return entite;
 	}
 	
+	/**
+	 * Getter du nombre de map dans le fichier de la map utilise
+	 * @return Retourne le nombre de map
+	 */
 	public int getNbMap(){
 		return map.getNbMap();
 	}
 
-	public boolean isEnJeu() {
+	/*public boolean isEnJeu() {
 		return enJeu;
 	}
 
 	public void setEnJeu(boolean enJeu) {
 		this.enJeu = enJeu;
-	}
+	}*/
 
+	/**
+	 * Teste si le joueur a gagne
+	 * @return Retourne aGagne
+	 */
 	public boolean isaGagne() {
 		return aGagne;
 	}
 
+	/**
+	 * Teste si le joueur a perdu
+	 * @return Retourne aPerdu
+	 */
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
@@ -1202,35 +1431,62 @@ public class MoteurJeu {
 	 * Renvoie le pointeur vers la fenêtre principale
 	 * @return FenetreBoulder fenetre
 	 * */
-	public FenetreBoulder getFenetre() {
+	/*public FenetreBoulder getFenetre() {
 		return fenetre;
-	}
+	}*/
 
+	/**
+	 * Getter de la hauteur de la map
+	 * @return Retourne la hauteur de la map
+	 */
 	public int getHauteurMap() {
 		return map.getHauteur();
 	}
 	
+	/**
+	 * Getter de la largeur de la map
+	 * @return Retourne la largeur de la map
+	 */
 	public int getLargeurMap() {
 		return map.getLargeur();
 	}
 	
-	
+	/**
+	 * Getter du nom du fichier ou se trouve la map
+	 * @return Retourne le nom du fichier
+	 */
 	public String getNomFichier(){
 		return nomFichier;
 	}
 	
+	/**
+	 * Getter du numero de la map utilisee
+	 * @return Retourne le numero de la map
+	 */
 	public int getNumMap(){
 		return numMap;
 	}
 
+	/**
+	 * Getter de isAffiche
+	 * @return true si la porte est affiche sinon false
+	 */
 	public boolean isPorteAffiche() {
 		return porteAffiche;
 	}
 
+	/**
+	 * Getter de l'ensemble des positions du diamant
+	 * @return Retourne le set de positionTombe de diamant
+	 */
 	public Set<PositionTombe> getPositionDiamant() {
 		return diamant.getPositionTombe();
 	}
 	
+	/**
+	 * Getter de l'ensemble des positions (ou de la position normalement) du joueur
+	 * @return Retourne le set de position de joueur
+	 */
 	public Set<Position> getPositionJoueur() {
 		return joueur.getPosition();
 	}
@@ -1243,15 +1499,26 @@ public class MoteurJeu {
 		return map.getDiamondRec()*map.getDiamondVal();
 	}*/
 	
+	/**
+	 * Getter du nombre de diamant requis pour gagner
+	 * @return Retourne le nombre de diamant requis pour gagner
+	 */
 	public int getNbDiamandRec(){
 		return map.getDiamondRec();
 	}
 	
+	/**
+	 * Getter de la position de la porte
+	 * @return Retourne la position de la porte
+	 */
 	public Position getPosPorte(){
-		//System.out.println("LA PORTE !!! "+posPorte.toString());
 		return posPorte;	
 	}
 
+	/**
+	 * Getter du nombre de diamant deja recolte
+	 * @return Retourne le nombre de diamant deja recolte
+	 */
 	public int getNbDiamantRecolte() {
 		return nbDiamantRecolte;
 	}
@@ -1260,16 +1527,18 @@ public class MoteurJeu {
 	 * Fait que l'IA va s'arreter dans son execution jusqu' a la prochaine repriseIA()
 	 * */
 	public void pauseIA(){
-		getFenetre().ecrireMessage("Jeu en Pause", 2);
+		fenetre.ecrireMessage("Jeu en Pause", 2);
 		enPause=true;
 	}
+	
 	/**
 	 * Fait reprendre l'IA qui a ete stoppee par pauseIA()
 	 * */
 	public void repriseIA(){
-		getFenetre().ecrireMessage("Jeu en Fonctionnement", 10);
+		fenetre.ecrireMessage("Jeu en Fonctionnement", 10);
 		enPause=false;
 	}
+	
 	/**
 	 * Verifie si le jeuest en pause ou non
 	 * @return true si le jeu est en pause et false sinon
