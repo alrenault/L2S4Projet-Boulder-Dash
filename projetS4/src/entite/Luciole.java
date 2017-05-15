@@ -276,7 +276,7 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	@Override
 	public void mangerJoueur(Entite[][] map, int x, int y) {
 		map[x][y].getPosition().clear();
-		System.out.println("La luciole a mange le joueur");
+		//System.out.println("La luciole a mange le joueur");
 		//moteur.setEnJeu(false);
 		moteur.perdu();
 		//System.exit(0);

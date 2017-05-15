@@ -43,7 +43,7 @@ public class BuildEntity{
 			// -------- CARACTERE NON RECONNU -------- //
 			else{ j = new Espace() ; break ;}
 
-		}	
+		}
 		return j;
 	}
 	

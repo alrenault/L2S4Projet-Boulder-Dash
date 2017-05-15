@@ -52,7 +52,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
 		
-		//choisit aleatoirement les parties de l'amibe et les multiplie peut-etre si possible
+		//choisit aleatoirement les parties de l'amibe et les multiplie peut-être si possible
 		while(true){
 			
 			if(it.hasNext()){
@@ -67,7 +67,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 						mangerJoueur(carte,caseMultiplication.getX(),caseMultiplication.getY());
 					}
 					
-					if(doitDeplacer(caseMultiplication)){
+					if(doitDeplacer(caseMultiplication) && !moteur.isaPerdu()){
 						//multiplie l'amibe
 						position.add(caseMultiplication);
 						carte[caseMultiplication.getX()][caseMultiplication.getY()] = this;
@@ -90,7 +90,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * Exprime si oui ou non l'amibe va se deplacer.
 	 * Le programme de deplacement est fait de telle sorte que :
 	 * -Au 1er tour, l'Amibe a 0% de chances de se deplacer.
-	 * -Au 2ï¿½me tour, l'Amibe a 1 chance sur 2 de se delacer
+	 * -Au 2ème tour, l'Amibe a 1 chance sur 2 de se delacer
 	 * -Les chances montent a 2/3, 3/4, 4/5 etc jusqu'a ce que l'Amibe se deplace
 	 * -Une fois le deplacement effectue, les chances de se deplacer reviennent a 0 et on
 	 * recommence du debut. 
@@ -188,7 +188,7 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 
 	/**
-	 * Verifie si la case indiquee peut ï¿½tre traversee relativement a la direction de la luciole.
+	 * Verifie si la case indiquee peut être traversee relativement a la direction de la luciole.
 	 * @param Entite[][] carte, int x, int y, Touche direction
 	 * @return boolean estTraversable : true si la case est traversable et false sinon.
 	 * */

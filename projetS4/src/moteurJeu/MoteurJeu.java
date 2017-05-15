@@ -27,6 +27,7 @@ public class MoteurJeu {
 
 	//IA
 
+
 	public int tabia = 0;
 	IA_Random random = new IA_Random();
 	char[] directions = random.getDirections();
@@ -133,7 +134,7 @@ public class MoteurJeu {
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
 		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.ME.get();
+		intelligence=Intelligence.DIRECTIVE.get();
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
@@ -162,7 +163,7 @@ public class MoteurJeu {
 		chemin_direct = directive.actionList();
 		jeu();
 	}
-	
+
 	public MoteurJeu(String[] nomVar){
 		for(int i=0;i<nomVar.length;i++){
 			switch(nomVar[i]){
@@ -177,7 +178,7 @@ public class MoteurJeu {
 	
 	//cas de base
 	public MoteurJeu(){
-		this(1,"BD01plus.bd");
+		this(10,"BD01plus.bd");	
 	}
 
 
@@ -323,12 +324,31 @@ public class MoteurJeu {
 					}
 					else{
 						int cpt = 0;
-						while(directive.diamantAccessible().size() == 0 && cpt<map.getHauteur()){
+						while(directive.diamantAccessible().size() == 0 && cpt<map.getHauteur() && intelligence == Intelligence.DIRECTIVE.get()){
 							tour((char)KeyEvent.VK_0,processPosition());
 							processEndOfTurn();
+							fenetre.repaint();
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							if(enPause){
+								synchronized(thread){
+									try {
+										thread.wait();
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+							}
+							cpt++;
 						}
-						if(cpt == map.getHauteur()){
-							break;
+						if(cpt >= map.getHauteur()){
+							intelligence = Intelligence.ME.get();
 						}
 						
 					}
@@ -381,7 +401,6 @@ public class MoteurJeu {
 
 	}
 
-	//A TROUVER L'ERREUR
 	public boolean pousserRocher(Position p){
 		//	System.out.println("COUCOU");
 			int x1 = p.getX();
@@ -1046,6 +1065,7 @@ public class MoteurJeu {
 		case TOUCHE_IMMOBILE:return true;
 		default : return false;
 		}
+		
 	}
 
 	/**
@@ -1070,10 +1090,8 @@ public class MoteurJeu {
 			}
 		}
 		if(entite[posX][posY].isTraversable()){
-			//System.out.println("Case libre");
 			return true;
 		}
-		//System.out.println("Case non libre");
 		return false;
 	}
 
@@ -1134,8 +1152,6 @@ public class MoteurJeu {
 	}
 
 	public void perdu() {
-		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
-		//enJeu=false;
 		getFenetre().ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
 		resetMap();
@@ -1181,7 +1197,7 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
-
+	
 	/**
 	 * Renvoie le pointeur vers la fenêtre principale
 	 * @return FenetreBoulder fenetre
@@ -1193,7 +1209,7 @@ public class MoteurJeu {
 	public int getHauteurMap() {
 		return map.getHauteur();
 	}
-
+	
 	public int getLargeurMap() {
 		return map.getLargeur();
 	}

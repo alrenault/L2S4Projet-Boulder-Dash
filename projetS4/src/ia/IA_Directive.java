@@ -67,7 +67,7 @@ public class IA_Directive implements IA{
 			//cheminTotal.addAll(chemin);
 		//}
 		
-		//System.out.println("cheminTotal : "+cheminTotal.toString());
+		System.out.println("cheminTotal : "+pCC.toString());
 			
 		if(moteur.getNbDiamantRecolte() >= moteur.getNbDiamandRec()){
 			chemin.clear();
