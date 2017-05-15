@@ -20,12 +20,12 @@ public class MoteurJeu {
 	public static final int TOUCHER_MORTEL=2;
 	public char touche;
 	public Thread thread=Thread.currentThread();
+	private boolean enPause =false;
 	public static boolean MODE_DEBUG_TOMBER=false;
 	public static boolean MODE_DEBUG_LIBELLULE=false;
 	public static boolean MODE_DEBUG_LUCIOLE=false;
 
 	//IA
-
 
 	public int tabia = 0;
 	IA_Random random = new IA_Random();
@@ -162,7 +162,7 @@ public class MoteurJeu {
 		chemin_direct = directive.actionList();
 		jeu();
 	}
-
+	
 	public MoteurJeu(String[] nomVar){
 		for(int i=0;i<nomVar.length;i++){
 			switch(nomVar[i]){
@@ -177,12 +177,13 @@ public class MoteurJeu {
 	
 	//cas de base
 	public MoteurJeu(){
-		this(6,"BD01plus.bd");	
+		this(1,"BD01plus.bd");
 	}
 
 
 	public void affichage(){
 
+		//System.out.println(System.getProperty("user.dir"));
 
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
@@ -216,6 +217,8 @@ public class MoteurJeu {
 			aGagne = false;
 			aPerdu = false;
 		}
+		//remet la touche dans un etat indefini pour eviter les bugs
+		touche=KeyEvent.VK_0;
 		deplacerEnnemis();
 		tomber(diamant);
 		tomber(roc);
@@ -248,6 +251,20 @@ public class MoteurJeu {
 		char deplacement = KeyEvent.VK_0 ;
 
 		while(enJeu){
+			deplacement = KeyEvent.VK_0;
+			
+			//pour inserer une pause en cliquant sur la menuBar
+			if(enPause){
+				synchronized(thread){
+					try {
+						thread.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
 			switch(intelligence){
 			case -1 : //NO --- Rockford reste immobile
 				affichage();
@@ -261,7 +278,11 @@ public class MoteurJeu {
 
 			case 0 : //ME --- Vous pouvez diriger Rockford
 				affichage();
-				deplacement = recupererTouche();
+				//pour les appels concurrents entre le click de la souris et la saisie d'une touche
+				while(isIndefini(deplacement)){
+					deplacement = recupererTouche();
+				}
+				repriseIA();
 
 				tour(deplacement,processPosition());
 				processEndOfTurn();
@@ -322,7 +343,9 @@ public class MoteurJeu {
 		}
 	}
 
-
+	private boolean isIndefini(char touche){
+		return touche == KeyEvent.VK_0;
+	}
 
 	public void tour(char touche, Position position){
 		/*System.out.println("Perdu ? "+ aPerdu);
@@ -358,6 +381,7 @@ public class MoteurJeu {
 
 	}
 
+	//A TROUVER L'ERREUR
 	public boolean pousserRocher(Position p){
 		//	System.out.println("COUCOU");
 			int x1 = p.getX();
@@ -640,7 +664,7 @@ public class MoteurJeu {
 			throw new NullPointerException("impossible de tester une case null");
 		}
 		if(!isaPerdu()){
-			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique && entiteCarte(p) != diamant && entiteCarte(p) != espace){
+			if(estCaseExistante(p) && entiteCarte(p) != murTitane && entiteCarte(p) != murMagique && entiteCarte(p) != diamant){
 				if(entiteCarte(p) == roc || entiteCarte(p) == diamant){
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe :");
 					//+entiteCarte(p).getPositionTombe().remove(p)
@@ -649,8 +673,7 @@ public class MoteurJeu {
 					supprimerPositionTombeEntite(pos);
 				}else{
 					System.out.println("___________\n\n"+p+"_____\n_______+tombe pas :"+entiteCarte(p).getPosition().remove(p));
-					System.out.println("l'entite "+entite[p.getX()][p.getY()].getApparence());
-					System.out.println("test explositon "+supprimerPositionEntite(p));
+					supprimerPositionEntite(p);
 				}
 				//si la case a exploser est le joueur, alors c'est perdu.
 				if(entiteCarte(p)==joueur){
@@ -913,6 +936,8 @@ public class MoteurJeu {
 	public void changerMap(int n){
 		/*aGagne = false;
 		aPerdu = false;*/
+		fenetre.ecrireMessage("Changement en carte "+n, 2);
+		enPause=false;
 		
 		joueur.viderPosition();
 		espace.viderPosition();
@@ -1021,7 +1046,6 @@ public class MoteurJeu {
 		case TOUCHE_IMMOBILE:return true;
 		default : return false;
 		}
-		
 	}
 
 	/**
@@ -1046,8 +1070,10 @@ public class MoteurJeu {
 			}
 		}
 		if(entite[posX][posY].isTraversable()){
+			//System.out.println("Case libre");
 			return true;
 		}
+		//System.out.println("Case non libre");
 		return false;
 	}
 
@@ -1105,10 +1131,11 @@ public class MoteurJeu {
 	public void gagner(){
 		aGagne = true;
 		changerMap(++numMap);
-		
-}
+	}
 
 	public void perdu() {
+		//System.exit(0);//A MODIF UNE FOIS QU'ON SAURA QUOI FAIRE !!!
+		//enJeu=false;
 		getFenetre().ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
 		resetMap();
@@ -1154,7 +1181,7 @@ public class MoteurJeu {
 	public boolean isaPerdu() {
 		return aPerdu;
 	}
-	
+
 	/**
 	 * Renvoie le pointeur vers la fenêtre principale
 	 * @return FenetreBoulder fenetre
@@ -1166,7 +1193,7 @@ public class MoteurJeu {
 	public int getHauteurMap() {
 		return map.getHauteur();
 	}
-	
+
 	public int getLargeurMap() {
 		return map.getLargeur();
 	}
@@ -1213,5 +1240,25 @@ public class MoteurJeu {
 		return nbDiamantRecolte;
 	}
 	
-	
+	/**
+	 * Fait que l'IA va s'arreter dans son execution jusqu' a la prochaine repriseIA()
+	 * */
+	public void pauseIA(){
+		getFenetre().ecrireMessage("Jeu en Pause", 2);
+		enPause=true;
+	}
+	/**
+	 * Fait reprendre l'IA qui a ete stoppee par pauseIA()
+	 * */
+	public void repriseIA(){
+		getFenetre().ecrireMessage("Jeu en Fonctionnement", 10);
+		enPause=false;
+	}
+	/**
+	 * Verifie si le jeuest en pause ou non
+	 * @return true si le jeu est en pause et false sinon
+	 * */
+	public boolean enPause(){
+		return enPause;
+	}
 }

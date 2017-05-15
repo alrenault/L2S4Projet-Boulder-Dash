@@ -147,7 +147,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-		//System.out.println("les libellules se deplacent. Il y a "+this.getPosition().size()+" libellule.");
+		System.out.println("les libellules se deplacent. Il y a "+this.getPosition().size()+" libellule.");
 		
 		//copie de l'ensemble des libellules
 		Set<Position> ensemble=new HashSet<Position>();
@@ -193,7 +193,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			if(estCoin(carte,p.getX(),p.getY(),nouvelleDirection)
 					&&estTraversable(carte,p.getX(),p.getY(),directionGauche(nouvelleDirection))
 					&&estTraversable(carte,p.getX(),p.getY(),nouvelleDirection)){
-				//System.out.println("----------------\n----------------\nestCoin");
+				System.out.println("----------------\n----------------\nestCoin");
 				nouvelleDirection=directionGauche(nouvelleDirection);
 			}
 		}
@@ -221,10 +221,10 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			}
 			//nouvelle position.
 			Position pPlusUn = new Position(x,y);
-		/*	System.out.println("ancienne position de la libellule : posX="+p.getX()+
+			System.out.println("ancienne position de la libellule : posX="+p.getX()+
 					" posY="+p.getY()+
 					"\nnouvelle position : x="+pPlusUn.getX()+
-					" y="+pPlusUn.getY());*/
+					" y="+pPlusUn.getY());
 					
 			//deplacement
 			moteur.ajouterUnEspace(p); //rajoute l'emplacement de la libellule a Espace
@@ -232,7 +232,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			this.getPosition().remove(p); //enleve la pos actuelle de this
 			carte[x][y] = this; //fait pointer sur la nouvelle pos
 			carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
-			//System.out.println("changement position libellule : "+this.getPosition().size());
+			System.out.println("changement position libellule : "+this.getPosition().size());
 		}
 		return true;
 	}

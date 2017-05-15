@@ -20,8 +20,8 @@ public abstract class Entite  {
 			position = new HashSet<Position>();
 	}
 	
-	public boolean viderPosition(){
-		return position.removeAll(position);
+	public void viderPosition(){
+		position.removeAll(position);
 	}
 	
 	
@@ -46,8 +46,8 @@ public abstract class Entite  {
 		return positionRoc;
 	}
 	
-	public boolean viderPositionTombe(){
-		return positionRoc.removeAll(positionRoc);
+	public void viderPositionTombe(){
+		positionRoc.removeAll(positionRoc);
 	}
 
 

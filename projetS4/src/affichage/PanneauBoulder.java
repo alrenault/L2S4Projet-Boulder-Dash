@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -72,6 +74,7 @@ public class PanneauBoulder extends JPanel{
 		this.moteur=moteur;
 		raffraichirLongueurEtLargeur();
 		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.3));
+		this.addMouseListener(new EcouteurTouche());
 	}
   
 	private void raffraichirLongueurEtLargeur(){
@@ -203,9 +206,39 @@ public class PanneauBoulder extends JPanel{
 		
 		//messages
 		if(duree>0){
-			g.drawString(message, 10, getHeight()-10);
+			g.setFont(new Font("Arial",1, 20));
+			g.drawString(message, 15, getHeight()-15);
 			duree--;
 		}
 	}
-
+	
+	public class EcouteurTouche implements MouseListener{
+		
+		@Override
+		public void mouseClicked(MouseEvent evt) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+			
+		/**
+		 * Met le jeu en pause quand le joueur clique sur un onglet de la MenuBar
+		 * */
+		@Override
+		public void mousePressed(MouseEvent evt) {
+			synchronized(moteur.thread){
+				//fenetre.getMoteur().thread.wait();
+				if(moteur.enPause()){
+					moteur.repriseIA();
+					repaint();
+					moteur.thread.notify();
+				}else{
+					moteur.pauseIA();
+					repaint();
+				}
+			}
+		}
+	}
 }

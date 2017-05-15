@@ -1,29 +1,24 @@
 
 
-12/05 -- IA Directive + Alexis/Master
-- IA directive fonctionne
-- Merge principalement du moteur (explosion, restructuration de la mÈthode tombe, IA directive)
-- Rajout du mode DEBUG
-
 ------------------------------------------------------------------------------
 
 
 
 28/04/2017 -- Version du jeu suffisante
 
-- MÈcaniques de Jeu :
-  Les ennemis tuent, se dÈplacent, les rochers tombent, les diamants sont rÈcupÈrables, murs magiques opÈrationnels, on peut mourrir ou gagner et accÈder au niveau supÈrieur, etc.
+- M√©caniques de Jeu :
+  Les ennemis tuent, se d√©placent, les rochers tombent, les diamants sont r√©cup√©rables, murs magiques op√©rationnels, on peut mourrir ou gagner et acc√©der au niveau sup√©rieur, etc.
 
-  --> Il manque : les explosions, quelques dÈtails pour les ennemis, ...
+  --> Il manque : les explosions, quelques d√©tails pour les ennemis, ...
 
-- Interface Graphique OpÈrationnelle, compteur de points, de diamants, ...
+- Interface Graphique Op√©rationnelle, compteur de points, de diamants, ...
 
 - IA :
 1) Random - OK
-2) GÈnÈtique - En cours
+2) G√©n√©tique - En cours
 3) Directive - En cours
-4) Directive EvoluÈe - Nom commencÈe
-5) Parfaite - Non commencÈe
+4) Directive Evolu√©e - Nom commenc√©e
+5) Parfaite - Non commenc√©e
 
 
 
@@ -43,7 +38,7 @@ Non lu : Alexis, Adrien, (Nicolas ?)
 Merge : 1
 
 - Ajout des options et de MainTest_v2 :
->> Pour faire fonctionner MainTest_v2, il faut penser ‡ rajouter des options !
+>> Pour faire fonctionner MainTest_v2, il faut penser √† rajouter des options !
 >> Clic Droit sur Maintest_v2 -> Run As.. --> Run Configurations --> Modifier les arguments
 -joue pour jouer
 -name pour les noms
@@ -53,24 +48,30 @@ Merge : 1
 
 Merge : 2
 - Ajout de ce petit fichier pour faciliter la communication/les explications lors de commit, push..
-Abusez-en si il y a quelque chose d'important ‡ dire.
+Abusez-en si il y a quelque chose d'important √† dire.
 
-- MAJ du Menu d'Adrien (+ ColorÈ ; + Compteurs), ajout de Sortie2.png
+- MAJ du Menu d'Adrien (+ Color√© ; + Compteurs), ajout de Sortie2.png
 
 Merge : 3
-- DÈplacement des ennemis implÈmentÈs : Fonctionne sans problËme MAIS
+- D√©placement des ennemis impl√©ment√©s : Fonctionne sans probl√®me MAIS
 1) MoteurJeu.espace (les cases vides) --> est maintenant public et static
 2) Deplacable.deplacer() --> Deplacable.deplacer(Entite[][] carte)
-Cela pourrait nous poser quelques problËmes, faites y attention
+Cela pourrait nous poser quelques probl√®mes, faites y attention
 
 Merge : 4 
-- ImplÈmentation de la derniËre version du package affichage
+- Impl√©mentation de la derni√®re version du package affichage
 
 >>La version de chargerImage() pour le .jar ne fonctionne pas, j'ai repris l'ancienne en prenant le soin de garder celle qui ne marche pas bien
 
->> DÈcouverte d'un bug : Certains diamants ne sont pas ramassÈs du premier coup
---> ProblËme de HashSet ?
---> ProblËme avec public static espace ?
+>> D√©couverte d'un bug : Certains diamants ne sont pas ramass√©s du premier coup
+--> Probl√®me de HashSet ?
+--> Probl√®me avec public static espace ?
 
 
 ----- Fin du Merge
+
+
+
+
+
+
