@@ -349,7 +349,7 @@ public class MoteurJeu {
 	 * Constructeur de test de la classe MoteurJeu
 	 */
 	public MoteurJeu(){
-		this(2,"BD01plus.bd");	
+		this(3,"BD01plus.bd");	
 	}
 
 	/**
@@ -485,10 +485,17 @@ public class MoteurJeu {
 				else {
 					if(directive.diamantAccessible().size() != 0){
 						chemin_direct = directive.actionList();
-						deplacement = chemin_direct.get(0);
-						chemin_direct.remove(chemin_direct.get(0));
-						tour(deplacement,processPosition());
-						processEndOfTurn();
+						if(chemin_direct.size() == 0){
+							intelligence = Intelligence.ME.get();
+							fenetre.ecrireMessage("Aucun chemin trouvé vers la porte. A vous de jouer", 10);
+						}
+						else{
+							deplacement = chemin_direct.get(0);
+							chemin_direct.remove(chemin_direct.get(0));
+							tour(deplacement,processPosition());
+							processEndOfTurn();
+						}
+						
 					}
 					else{
 						while(directive.diamantAccessible().size() == 0 && cpt<map.getHauteur() && intelligence == Intelligence.DIRECTIVE.get()){
@@ -516,6 +523,7 @@ public class MoteurJeu {
 						}
 						if(cpt >= map.getHauteur()){
 							intelligence = Intelligence.ME.get();
+							fenetre.ecrireMessage("Aucun chemin trouvé. A vous de jouer", 10);
 						}	
 					}
 				}
@@ -1431,9 +1439,9 @@ public class MoteurJeu {
 	 * Renvoie le pointeur vers la fenêtre principale
 	 * @return FenetreBoulder fenetre
 	 * */
-	/*public FenetreBoulder getFenetre() {
+	public FenetreBoulder getFenetre() {
 		return fenetre;
-	}*/
+	}
 
 	/**
 	 * Getter de la hauteur de la map

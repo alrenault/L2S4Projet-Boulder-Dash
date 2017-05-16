@@ -73,7 +73,8 @@ public class PanneauBoulder extends JPanel{
 	PanneauBoulder(MoteurJeu moteur){
 		this.moteur=moteur;
 		raffraichirLongueurEtLargeur();
-		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.3));
+		//this.setSize((int)(longueurGrille*TAILLE*1.4),(int)(largeurGrille*TAILLE*1.5));
+		this.setSize(40*30+20,21*30+70);
 		this.addMouseListener(new EcouteurTouche());
 	}
   
