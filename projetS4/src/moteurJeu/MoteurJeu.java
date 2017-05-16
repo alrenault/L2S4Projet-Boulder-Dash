@@ -101,7 +101,8 @@ public class MoteurJeu {
 		ME(0),
 		RANDOM(1),
 		GENETIQUE(2),
-		DIRECTIVE(3);
+		DIRECTIVE(3),
+		REJOUE(4);
 
 		private int intelligence;
 
@@ -334,11 +335,13 @@ public class MoteurJeu {
 					}
 					
 				}
-				
-					
-				
-
-			break;
+				break;
+			case 4 :
+				affichage();
+				//deplacement = iaRejoue.action;
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+				break;
 			}
 		}
 	}

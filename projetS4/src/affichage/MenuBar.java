@@ -6,7 +6,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -31,6 +37,7 @@ public class MenuBar extends JMenuBar{
 		public Fichier(){
 			this.setText("Fichier");
 			this.add(new NouvellePartie());
+			this.add(new Rejouer());
 			this.addMouseListener(new EcouteurTouche());
 		}
 		/**
@@ -54,6 +61,66 @@ public class MenuBar extends JMenuBar{
 				}
 			}
 		}//NouvellePartie
+		/**
+		 * Menu Rejouer
+		 * */
+		public class Rejouer extends JMenu{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			public Rejouer(){
+				this.setText("Rejouer");
+				this.add(new RejouerFichier());
+			}
+			
+			/**
+			 * Onglet Rejouer un fichier
+			 * */
+			private class RejouerFichier extends JMenuItem{
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				
+				public RejouerFichier(){
+					this.setText("Rejouer une partie enregistree");
+					this.addActionListener(new ActionLecture());
+				}
+				
+				private class ActionLecture implements ActionListener{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JFileChooser choix = new JFileChooser();
+						String path="";
+						ArrayList<Character> listRetour = new ArrayList<Character>();
+						int retour=choix.showOpenDialog(null);
+						if(retour==JFileChooser.APPROVE_OPTION){
+						   // un fichier a été choisi (sortie par OK)
+						   // nom du fichier  choisi 
+						   //choix.getSelectedFile().getName();
+						   // chemin absolu du fichier choisi
+						   path = choix.getSelectedFile().getAbsolutePath();
+						}
+						Scanner sc;
+						String ligne = "";
+						try {
+							sc = new Scanner(new File(path));
+							ligne = sc.nextLine();
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						}
+						for(int i=0;i<ligne.length();i++){
+							char cara = ligne.charAt(i);
+							System.out.println("Prochain cara : "+cara);
+							listRetour.add(cara);
+						}
+						
+					}
+				}//ActionLecture
+			}//RejouerFichier
+		}//Rejouer
 	}//Fichier
 	
 	/**
