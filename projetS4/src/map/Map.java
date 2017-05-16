@@ -10,6 +10,7 @@ import java.util.Scanner;
  * @author PITROU Adrien
  * @author RENAULT Alexis
  * @author LEVEQUE Quentin
+ * @author MARIN Nicolas
  * 
  */
 
@@ -278,7 +279,7 @@ public class Map{
 
 	/**
 	 * Redefinition de la methode toString() pour Map
-	 * @return Retourne via une chaine de caractere l'etat de la map
+	 * @return Retourne l'etat de la map via une chaine de caractere
 	 */
 	public String toString(){
 		String s ="";

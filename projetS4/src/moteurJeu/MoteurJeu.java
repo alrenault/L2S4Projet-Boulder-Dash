@@ -19,7 +19,6 @@ import affichage.FenetreBoulder;
  * @author PITROU Adrien
  * @author RENAULT Alexis
  * @author LEVEQUE Quentin
- * 
  */
 
 public class MoteurJeu {
@@ -37,7 +36,7 @@ public class MoteurJeu {
 	public Thread thread=Thread.currentThread();
 	
 	/**
-	 * Boolean represantant si le jeu est en pause ou non
+	 * Booleen represantant si le jeu est en pause ou non
 	 */
 	private boolean enPause =false;
 	
@@ -279,7 +278,7 @@ public class MoteurJeu {
 	/**
 	 * Permet a la barre de menu de changer le mode d'IA sans pour autant donner acces
 	 * a la variable.
-	 * @param Intelligence ia
+	 * @param ia La nouvelle IA
 	 * */
 	public void changerIA(Intelligence ia){
 		this.intelligence=ia.get();
@@ -371,7 +370,7 @@ public class MoteurJeu {
 
 	/**
 	 * Renvoi la position du joueur
-	 * @throws Si le joueur n'a aucune ou plusieurs positions renvoi une erreur
+	 * @throws IllegalArgumentException Si le joueur n'a aucune ou plusieurs positions renvoi une erreur
 	 * @return Retourne la position du joueur
 	 */
 	public Position processPosition(){
@@ -396,8 +395,6 @@ public class MoteurJeu {
 		deplacerEnnemis();
 		tomber(diamant);
 		tomber(roc);
-		joueur.gagne();
-		joueur.prendObjets();
 		}
 		
 	/**
@@ -1241,7 +1238,7 @@ public class MoteurJeu {
 
 	/**
 	 * Teste si le deplacement est possible ou non en ayant appuyer sur une certaine touche.
-	 * @param Touche utilise par le joueur
+	 * @param t1 utilise par le joueur
 	 * @return true si le deplacement est possible et false sinon.
 	 * */
 	public boolean deplacementPossible(Touche t1) {

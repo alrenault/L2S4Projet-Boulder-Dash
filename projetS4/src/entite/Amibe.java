@@ -11,16 +11,26 @@ import moteurJeu.MoteurJeu.Touche;
 
 /**
  * Classe qui sert a modeliser une Amibe et ses comportements
- * @author PITROU Adrien / LEVEQUE Quentin
- * @since 28/04/17
- * @version 1.0
- * */
-public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+
+public class Amibe extends Entite implements Deplacable, Ennemi {
+	
+	/**
+	 * Pourcentage de chance que l'amibe se deplace
+	 */
 	private int seuil=0;
+	
+	/**
+	 * Moteur de jeu relie a l'amibe
+	 */
 	private MoteurJeu moteur;
 	
 	/**
 	 * Le constructeur d'Amibe.
+	 * @param moteur Reference vers le moteur de jeu
 	 * */
 	public Amibe(MoteurJeu moteur) {
 		this.apparence = 'a';
@@ -29,16 +39,9 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	}
 
 	/**
-	 * Fait disparaitre des morceaux d'Amibe.
-	 * */
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * Fait se multiplier l'Amibe.
-	 * @param Entite[][] carte
+	 * Fait s'agrandir l'Amibe.
+	 * @param carte Map d'entite où l'on fait s'agrandir l'amibe
+	 * @return Retourne true si l'amibe grandit false sinon
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
@@ -94,8 +97,8 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	 * -Les chances montent a 2/3, 3/4, 4/5 etc jusqu'a ce que l'Amibe se deplace
 	 * -Une fois le deplacement effectue, les chances de se deplacer reviennent a 0 et on
 	 * recommence du debut. 
-	 * @param Position caseMultiplication
-	 * @return true si l'Amibe va se deplacer et false sinon
+	 * @param caseMultiplication Case ou l'amibe pourrait se deplacer
+	 * @return Retourne true si l'Amibe va se deplacer et false sinon
 	 * */
 	private boolean doitDeplacer(Position caseMultiplication) {
 		if(caseMultiplication==null){
@@ -120,8 +123,8 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 	/**
 	 * Renvoie aleatoirement un des voisins passe en parametre
-	 * @param Position[] voisins
-	 * @return Position voisinChoisi : Le voisin choisi aleatoirement 
+	 * @param voisins Tableau de voisins
+	 * @return Retourne voisinChoisi : le voisin choisi aleatoirement 
 	 * */
 	private Position aleaVoisins(ArrayList<Position> voisins) {
 		if(voisins==null){
@@ -139,8 +142,9 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 	/**
 	 * Trouve les voisins de la Position passee en parametres
-	 * @param Entite[][] carte, Position pos
-	 * @return Position[] voisins : Les voisins valides de la caseVisee
+	 * @param carte La map sur laquelle se trouve l'amibe
+	 * @param pos La position dont on veut les voisins
+	 * @return  Retourne voisins : Les voisins valides de la caseVisee
 	 * */
 	private ArrayList<Position> trouverVoisins(Entite[][] carte, Position pos) {
 		if(carte==null){
@@ -179,6 +183,13 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 		return listeVoisins;
 	}
 	
+	/**
+	 * Teste si la position est situe sur la map ou non
+	 * @param carte La map ou se trouve l'amibe
+	 * @param x Coordonnee en x de la position a tester
+	 * @param y Coordonnee en y de la position a tester
+	 * @return Retourne true si la position se trouve dans la map, false sinon
+	 */
 	private boolean positionsCorrectes(Entite[][] carte, int x, int y) {
 		if(carte==null){
 			throw new NullPointerException("Carte a null pour positionsCorrectes de l'Amibe");
@@ -188,8 +199,10 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 
 	/**
-	 * Verifie si la case indiquee peut être traversee relativement a la direction de la luciole.
-	 * @param Entite[][] carte, int x, int y, Touche direction
+	 * Verifie si la case indiquee peut être traversee.
+	 * @param carte La carte sur laquelle se trouve l'amibe
+	 * @param x Coordonnee en x de la position a tester
+	 * @param y Coordonnee en y de la position a tester
 	 * @return boolean estTraversable : true si la case est traversable et false sinon.
 	 * */
 	private boolean estTraversable(Entite[][] carte, int x, int y){
@@ -205,7 +218,9 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 
 	/**
 	 * Mange le joueur
-	 * @param Entite[][] map, int x, int y
+	 * @param map La map sur laquelle se trouve l'amibe
+	 * @param x Coordonnee en x ou se trouve le joueur
+	 * @param y Coordonnee en y ou se trouve le joueur
 	 * */
 	@Override
 	public void mangerJoueur(Entite[][] map, int x, int y) {

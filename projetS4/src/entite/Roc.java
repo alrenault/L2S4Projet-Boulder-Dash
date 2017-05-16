@@ -1,40 +1,25 @@
 package entite;
 
-import java.util.Set;
+/**
+ * Classe construisant un rocher
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Roc extends Entite {
 
-public class Roc extends Entite implements Deplacable, Disparaitre {
-
-	private boolean tombe = false;
-	
+	/**
+	 * Constructeur de la classe Roc
+	 */
 	public Roc() {
 		this.apparence = 'r';
 		traversable = false;
 	}
 	
-	public void tomber(){
-		
-	}
 
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @return String texte
-	 */
 	@Override
 	public String toString() {
-		return "Roc [positionRoc=" + positionRoc + ", traversable=" + traversable +"]";
+		return "Roc [positionRoc=" + positionTombe + ", traversable=" + traversable +"]";
 	}
 
-	@Override
-	public boolean deplacer(Entite[][] carte) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	
 }

@@ -1,16 +1,19 @@
 package entite;
 
-public class MurBasique extends Entite implements Disparaitre {
+/**
+ * Classe construisant un mur basique
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class MurBasique extends Entite {
 
+	/**
+	 * Constructeur de la classe MurBasique
+	 */
 	public MurBasique() {
 		this.apparence = 'w';
 		traversable = false;
-	}
-
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
