@@ -24,6 +24,43 @@ Colors=Black Black Red Blue Green
 
 [map]
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WP............wwcccccccccww.........aaaW
+Wd..............wcccccccw...........aaaW
+Wd.......q.......wcccccw............aaaW
+Wd....... w.......wcccw.............aaaW
+W.......w w.......wcccw.............aaaW
+W........ w........wcw..............aaaW
+W.........w....  ..wcw.................W
+W..............r ..wcw.................W
+W..............r ...w..................W
+W.. ...........r ...w..................W
+W.. ...........r ...X..................W
+WMMMMM.........r ...w..................W
+W     .........r ..wqw.................W
+W q   .........r ..wqw.................W
+W............. . ..wqw.................W
+W............. . .wqqqw................W
+W............. . .wqqqw................W
+W............. . wqqqqqw...............W
+W............. .wqqqqqqqw..............W
+W.............wwqqqqqqqqqww............W
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+[/map]
+[/cave]
+
+
+[cave]
+Name=Cave 1
+CaveDelay=6
+CaveTime=150
+DiamondsRequired=3
+DiamondValue=30 15
+AmoebaTime=135
+MagicWallTime=6
+Colors=Black Black Red Blue Green
+
+[map]
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 WP............wwcccccccccww.........raaW
 Wd..............wcccccccw...........raaW
 Wd...............wcccccw............raaW

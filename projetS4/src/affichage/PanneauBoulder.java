@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -32,6 +34,7 @@ public class PanneauBoulder extends JPanel{
 	private final int TAILLE=24;
 	private String message="coucou";
 	private int duree=2;
+	private boolean victoire = false;
 	
 	/**
 	 * Une enumeration qui contient les URL vers les images du jeu.
@@ -72,15 +75,30 @@ public class PanneauBoulder extends JPanel{
 		this.moteur=moteur;
 		raffraichirLongueurEtLargeur();
 		this.setSize((int)(longueurGrille*TAILLE*1.2),(int)(largeurGrille*TAILLE*1.3));
+		this.addMouseListener(new EcouteurTouche());
 	}
   
 	private void raffraichirLongueurEtLargeur(){
-		Entite[][] tab=moteur.getMap();
+		Entite[][] tab=moteur.getEntite();
 		largeurGrille=tab.length;
 		longueurGrille=tab[0].length;
 	}
 	
+	/**
+	 * Affiche le message de victoire quand le joueur a fini la derniere map
+	 * */
+	public void afficherMessageVictoire(){
+		victoire = true;
+		repaint();
+	}
 	
+	/**
+	 * Efface le message de victoire
+	 * */
+	public void effacerMessageVictoire() {
+		victoire = false;
+		repaint();
+	}
 	
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
@@ -177,35 +195,75 @@ public class PanneauBoulder extends JPanel{
 	 * @param Graphics g
 	 * */
 	public void paintComponent(Graphics g){
-		//au cas ou la grille n'aurait pas la meme taille que la precedente
-		raffraichirLongueurEtLargeur();
 		
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		if(victoire){
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setFont(new Font("Arial",1, 40));
+			g.setColor(Color.BLACK);
+			g.drawString("Vous avez gagné !", getWidth()/2 -170, getHeight()/2-20);
+			
+		}else{
+			//au cas ou la grille n'aurait pas la meme taille que la precedente
+			raffraichirLongueurEtLargeur();
+			
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			//moteur.jeu('r');
+			debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
+			debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
+			Entite[][] tab=moteur.getEntite();
+			
+			for(int i=0;i<largeurGrille;i++){
+				for(int j=0;j<longueurGrille;j++){
+					//g.setColor(reconnaitreCouleur(tab[i][j]));
+					/**/
+					//g.fillRect(debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE);
+					g.drawImage(ImagesJeu.SOL.get(), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+					g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+				}
+			}
+			
+			//barre de menu
+			g=dessinerMenu(g);
+			
+			//messages
+			if(duree>0){
+				g.setFont(new Font("Arial",1, 20));
+				g.drawString(message, 15, getHeight()-15);
+				duree--;
+			}
+		}//else du if victoire
+	}
+	
+	public class EcouteurTouche implements MouseListener{
 		
-		//moteur.jeu('r');
-		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
-		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
-		Entite[][] tab=moteur.getMap();
-		
-		for(int i=0;i<largeurGrille;i++){
-			for(int j=0;j<longueurGrille;j++){
-				//g.setColor(reconnaitreCouleur(tab[i][j]));
-				/**/
-				//g.fillRect(debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE);
-				g.drawImage(ImagesJeu.SOL.get(), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
-				g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+		@Override
+		public void mouseClicked(MouseEvent evt) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+			
+		/**
+		 * Met le jeu en pause quand le joueur clique sur un onglet de la MenuBar
+		 * */
+		@Override
+		public void mousePressed(MouseEvent evt) {
+			synchronized(moteur.thread){
+				//fenetre.getMoteur().thread.wait();
+				if(moteur.enPause()){
+					moteur.repriseIA();
+					repaint();
+					moteur.thread.notify();
+				}else{
+					moteur.pauseIA();
+					repaint();
+				}
 			}
 		}
-		
-		//barre de menu
-		g=dessinerMenu(g);
-		
-		//messages
-		if(duree>0){
-			g.drawString(message, 10, getHeight()-10);
-			duree--;
-		}
-	}
-
+	}//ecouteur touche
 }

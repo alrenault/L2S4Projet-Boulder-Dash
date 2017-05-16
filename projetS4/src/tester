@@ -102,10 +102,11 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		immobile=false;
 		
 		if(estCoin(carte,x,y,direction)
-				&&estTraversable(carte,x,y,directionGauche(direction))
+				
 				){
+			//&&estTraversable(carte,x,y,directionGauche(direction))
 			System.out.println("----------------\n----------------\nestCoin");
-			return directionGauche(direction);
+			return directionDroite(direction);
 		}else
 		//si il y a un mur devant, change d'optique, sinon avance.
 				if(!estTraversable(carte,x,y, direction)){
@@ -118,34 +119,42 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 								immobile=true;
 							}else{
 								//Fait demi-tour
-								return directionGauche(direction);
+								System.out.println("tourne derriere");
+								return directionDerriere(direction);
 							}
 						}else{
 							//Tourne a gauche
-							return directionDerriere(direction);
+							System.out.println("tourne gauche");
+							return directionGauche(direction);
 						}
 					}else{
 						//Tourne a droite
+						System.out.println("tourne droite");
 						return directionDroite(direction);
 					}
 				}
+				System.out.println("tourne devant");
 				return direction;
 	}
 	
 	private boolean estCoin(Entite[][] carte,int x,int y,Touche direction){
 		
 		if(direction==Touche.TOUCHE_HAUT){
+			System.out.println("Est coin haut ?");
 			// || !(carte[x-1][y+1] instanceof Joueur)
-			return !(carte[x-1][y-1] instanceof Espace);
+			return (carte[x-1][y-1] instanceof Poussiere) && (carte[x][y-1] instanceof Espace);
 		}else if(direction==Touche.TOUCHE_DROITE){
+			System.out.println("Est coin droite ?");
 			// || !(carte[x-1][y-1] instanceof Joueur)
-			return !(carte[x-1][y+1] instanceof Espace);
+			return (carte[x+1][y-1] instanceof Poussiere) && (carte[x+1][y] instanceof Espace);
 		}else if(direction==Touche.TOUCHE_BAS){
+			System.out.println("Est coin bas ?");
 			// || !(carte[x+1][y-1] instanceof Joueur)
-			return !(carte[x+1][y+1] instanceof Espace);
+			return (carte[x+1][y+1] instanceof Poussiere) && (carte[x][y+1] instanceof Espace);
 		}else if(direction==Touche.TOUCHE_GAUCHE){
+			System.out.println("Est coin gauche ?");
 			// || !(carte[x+1][y+1] instanceof Joueur)
-			return !(carte[x+1][y-1] instanceof Espace);
+			return (carte[x-1][y+1] instanceof Poussiere) && (carte[x-1][y] instanceof Espace);
 		}else{
 			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}

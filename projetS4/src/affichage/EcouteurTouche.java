@@ -36,14 +36,15 @@ public class EcouteurTouche implements KeyListener{
 		char touche=(char) evt.getKeyCode();
 		System.out.println(touche);
 		
-		//if(fenetre.getMoteur().enJeu=true && fenetre.getMoteur().estIA(Intelligence.ME)){
-			//joue un tour.
+		//joue un tour.
+		if(!fenetre.getMoteur().enPause()){
 			fenetre.getMoteur().touche=touche;
+			//attention a ne faire de notify() que si le jeu n'est pas en pause
 			synchronized(fenetre.getMoteur().thread) {
 				fenetre.getMoteur().thread.notify();
 			}
-			//fenetre.repaint();
-		//}
+		}
+		//fenetre.repaint();
 	}
 	
 	@Override

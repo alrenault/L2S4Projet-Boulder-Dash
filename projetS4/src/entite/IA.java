@@ -1,6 +1,7 @@
 package entite;
 
+import java.util.List;
+
 public interface IA {
-	public void action();
-	public void actionList();
+	public List<Character> actionList();
 }
