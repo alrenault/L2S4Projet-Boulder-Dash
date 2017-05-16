@@ -40,6 +40,26 @@ public class Convertisseur {
 		}
 	}
 	
+	/**
+	 * Convertit un tableau de VK vers un tableau de DGHB
+	 * @param tabChara
+	 */
+	public static void convTabVK_vers_DGHB(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertirVK_vers_DGHB(tabChara[i]);
+		}
+	}
+	
+	/**
+	 * Convertit un tableau de DGHB vers un tableau de VK
+	 * @param tabChara
+	 */
+	public static void convTabDGHB_vers_VK(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertirDGHB_vers_VK(tabChara[i]);
+		}
+	}
+	
 	//VK - 6482
 	
 	/**
@@ -72,6 +92,26 @@ public class Convertisseur {
 		}
 	}
 	
+	/**
+	 * Convertit un tableau de VK vers un tableau de 6482
+	 * @param tabChara
+	 */
+	public static void convTabVK_vers_6482(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertirVK_vers_6482(tabChara[i]);
+		}
+	}
+	
+	/**
+	 * Convertit un tableau de 6482 vers un tableau de VK
+	 * @param tabChara
+	 */
+	public static void convTab6482_vers_VK(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertir6482_vers_VK(tabChara[i]);
+		}
+	}
+	
 	//DGHB - 6482
 	
 	/**
@@ -101,6 +141,26 @@ public class Convertisseur {
 		case '8' :return 'h';
 		case '2' :return 'b';
 		default:return 'i';
+		}
+	}
+	
+	/**
+	 * Convertit un tableau de DGHB vers un tableau de 6482
+	 * @param tabChara
+	 */
+	public static void convTabDGHB_vers_6482(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertirDGHB_vers_6482(tabChara[i]);
+		}
+	}
+	
+	/**
+	 * Convertit un tableau de 6482 vers un tableau de DGHB
+	 * @param tabChara
+	 */
+	public static void convTab6482_vers_DGHB(char[] tabChara){
+		for(int i=0;i<tabChara.length;i++){
+			tabChara[i]=Convertisseur.convertir6482_vers_DGHB(tabChara[i]);
 		}
 	}
 }

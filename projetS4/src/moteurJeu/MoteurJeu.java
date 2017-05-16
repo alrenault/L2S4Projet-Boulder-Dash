@@ -336,14 +336,26 @@ public class MoteurJeu {
 					
 				}
 				break;
-			case 4 :
+			case 4 : // rejoue
 				affichage();
-				//deplacement = iaRejoue.action;
+				
+				deplacement = directions[tabia]; tabia++;
+				if (tabia==directions.length) intelligence=Intelligence.ME.get();
 				tour(deplacement,processPosition());
 				processEndOfTurn();
 				break;
-			}
+			}//rejoue
 		}
+	}
+	
+	/**
+	 * Fait passer en IA rejouer avec un tableau de deplacements predefinis passes en parametres
+	 * @param tab
+	 */
+	public void rejouerPartie(char[] tab){
+		directions=tab;
+		resetMap();
+		intelligence=Intelligence.REJOUE.get();
 	}
 
 	private boolean isIndefini(char touche){

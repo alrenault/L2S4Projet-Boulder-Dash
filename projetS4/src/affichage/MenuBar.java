@@ -18,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import moteurJeu.Convertisseur;
 import moteurJeu.MoteurJeu.Intelligence;
 
 public class MenuBar extends JMenuBar{
@@ -93,30 +94,35 @@ public class MenuBar extends JMenuBar{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JFileChooser choix = new JFileChooser();
+						choix.setCurrentDirectory(new File("src"));
 						String path="";
-						ArrayList<Character> listRetour = new ArrayList<Character>();
 						int retour=choix.showOpenDialog(null);
+						//si une option correcte est saisie
 						if(retour==JFileChooser.APPROVE_OPTION){
-						   // un fichier a été choisi (sortie par OK)
-						   // nom du fichier  choisi 
-						   //choix.getSelectedFile().getName();
-						   // chemin absolu du fichier choisi
 						   path = choix.getSelectedFile().getAbsolutePath();
+						   Scanner sc;
+							String ligne = "";
+							//tente de recuperer la premiere ligne du fichier sauvegarde
+							try {
+								sc = new Scanner(new File(path));
+								ligne = sc.nextLine();
+							} catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							}
+							char[] tabChara = new char[ligne.length()];
+							
+							//remplit le tableau de deplacements avec les caracteres de la chaine
+							for(int i=0;i<ligne.length();i++){
+								char chara = ligne.charAt(i);
+								System.out.println("Prochain cara : "+chara);
+								tabChara[i]=chara;
+							}
+							//convertit du format dghb en vk
+							Convertisseur.convTabDGHB_vers_VK(tabChara);
+							
+							//lance l' IA Rejoue
+							fenetre.getMoteur().rejouerPartie(tabChara);
 						}
-						Scanner sc;
-						String ligne = "";
-						try {
-							sc = new Scanner(new File(path));
-							ligne = sc.nextLine();
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace();
-						}
-						for(int i=0;i<ligne.length();i++){
-							char cara = ligne.charAt(i);
-							System.out.println("Prochain cara : "+cara);
-							listRetour.add(cara);
-						}
-						
 					}
 				}//ActionLecture
 			}//RejouerFichier
