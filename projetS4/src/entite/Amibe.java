@@ -3,11 +3,9 @@ package entite;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.RandomAccess;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
 
 /**
  * Classe qui sert a modeliser une Amibe et ses comportements

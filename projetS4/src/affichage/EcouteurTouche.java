@@ -2,13 +2,6 @@ package affichage;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Iterator;
-
-import entite.Position;
-import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Intelligence;
-import moteurJeu.MoteurJeu.Touche;
-
 
 public class EcouteurTouche implements KeyListener{
 	
@@ -17,17 +10,7 @@ public class EcouteurTouche implements KeyListener{
 	EcouteurTouche(FenetreBoulder fenetre){
 		this.fenetre=fenetre;
 	}
-	
-	private Touche convertirTouche(char touche){
-		switch(touche){
-		case KeyEvent.VK_LEFT:return Touche.TOUCHE_GAUCHE;
-		case KeyEvent.VK_RIGHT:return Touche.TOUCHE_DROITE;
-		case KeyEvent.VK_DOWN:return Touche.TOUCHE_BAS;
-		case KeyEvent.VK_UP:return Touche.TOUCHE_HAUT;
-		default:return null;
-		}
-	}
-	
+		
 	/**
 	 * Ecoute le clavier et reagit aux entrees si l'etat du jeu est correct
 	 * */

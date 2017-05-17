@@ -133,6 +133,7 @@ public class Map{
 				nbMap++;
 			}
 		}
+		sc.close();
 	}
 	
 	

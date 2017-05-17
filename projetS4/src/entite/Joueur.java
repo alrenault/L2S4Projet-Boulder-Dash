@@ -1,8 +1,5 @@
 package entite;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 /**
  * Classe creant un joueur 
  * @author PITROU Adrien

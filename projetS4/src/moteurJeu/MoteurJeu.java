@@ -4,7 +4,6 @@ package moteurJeu;
 import ia.*;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
@@ -290,7 +289,6 @@ public class MoteurJeu {
 	 * @param fichier Nom du fichier où se trouve la map
 	 */
 	public MoteurJeu(int numMap, String fichier){
-		//enJeu=true;
 
 		this.chemin = "src/"+fichier;
 		this.nomFichier = fichier;
@@ -317,12 +315,6 @@ public class MoteurJeu {
 
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
-
-		/*Iterator<Position> it = exit.getPosition().iterator();
-		if(it.hasNext())
-			gagne = it.next();*/
-		/*IA_Directive monIA = new IA_Directive(this);
-		monIA.plusCourtCheminDiamant();*/
 		
 		directive = new IA_Directive(this);
 		chemin_direct = directive.actionList();
@@ -348,7 +340,7 @@ public class MoteurJeu {
 	 * Constructeur de test de la classe MoteurJeu
 	 */
 	public MoteurJeu(){
-		this(3,"BD01plus.bd");	
+		this(1,"BD01plus.bd");	
 	}
 
 	/**
@@ -418,7 +410,7 @@ public class MoteurJeu {
 
 		char deplacement = KeyEvent.VK_0 ;
 
-		while(true/*enJeu*/){
+		while(true){
 			int cpt = 0;
 			deplacement = KeyEvent.VK_0;
 			
@@ -441,7 +433,6 @@ public class MoteurJeu {
 
 				tour(deplacement,processPosition());
 				processEndOfTurn();
-				//gameOver();
 
 			break; //!NO
 
@@ -1089,8 +1080,9 @@ public class MoteurJeu {
 				}
 				if(nouveauTab[i][j] == roc || nouveauTab[i][j] == diamant)
 					nouveauTab[i][j].getPositionTombe().add(new PositionTombe(i,j));
-				else
-					nouveauTab[i][j].getPosition().add(new Position(i,j));
+				else{
+					nouveauTab[i][j].getPosition().add( new Position(i,j));
+				}
 				
 				entite=nouveauTab;//memorise le nouveau tableau
 			}
@@ -1149,6 +1141,7 @@ public class MoteurJeu {
 		score=0;
 		nbDiamantRecolte = 0;
 		nbTour = 0;
+		chemin_direct.clear();
 		
 		construireMapEntite();
 		System.out.println(afficherMapEntite());
@@ -1180,7 +1173,8 @@ public class MoteurJeu {
 		map = new Map(n,chemin);
 		numMap = map.getNumMap();
 		
-		
+		chemin_direct.clear();
+
 		score=0;
 		nbDiamantRecolte = 0;
 		nbTour = 0;

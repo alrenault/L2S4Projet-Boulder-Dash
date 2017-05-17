@@ -56,6 +56,14 @@ public class Position {
 	}
 	
 	/**
+	 * Setter de la direction
+	 * @param t La nouvelle direction de l'entite
+	 */
+	public void setDirection(Touche t){
+		direction = t;
+	}
+	
+	/**
 	 * Getter de la coordonnee en x de la position
 	 * @return Retourne x
 	 */

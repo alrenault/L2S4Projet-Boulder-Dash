@@ -16,11 +16,6 @@ import moteurJeu.MoteurJeu.Touche;
 public class Libellule extends Entite implements Deplacable, Ennemi {
 	
 	/**
-	 * Direction de la libellule
-	 */
-	private Touche direction=Touche.TOUCHE_DROITE;
-	
-	/**
 	 * Booleen pour savoir si la libllule est immobile ou non
 	 */
 	private boolean immobile=false;

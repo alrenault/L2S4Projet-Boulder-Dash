@@ -7,12 +7,7 @@ package entite;
  * @author LEVEQUE Quentin
  */
 public class Diamant extends Entite {
-	
-	/**
-	 * Booleen representant si le diamant tombe ou non
-	 */
-	private boolean tombe = false;
-	
+		
 	/**
 	 * Constructeur de la classe Diamant
 	 */
