@@ -19,19 +19,54 @@ import moteurJeu.MoteurJeu;
  * Classe correspondant au panneau d'affichage du jeu. Chaque appel a repaint()
  * va raffraichir cette classe qui va recalculer l'affichage a modifier.
  * @author PITROU Adrien
- * @since 14/04/17
- * @version 1.0
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
  */
 public class PanneauBoulder extends JPanel{
 
+	/**
+	 * Variable pour la serialisation
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Reference vers le moteur de jeu
+	 */
 	private MoteurJeu moteur;
+	
+	/**
+	 * La longueur de la map
+	 */
 	private int longueurGrille=0;
+	
+	/**
+	 * La largeur de la map
+	 */
 	private int largeurGrille=0;
+	
+	/**
+	 * Decallage en x (vers la droite) de la map pour afficher au centre de la fenetre
+	 */
 	private int debutCaseX=0;
+	
+	/**
+	 * Decallage en y (vers le haut) de la map pour afficher au centre de la fenetre
+	 */
 	private int debutCaseY=0;
+	
+	/**
+	 * Taille en pixel des cases
+	 */
 	private final int TAILLE=24;
-	private String message="coucou";
+	
+	/**
+	 * Message a afficher sur le panneau
+	 */
+	private String message="";
+	
+	/**
+	 * Duree d'un message
+	 */
 	private int duree=2;
 	
 	/**
@@ -63,20 +98,21 @@ public class PanneauBoulder extends JPanel{
 		}
 	}
 	
-	//Images img=Images.MUR_BASIQUE;
 
 	/**
-	 * La constructeur de la classe
-	 * @param MoteurJeu moteur
+	 * Constructeur de la classe PanneauBoulder
+	 * @param moteur Reference vers le moteur de jeu
 	 * */
 	PanneauBoulder(MoteurJeu moteur){
 		this.moteur=moteur;
 		raffraichirLongueurEtLargeur();
-		//this.setSize((int)(longueurGrille*TAILLE*1.4),(int)(largeurGrille*TAILLE*1.5));
-		this.setSize(40*30+20,21*30+70);
+		this.setSize(40*(TAILLE+6)+20,21*(TAILLE+6)+70);
 		this.addMouseListener(new EcouteurTouche());
 	}
   
+	/**
+	 * Permet de changer largeurGrille et longueurGrille
+	 */
 	private void raffraichirLongueurEtLargeur(){
 		Entite[][] tab=moteur.getEntite();
 		largeurGrille=tab.length;
@@ -87,6 +123,7 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
+	 * @param path Chemin de l'image
 	 * */
 	/*
 	public static Image chargerImage(String path){
@@ -102,8 +139,8 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Effectue le chargement des images du jeu.
-	 * @param String adresse
-	 * @return Image image
+	 * @param adresse Chemin vers l'image
+	 * @return Retourne l'image a l'adresse indiquee
 	 * */
 	private static Image chargerImage(String adresse){
 		Image img = null;
@@ -117,7 +154,8 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Ecrit un message sur la fenetre d'une duree duree
-	 * @param String message, int duree
+	 * @param message Message a afficher
+	 * @param duree Duree du message
 	 * */
 	public void ecrireMessage(String message, int duree){
 		this.message=message;
@@ -126,8 +164,8 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Recupere l'image associee a une Entite
-	 * @param Entite entite
-	 * @return Image image
+	 * @param entite L'entite dont on veut l'image
+	 * @return Retourne l'image de l'entite
 	 * */
 	private Image recupererImage(Entite entite){
 		if(entite instanceof MurBasique){
@@ -161,7 +199,7 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Dessine la barre de menu du jeu
-	 * @param Graphics g
+	 * @param g Un graphics dans lequel on veut dessiner
 	 * @return Un Graphics avec la barre de menu.
 	 * */
 	private Graphics dessinerMenu(Graphics g) {
@@ -177,7 +215,7 @@ public class PanneauBoulder extends JPanel{
 	
 	/**
 	 * Redessine le jeu quand appele par repaint()
-	 * @param Graphics g
+	 * @param g Le graphics que l'on veut afficher
 	 * */
 	public void paintComponent(Graphics g){
 		//au cas ou la grille n'aurait pas la meme taille que la precedente
@@ -186,16 +224,12 @@ public class PanneauBoulder extends JPanel{
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		//moteur.jeu('r');
 		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
 		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
 		Entite[][] tab=moteur.getEntite();
 		
 		for(int i=0;i<largeurGrille;i++){
 			for(int j=0;j<longueurGrille;j++){
-				//g.setColor(reconnaitreCouleur(tab[i][j]));
-				/**/
-				//g.fillRect(debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE);
 				g.drawImage(ImagesJeu.SOL.get(), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
 				g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
 			}
@@ -212,6 +246,9 @@ public class PanneauBoulder extends JPanel{
 		}
 	}
 	
+	/**
+	 * Classe interne permettant de mettre en pause quant on clique sur la fenetre
+	 */
 	public class EcouteurTouche implements MouseListener{
 		
 		@Override

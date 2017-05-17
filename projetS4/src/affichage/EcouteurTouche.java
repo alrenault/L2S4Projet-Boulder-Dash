@@ -3,16 +3,30 @@ package affichage;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Classe permettant de prendre les touches entrees au clavier
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public class EcouteurTouche implements KeyListener{
 	
+	/**
+	 * Reference vers la fenetre graphique
+	 */
 	private FenetreBoulder fenetre;
 	
+	/**
+	 * Constructeur de la classe EcouteurTouche
+	 * @param fenetre Reference vers la fenetre graphique
+	 */
 	EcouteurTouche(FenetreBoulder fenetre){
 		this.fenetre=fenetre;
 	}
 		
 	/**
 	 * Ecoute le clavier et reagit aux entrees si l'etat du jeu est correct
+	 * @param evt La touche saisie
 	 * */
 	@Override
 	public void keyPressed(KeyEvent evt) {
