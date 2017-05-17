@@ -1,7 +1,14 @@
 package ia;
 import moteurJeu.MoteurJeu.Touche;
 
+/**
+ * Classe construisant une IA random
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public class IA_Random {
+	
 	private Rockford j ;
 
 	public IA_Random() {
