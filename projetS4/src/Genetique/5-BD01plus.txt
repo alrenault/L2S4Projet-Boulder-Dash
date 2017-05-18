@@ -1,0 +1,316 @@
+IA_Génétique de Map-Fichier :src\Genetique\data\5-BD01plus.dat 
+Génération : 1252
+_______________________________________
+
+Nombre de Pas sur la Map : 240
+Nombre de Rockford : 100
+Nombre d'Opérations Déplacement (population*nbPas) = 24000
+_______________________________________
+
+Listes de Déplacement : 
+
+
+Rockford n°1 --> Rockford : 376853 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°2 --> Rockford : 376854 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°3 --> Rockford : 376855 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°4 --> Rockford : 376856 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°5 --> Rockford : 376857 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°6 --> Rockford : 376858 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, 0, 0, 0, 0, (, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°7 --> Rockford : 376859 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°8 --> Rockford : 376860 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°9 --> Rockford : 376861 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°10 --> Rockford : 376862 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°11 --> Rockford : 376863 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°12 --> Rockford : 376864 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, 0, 0, 0, 0, (, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°13 --> Rockford : 376865 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°14 --> Rockford : 376866 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°15 --> Rockford : 376867 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°16 --> Rockford : 376868 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°17 --> Rockford : 376869 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, 0, ']
+
+Rockford n°18 --> Rockford : 376870 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°19 --> Rockford : 376871 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°20 --> Rockford : 376872 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°21 --> Rockford : 376873 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°22 --> Rockford : 376874 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°23 --> Rockford : 376875 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°24 --> Rockford : 376876 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°25 --> Rockford : 376877 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, 0, ']
+
+Rockford n°26 --> Rockford : 376878 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°27 --> Rockford : 376879 	Victorieux : false ; Nombre de Diamants : 3 ; Nombre de Pas : 45 	
+[%, (, 0, %, ', 0, %, %, 0, 0, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, 0, 0, 0, 0, 0, 0, (, (, &, 0, 0, (, 0]
+
+Rockford n°28 --> Rockford : 376880 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°29 --> Rockford : 376881 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°30 --> Rockford : 376882 	Victorieux : true ; Nombre de Diamants : 9 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°31 --> Rockford : 376883 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, ', %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, 0, &, (, (, (, (, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°32 --> Rockford : 376884 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, (, 0, ', ', ', 0, ', (, ', (, &, 0, (, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, ', (, ']
+
+Rockford n°33 --> Rockford : 376885 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[0, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, (, 0, 0, ', (, ', (, &, 0, &, %, (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°34 --> Rockford : 376886 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, &, 0, %, &, %, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, 0, ']
+
+Rockford n°35 --> Rockford : 376887 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, &, %, (, &, 0, (, ', ', 0, ', (, %, (, &, &, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, ', 0]
+
+Rockford n°36 --> Rockford : 376888 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, ', 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, ', 0, (, ', 0, 0, 0, 0, ', (, &, ', 0, (, ']
+
+Rockford n°37 --> Rockford : 376889 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[0, 0, 0, 0, 0, (, %, %, 0, %, %, 0, (, &, 0, (, ', ', 0, ', (, ', ', &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, ', (, &, 0, 0, (, ']
+
+Rockford n°38 --> Rockford : 376890 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, (, 0, 0, %, %, 0, 0, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, ', 0, 0, (, (, &, &, 0, (, ']
+
+Rockford n°39 --> Rockford : 376891 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, &, &, (, &, (, (, ', ', 0, 0, (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°40 --> Rockford : 376892 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[0, (, 0, 0, 0, 0, %, %, %, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, &, (, &, 0, 0, (, ']
+
+Rockford n°41 --> Rockford : 376893 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, ', 0, 0, ', %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, %, 0, 0, (, (, (, 0, 0, (, ']
+
+Rockford n°42 --> Rockford : 376894 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, ', 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, 0, ']
+
+Rockford n°43 --> Rockford : 376895 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, %, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, 0, 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°44 --> Rockford : 376896 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[&, (, 0, 0, 0, 0, %, %, 0, %, %, ', (, &, 0, (, ', &, 0, ', (, ', (, &, 0, &, ', (, (, ', (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°45 --> Rockford : 376897 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, (, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, %, 0, (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°46 --> Rockford : 376898 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, %, ', 0, ', (, ', (, &, 0, &, ', ', (, (, (, 0, (, ', 0, 0, &, 0, (, (, &, 0, %, (, ']
+
+Rockford n°47 --> Rockford : 376899 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[0, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, 0, ', (, (, (, (, 0, (, ', 0, ', 0, 0, (, ', &, 0, 0, (, ']
+
+Rockford n°48 --> Rockford : 376900 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, ', &, 0, &, ', ', 0, ', (, ', (, &, 0, %, ', (, (, (, (, 0, (, ', %, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°49 --> Rockford : 376901 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, &, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, (, ', ', ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, %, (, ']
+
+Rockford n°50 --> Rockford : 376902 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, 0, &, 0, 0, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, ', (, ', 0, 0, 0, 0, (, (, %, 0, 0, (, ']
+
+Rockford n°51 --> Rockford : 376903 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, (, (, ', ', 0, ', (, ', ', &, 0, &, ', (, (, (, (, 0, ', ', 0, 0, 0, 0, (, (, (, 0, 0, (, ']
+
+Rockford n°52 --> Rockford : 376904 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, %, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, 0, ', ', (, (, (, 0, &, ', 0, 0, 0, 0, (, (, &, 0, (, 0, ']
+
+Rockford n°53 --> Rockford : 376905 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, (, 0, &, (, (, (, (, (, 0, (, ', %, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°54 --> Rockford : 376906 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, 0, %, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, &, (, (, (, (, (, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°55 --> Rockford : 376907 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, %, %, %, %, (, &, 0, (, ', 0, 0, %, (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, %, (, &, 0, 0, (, ']
+
+Rockford n°56 --> Rockford : 376908 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, ', &, 0, (, ', ', 0, ', (, 0, (, &, 0, ', ', (, (, (, (, 0, (, 0, 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°57 --> Rockford : 376909 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, 0, %, 0, %, %, %, (, &, 0, (, ', ', (, ', (, ', (, &, 0, &, ', %, (, (, (, 0, (, ', 0, 0, 0, &, (, (, &, 0, 0, (, ']
+
+Rockford n°58 --> Rockford : 376910 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, 0, 0, 0, 0, 0, %, %, 0, %, ', %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, %, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, %, ']
+
+Rockford n°59 --> Rockford : 376911 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, 0, ', 0, 0, (, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, &, (, ', 0, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, %, (, ']
+
+Rockford n°60 --> Rockford : 376912 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, (, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, %, (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, %, (, ']
+
+Rockford n°61 --> Rockford : 376913 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', ', (, &, (, 0, (, ', 0, 0, 0, %, (, (, &, 0, &, (, ']
+
+Rockford n°62 --> Rockford : 376914 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, &, (, &, 0, (, ', ', 0, ', (, ', (, ', 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, %, %, ']
+
+Rockford n°63 --> Rockford : 376915 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, (, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, ', ', 0, 0, 0, &, 0, (, &, 0, 0, (, ']
+
+Rockford n°64 --> Rockford : 376916 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, ', 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', 0, 0, ', (, ', (, &, 0, ', ', (, (, (, (, 0, (, ', 0, (, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°65 --> Rockford : 376917 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, ', 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, ', (, (, 0, &, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°66 --> Rockford : 376918 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, %, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, %, &, ', %, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, (, ']
+
+Rockford n°67 --> Rockford : 376919 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[', &, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', (, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, %, (, &, 0, 0, (, ']
+
+Rockford n°68 --> Rockford : 376920 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, (, %, %, %, (, &, %, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, ', 0, (, (, (, 0, 0, (, ']
+
+Rockford n°69 --> Rockford : 376921 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, &, ', ', 0, ', (, ', (, &, 0, &, ', &, (, (, (, 0, 0, ', 0, 0, 0, 0, (, (, &, %, 0, (, ']
+
+Rockford n°70 --> Rockford : 376922 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, 0, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', %, (, (, (, 0, ', ', 0, 0, (, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°71 --> Rockford : 376923 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, (, ']
+
+Rockford n°72 --> Rockford : 376924 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, (, %, %, 0, %, %, %, (, &, ', (, ', ', 0, ', (, ', (, &, 0, &, ', %, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°73 --> Rockford : 376925 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, (, (, ', ', 0, ', (, ', (, &, 0, ', (, (, (, (, (, 0, (, ', 0, %, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°74 --> Rockford : 376926 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, (, 0, %, ', ', 0, ', %, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, 0, 0, (, 0, ']
+
+Rockford n°75 --> Rockford : 376927 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, 0, 0, 0, 0, (, %, %, 0, %, %, %, (, &, 0, %, ', ', 0, (, (, ', (, &, 0, %, ', (, (, %, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°76 --> Rockford : 376928 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, (, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, (, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, %, 0, 0, (, %]
+
+Rockford n°77 --> Rockford : 376929 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', ', ', (, ', (, (, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, ', 0, 0, (, ']
+
+Rockford n°78 --> Rockford : 376930 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, %, 0, %, 0, 0, %, %, %, (, &, (, (, ', ', 0, ', (, ', (, &, 0, ', ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°79 --> Rockford : 376931 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, &, 0, 0, %, %, 0, %, %, %, (, &, 0, (, &, ', 0, ', (, ', (, ', 0, &, ', (, (, (, (, 0, (, (, 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°80 --> Rockford : 376932 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, &, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, %, 0, 0, (, ']
+
+Rockford n°81 --> Rockford : 376933 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, &, %, %, (, &, 0, (, ', ', 0, ', (, ', %, &, 0, &, ', (, (, (, &, 0, (, ', 0, 0, 0, 0, (, (, &, %, 0, (, ']
+
+Rockford n°82 --> Rockford : 376934 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, ', 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', %, ', (, &, %, &, ', (, (, 0, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°83 --> Rockford : 376935 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, ', (, ', ', 0, ', (, ', (, &, &, &, ', (, (, (, (, 0, (, ', ', 0, 0, 0, (, (, &, 0, 0, (, 0]
+
+Rockford n°84 --> Rockford : 376936 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, 0, ', (, (, (, (, 0, (, 0, ', 0, (, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°85 --> Rockford : 376937 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[(, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, %, (, ', (, &, 0, (, ', (, (, (, (, 0, (, ', 0, 0, (, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°86 --> Rockford : 376938 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[', (, 0, 0, 0, 0, %, %, %, %, %, %, (, &, 0, &, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, %, ']
+
+Rockford n°87 --> Rockford : 376939 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, ', %, %, %, (, &, 0, (, ', %, 0, ', (, ', (, &, 0, (, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, ', 0, (, ']
+
+Rockford n°88 --> Rockford : 376940 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, %, ', 0, %, %, 0, 0, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', &, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, (, 0, (, ']
+
+Rockford n°89 --> Rockford : 376941 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, (, (, %, %, %, &, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, (, ', ']
+
+Rockford n°90 --> Rockford : 376942 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, %, ', 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, 0, (, 0, 0, ', 0, 0, 0, 0, (, (, &, 0, 0, (, &]
+
+Rockford n°91 --> Rockford : 376943 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, 0, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, 0, ', (, 0, (, ']
+
+Rockford n°92 --> Rockford : 376944 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, ', &, %, (, &, 0, (, ', 0, 0, ', (, ', (, &, 0, &, ', (, (, %, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°93 --> Rockford : 376945 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, ', ', ', ', 0, ', (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, &, &, 0, 0, (, %]
+
+Rockford n°94 --> Rockford : 376946 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, 0, 0, (, 0, (, %, %, 0, (, %, %, (, &, 0, (, ', ', 0, ', (, %, (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, %, (, (, &, 0, 0, (, ']
+
+Rockford n°95 --> Rockford : 376947 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, &, ', ', ', &, 0, &, ', (, (, (, (, 0, (, 0, 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°96 --> Rockford : 376948 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, 0, 0, 0, 0, %, %, %, 0, %, %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, 0, (, (, 0, (, ', 0, &, 0, 0, &, (, &, 0, 0, (, ']
+
+Rockford n°97 --> Rockford : 376949 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, %, %, %, %, %, &, (, (, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, (, ', (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°98 --> Rockford : 376950 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[%, (, 0, 0, 0, 0, (, %, 0, %, %, %, (, &, (, (, ', ', 0, ', (, ', (, &, (, &, ', 0, (, (, (, 0, (, ', 0, 0, 0, 0, (, (, &, 0, 0, (, ']
+
+Rockford n°99 --> Rockford : 376951 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[(, (, 0, 0, 0, 0, %, %, 0, ', %, %, (, &, 0, (, ', ', 0, ', (, ', (, &, 0, &, ', (, 0, (, (, 0, (, ', 0, 0, 0, 0, (, (, (, 0, 0, (, ']
+
+Rockford n°100 --> Rockford : 376952 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 45 	
+[&, (, 0, 0, 0, 0, %, %, 0, %, (, %, (, &, 0, (, ', ', 0, 0, (, ', (, &, 0, &, ', (, (, (, (, 0, (, ', 0, 0, 0, 0, (, 0, &, 0, 0, (, ']
+
+
+
+-------------- Fin de l'IA : src\Genetique\data\5-BD01plus.dat ; Version 1252 --------------
+

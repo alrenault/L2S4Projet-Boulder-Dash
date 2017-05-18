@@ -2,46 +2,48 @@ package affichage;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Iterator;
 
-/**
- * Classe permettant de prendre les touches entrees au clavier
- * @author PITROU Adrien
- * @author RENAULT Alexis
- * @author LEVEQUE Quentin
- */
+import entite.Position;
+import moteurJeu.MoteurJeu;
+import moteurJeu.Intelligence;
+import moteurJeu.Touche;
+
+
 public class EcouteurTouche implements KeyListener{
 	
-	/**
-	 * Reference vers la fenetre graphique
-	 */
 	private FenetreBoulder fenetre;
 	
-	/**
-	 * Constructeur de la classe EcouteurTouche
-	 * @param fenetre Reference vers la fenetre graphique
-	 */
 	EcouteurTouche(FenetreBoulder fenetre){
 		this.fenetre=fenetre;
 	}
-		
+	
+	private Touche convertirTouche(char touche){
+		switch(touche){
+		case KeyEvent.VK_LEFT:return Touche.TOUCHE_GAUCHE;
+		case KeyEvent.VK_RIGHT:return Touche.TOUCHE_DROITE;
+		case KeyEvent.VK_DOWN:return Touche.TOUCHE_BAS;
+		case KeyEvent.VK_UP:return Touche.TOUCHE_HAUT;
+		default:return null;
+		}
+	}
+	
 	/**
 	 * Ecoute le clavier et reagit aux entrees si l'etat du jeu est correct
-	 * @param evt La touche saisie
 	 * */
 	@Override
 	public void keyPressed(KeyEvent evt) {
 		char touche=(char) evt.getKeyCode();
 		System.out.println(touche);
 		
-		//joue un tour.
-		if(!fenetre.getMoteur().enPause()){
+		//if(fenetre.getMoteur().enJeu=true && fenetre.getMoteur().estIA(Intelligence.ME)){
+			//joue un tour.
 			fenetre.getMoteur().touche=touche;
-			//attention a ne faire de notify() que si le jeu n'est pas en pause
 			synchronized(fenetre.getMoteur().thread) {
 				fenetre.getMoteur().thread.notify();
 			}
-		}
-		//fenetre.repaint();
+			//fenetre.repaint();
+		//}
 	}
 	
 	@Override

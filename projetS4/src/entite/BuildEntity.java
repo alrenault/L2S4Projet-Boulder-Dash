@@ -1,20 +1,9 @@
 package entite;
 
 import moteurJeu.MoteurJeu;
-/**
- * Classe construisant toutes les entites
- * @author PITROU Adrien
- * @author RENAULT Alexis
- * @author LEVEQUE Quentin
- */
+
 public class BuildEntity{
 
-	/**
-	 * Permet de construire les entites en fonction de apparence passe en argument
-	 * @param moteur Reference vers le moteur de jeu
-	 * @param apparence Apparence de l'entite a creer
-	 * @return Retourne l'entite creee
-	 */
 	public Entite buildEntity(MoteurJeu moteur, char apparence){
 		
 		Entite j;
@@ -57,4 +46,8 @@ public class BuildEntity{
 		}
 		return j;
 	}
+	
+	
+
+
 }

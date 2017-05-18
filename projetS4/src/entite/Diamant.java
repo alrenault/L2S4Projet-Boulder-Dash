@@ -1,28 +1,32 @@
 package entite;
 
-/**
- * Classe construisant un diamant
- * @author PITROU Adrien
- * @author RENAULT Alexis
- * @author LEVEQUE Quentin
- */
-public class Diamant extends Entite {
-		
-	/**
-	 * Constructeur de la classe Diamant
-	 */
+public class Diamant extends Entite implements Deplacable, Disparaitre {
+	
+	private boolean tombe = false;
+	
 	public Diamant() {
 		this.apparence = 'd';
 		traversable = true;
 	}
 
+	@Override
+	public void disparait() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean deplacer(Entite[][] carte) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
-	 * Redefinition de la methode toString() pour Diamant
-	 * @return Retourne via une chaine de caractere l'etat du diamant
+	 * @return String texte
 	 */
 	@Override
 	public String toString() {
-		return "Diamant [positionRoc= " + positionTombe + ", traversable=" + traversable + "]";
+		return "Diamant [positionRoc= " + positionRoc + ", traversable=" + traversable + "]";
 	}
 
 }

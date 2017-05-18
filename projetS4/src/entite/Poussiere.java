@@ -1,19 +1,16 @@
 package entite;
 
-/**
- * Classe construisant une poussiere
- * @author PITROU Adrien
- * @author RENAULT Alexis
- * @author LEVEQUE Quentin
- */
-public class Poussiere extends Entite {
+public class Poussiere extends Entite implements Disparaitre {
 
-	/**
-	 * Constructeur de la classe Poussiere
-	 */
 	public Poussiere() {
 		this.apparence = '.';
 		traversable = true;
+	}
+
+	@Override
+	public void disparait() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

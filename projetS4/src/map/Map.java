@@ -4,93 +4,27 @@ import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.Scanner;
 
-
-/**
- * Classe lisant un fichier et enregistre une map avec tous ses arguments
- * @author PITROU Adrien
- * @author RENAULT Alexis
- * @author LEVEQUE Quentin
- * @author MARIN Nicolas
- * 
- */
+import entite.*;
 
 public class Map{
-	
-	/**
-	 * Le chemin du fichier contenant la map
-	 */
 	private Path fichier;
-	
-	/**
-	 * Contenu du fichier
-	 */
 	private String contenu;
 	
-	/**
-	 * Nombre de map contenu dans le fichier
-	 */
 	private int nbMap = 0; //nombre de map
-	
-	/**
-	 * Numéro de la map choisie
-	 */
 	private int numMap;
-	
-	/**
-	 * Hauteur de la map choisie
-	 */
 	private int hauteur;
-	
-	/**
-	 * Largeur de la map choisie
-	 */
 	private int largeur;
-	
-	/**
-	 * Nom de la map choisie
-	 */
 	private String name;
-	
-	/**
-	 * Limite de temps de la map choisie
-	 */
 	private int maptime;
-	
-	/**
-	 * Diamants requis pour gagner sur la map choisie
-	 */
 	private int diamondRec;
-	
-	/**
-	 * La valeur des diamants sur la map choisie
-	 */
 	private int diamondVal;
-	
-	/**
-	 * La valeur supplementaire pour les diamants collecte si le nombre de diamant collecte est supperieur a celui requi
-	 */
 	private int diamondBonus;
-	
-	/**
-	 * Intervalle de temps pour un mouvement de l'amibe de la map choisie
-	 */
 	private int amoebaT;
-	
-	/**
-	 * 
-	 */
 	private int magicWallT;
 	
-	/**
-	 * Tableau de caractere representant la map
-	 */
 	private char[][] tab;
-		
-	/**
-	 * Constructeur de la classe Map
-	 * @param numMap Numero de la map choisie
-	 * @param chemin Chemin du fichier où se trouve la map
-	 */
+	private Entite[][] entite;
+	
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
 			throw new IllegalArgumentException("Fichier non trouvé");
@@ -108,22 +42,11 @@ public class Map{
 		//placerJoueur();
 	}
 	
-	/**
-	 * Permet de lire un fichier suivant un certain encodage
-	 * @param path Chemin du fichier
-	 * @param encoding Encodage choisi
-	 * @return Retourne le contenu du fichier sous forme de chaine de caracteres
-	 * @throws IOException
-	 */
 	static String readFile(Path path, Charset encoding) throws IOException{
 		byte[] encoded = Files.readAllBytes(path);
 		return new String(encoded, encoding);
 	}
 	
-	
-	/**
-	 * Compte le nombre de map dans le fichier et change nbMap en consequence
-	 */
 	public void nbMap(){
 		Scanner sc = new Scanner(contenu);
 		String ligne ="";
@@ -133,15 +56,7 @@ public class Map{
 				nbMap++;
 			}
 		}
-		sc.close();
 	}
-	
-	
-	/**
-	 * Compte le nombre de ligne d'une map dans un fichier
-	 * @param map String representant la map et ses attributs
-	 * @return Retourne le nombre de ligne de la map choisie
-	 */
 	public int nbLigne(String map){
 		Scanner scanner = new Scanner(map);
 		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
@@ -165,9 +80,6 @@ public class Map{
 	}
 	
 	
-	/**
-	 * Trouve la map dans le fichier et l'enregistre ainsi que ses arguments.
-	 */
 	public void findMap(){
 		String map = "";
 		Scanner sc;
@@ -277,11 +189,25 @@ public class Map{
 		scanner.close();
 	}
 	
+	/*public Joueur placerJoueur(){
+		Joueur joueur = null;
+		for(int i=0;i<tab.length;i++){
+			for(int j = 0;j<tab[i].length;j++){
+				if(tab[i][j] == 'P'){
+					joueur = new JoueurHumain(true,true,'R',i,j);
+					tab[i][j] = 'R';
+					System.out.println("i et j : "+i+" "+j);
+					return joueur;
+				}
+			}	
+		}
+		//System.out.println(joueur);
+		return joueur;	
+	}*/
+	
 
-	/**
-	 * Redefinition de la methode toString() pour Map
-	 * @return Retourne l'etat de la map via une chaine de caractere
-	 */
+
+
 	public String toString(){
 		String s ="";
 		s+="Nom : "+name+"s\nLimite de temps : "+maptime+"\n";
@@ -297,86 +223,45 @@ public class Map{
 		return s;
 	}
 	
-	/**
-	 * Getter du contenu de la map
-	 * @return Retourne le contenu de la map
-	 */
 	public String getContenu() {
 		return contenu;
 	}
 
-	/**
-	 * Getter de la hauteur de la map
-	 * @return Retourne la hauteur de la map
-	 */
 	public int getHauteur() {
 		return hauteur;
 	}
 
-	/**
-	 * Getter de la largeur de la map
-	 * @return Retourne la largeur de la map
-	 */
 	public int getLargeur() {
 		return largeur;
 	}
-	
-	/**
-	 * Getter du char [i][j] du tableau de caractere representant la map
-	 * @param i Coordonnee en x du char
-	 * @param j Coordonne en y du char
-	 * @return Retourne le char en [i][j] du tableau de char
-	 */
 	public char getTab(int i, int j){
 		return tab[i][j];
 	}
 	
-	
-/*	public void setTab(int i, int j, char val){
+	public void setTab(int i, int j, char val){
 		tab[i][j] = val;
-	}*/
+	}
 
-	/**
-	 * Getter du nombre requis de diamant pour gagner
-	 * @return Retourne le nombre de diamant requis
-	 */
 	public int getDiamondRec() {
 		return diamondRec;
 	}
 
-	/**
-	 * Getter de la valeur d'un diamant
-	 * @return Retourne la valeur d'un diamant
-	 */
 	public int getDiamondVal() {
 		return diamondVal;
 	}
 
-	/**
-	 * Getter de la valeur bonus d'un diamant
-	 * @return Retourne la valeur bonus d'un diamant
-	 */
 	public int getDiamondBonus() {
 		return diamondBonus;
 	}
 
-	/**
-	 * Getteur du numero de la map choisie
-	 * @return Retourne le numero de la map choisie
-	 */
 	public int getNumMap() {
 		return numMap;
 	}
 
-/*
 	public void setNumMap(int numMap) {
 		this.numMap = numMap;
-	}*/
+	}
 
-	/**
-	 * Getter du nombre de map dans le fichier
-	 * @return Retourne le nombre de map dans le fichier
-	 */
 	public int getNbMap() {
 		return nbMap;
 	}

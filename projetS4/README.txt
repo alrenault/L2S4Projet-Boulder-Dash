@@ -1,5 +1,3 @@
-
-
 12/05 -- IA Directive + Alexis/Master
 - IA directive fonctionne
 - Merge principalement du moteur (explosion, restructuration de la méthode tombe, IA directive)
