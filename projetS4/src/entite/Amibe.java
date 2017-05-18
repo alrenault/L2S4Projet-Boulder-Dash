@@ -29,6 +29,19 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 	}
 
 	/**
+	 * Le constructeur de copie d'Amibe.
+	 * */
+	public Amibe(MoteurJeu moteur, Set<Position> position, int seuil) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+		this.seuil=seuil;
+	}
+	
+	public Amibe copy(){
+		return new Amibe(moteur,position,seuil);
+	}
+	
+	/**
 	 * Fait disparaitre des morceaux d'Amibe.
 	 * */
 	@Override
@@ -212,6 +225,5 @@ public class Amibe extends Entite implements Deplacable, Disparaitre, Ennemi {
 		map[x][y].getPosition().clear();
 		moteur.perdu();
 	}
-	
 	
 }

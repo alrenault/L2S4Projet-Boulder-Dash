@@ -24,13 +24,15 @@ public class MoteurJeu {
 	public static boolean MODE_DEBUG_TOMBER=false;
 	public static boolean MODE_DEBUG_LIBELLULE=false;
 	public static boolean MODE_DEBUG_LUCIOLE=false;
+	public static boolean MODE_DEBUG_PARFAITE=true;
 
 	//IA
 
 	public int tabia = 0;
-	IA_Random random = new IA_Random();
-	char[] directions = random.getDirections();
+	private IA_Random random = new IA_Random();
+	private IA_Parfaite parfaite;
 	private IA_Directive directive;
+	char[] directions = random.getDirections();
 	private List<Character> chemin_direct;
 
 	private int intelligence;
@@ -102,7 +104,8 @@ public class MoteurJeu {
 		RANDOM(1),
 		GENETIQUE(2),
 		DIRECTIVE(3),
-		REJOUE(4);
+		REJOUE(4),
+		PARFAITE(5);
 
 		private int intelligence;
 
@@ -161,6 +164,7 @@ public class MoteurJeu {
 		
 		directive = new IA_Directive(this);
 		chemin_direct = directive.actionList();
+		parfaite=new IA_Parfaite(5,this);
 		jeu();
 	}
 	
@@ -344,7 +348,15 @@ public class MoteurJeu {
 				tour(deplacement,processPosition());
 				processEndOfTurn();
 				break;
-			}//rejoue
+				//rejoue
+				
+			case 5 : //parfaite
+				affichage();
+				
+				processEndOfTurn();
+				break;
+				//parfaite
+			}
 		}
 	}
 	
@@ -1281,5 +1293,63 @@ public class MoteurJeu {
 	 * */
 	public boolean enPause(){
 		return enPause;
+	}
+	public Entite copyEntite(Entite type){
+		//System.out.println("copyEntite apparence : "+type.getApparence());
+		switch(type.getApparence()){
+		case 'R' : return joueur.copy();
+		case 'X' : return exit.copy();
+		case ' ' : return espace.copy();
+		case '.' : return poussiere.copy();
+		case 'r' : return roc.copy();
+		case 'd' : return diamant.copy();
+		case 'w' : return mur.copy();
+		case 'W' : return murTitane.copy();
+		case 'M' : return murMagique.copy();
+		case 'a' : return amibe.copy();
+		case 'E' : return explosion.copy();
+		case 'F' :
+		case 'o' :
+		case 'O' :
+		case 'q' :
+		case 'Q' :return luciole.copy();
+		case 'b' :
+		case 'B' :
+		case 'c' :
+		case 'C' :return libellule.copy();
+		default : 
+			return null;
+		}
+	}
+	public void chargerDonnees(DataRobil data){
+		joueur = data.joueur.copy();
+		luciole = data.luciole.copy();
+		libellule = data.libellule.copy();
+		amibe = data.amibe.copy();
+		explosion = data.explosion.copy();
+		espace = data.espace.copy();
+		mur = data.mur.copy();
+		murTitane = data.murTitane.copy();
+		murMagique = data.murMagique.copy();
+		poussiere = data.poussiere.copy();
+		diamant = data.diamant.copy();
+		if(isPorteAffiche()){
+			posPorte = new Position(data.posPorte.getX(), data.posPorte.getY());
+		}
+		for(int i=0;i<data.entite.length;i++){//copie la map d'entite
+			for(int j=0;j<data.entite[0].length;j++){
+				entite[i][j]=data.entite[i][j].copy();
+			}
+		}
+	}
+
+	public Entite[][] copieEntite() {
+		Entite[][] retour = new Entite[entite.length][entite[0].length];
+		for(int i=0;i<entite.length;i++){
+			for(int j=0;j<entite[0].length;j++){
+				retour[i][j]=(Entite) entite[i][j].copy();
+			}
+		}
+		return retour;
 	}
 }

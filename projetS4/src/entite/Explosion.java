@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import moteurJeu.MoteurJeu;
 
 public class Explosion extends Entite implements Ennemi{
@@ -13,6 +16,15 @@ public class Explosion extends Entite implements Ennemi{
 		this.moteur = moteur;
 		this.apparence = 'E';
 		traversable = false;
+	}
+	
+	public Explosion(MoteurJeu moteur,Set<Position> position) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public Explosion copy(){
+		return new Explosion(moteur,position);
 	}
 	
 	@Override

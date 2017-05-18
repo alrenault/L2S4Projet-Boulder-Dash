@@ -227,6 +227,16 @@ public class MenuBar extends JMenuBar{
 						fenetre.repaint();
 						//fenetre.getMoteur().thread.notify();
 						break;
+					case "IA parfaite":fenetre.getMoteur().changerIA(
+							Intelligence.PARFAITE);
+						//fenetre.getMoteur().enJeu=false;
+						//fenetre.getMoteur().resetMap();
+						//fenetre.getMoteur().jeu();
+						fenetre.getMoteur().repriseIA();
+						fenetre.ecrireMessage("IA Parfaite", 2);
+						fenetre.repaint();
+						//fenetre.getMoteur().thread.notify();
+						break;
 					default:break;
 					}
 				}

@@ -2,12 +2,14 @@ package entite;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
+
+import moteurJeu.MoteurJeu;
 
 public class Joueur extends Entite implements Deplacable, Disparaitre {
-	
-	
 	private int nbreDiamants;
 	public static final char TOUCHE_DROITE='6';
 	public static final char TOUCHE_GAUCHE='4';
@@ -18,6 +20,16 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 	public Joueur() {
 		this.apparence = 'R';
 		traversable = true;
+	}
+	
+	public Joueur(Set<Position> position, int nbreDiamants) {
+		this();
+		this.position = new HashSet<Position>(position);
+		this.nbreDiamants = nbreDiamants;
+	}
+	
+	public Joueur copy(){
+		return new Joueur(position, nbreDiamants);
 	}
 	
 
@@ -84,14 +96,8 @@ public class Joueur extends Entite implements Deplacable, Disparaitre {
 		
 		return p;
 	}*/
-
-
-
-
-
-
-
-	
-	
+	public String toString(){
+		return "Joueur : nbreDiamants : "+nbreDiamants+" "+toStringPosition();
+	}
 	
 }

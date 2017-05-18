@@ -19,6 +19,15 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 		this.moteur = moteur;
 	}
 	
+	public Libellule(MoteurJeu moteur, Set<Position> position) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public Libellule copy(){
+		return new Libellule(moteur, position);
+	}
+	
 	/**
 	 * Verifie si la case indiquee peut être traversee relativement a la direction de la libellule.
 	 * @param Entite[][] carte, int x, int y, Touche direction

@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Diamant extends Entite implements Deplacable, Disparaitre {
 	
 	private boolean tombe = false;
@@ -7,6 +10,15 @@ public class Diamant extends Entite implements Deplacable, Disparaitre {
 	public Diamant() {
 		this.apparence = 'd';
 		traversable = true;
+	}
+	
+	public Diamant(Set<PositionTombe> position) {
+		this();
+		this.positionRoc = new HashSet<PositionTombe>(position);
+	}
+	
+	public Diamant copy(){
+		return new Diamant(positionRoc);
 	}
 
 	@Override
@@ -28,5 +40,4 @@ public class Diamant extends Entite implements Deplacable, Disparaitre {
 	public String toString() {
 		return "Diamant [positionRoc= " + positionRoc + ", traversable=" + traversable + "]";
 	}
-
 }

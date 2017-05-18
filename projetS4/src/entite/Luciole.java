@@ -10,7 +10,7 @@ import moteurJeu.MoteurJeu.Touche;
 public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
 	private MoteurJeu moteur;
-	private boolean immobile = false; 
+	private boolean immobile = false;
 	
 	/**
 	 * Le constructeur de la classe.
@@ -19,6 +19,15 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 		this.moteur = moteur;
 		this.apparence = 'F';
 		traversable = true;;
+	}
+	
+	public Luciole(MoteurJeu moteur, Set<Position> position) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public Luciole copy(){
+		return new Luciole(moteur, position);
 	}
 	
 	/**

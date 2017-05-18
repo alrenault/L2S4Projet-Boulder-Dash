@@ -24,9 +24,6 @@ public abstract class Entite  {
 		position.removeAll(position);
 	}
 	
-	
-	
-	
 	//abstract Entite buildEntity(char apparence, int posX, int posY);
 		
 	public boolean isTraversable() {
@@ -74,13 +71,6 @@ public abstract class Entite  {
 	}
 	}
 	
-
-
-	
-
-
-
-	
-	
+	public abstract Entite copy();
 
 }

@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Exit extends Entite {
 
 	public Exit() {
@@ -7,7 +10,12 @@ public class Exit extends Entite {
 		traversable = true;
 	}
 
-
+	public Exit(Set<Position> position) {
+		this();
+		this.position = new HashSet<Position>(position);
+	}
 	
-
+	public Exit copy(){
+		return new Exit(position);
+	}
 }

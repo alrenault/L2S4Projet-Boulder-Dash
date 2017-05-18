@@ -1,5 +1,6 @@
 package entite;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Roc extends Entite implements Deplacable, Disparaitre {
@@ -9,6 +10,15 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 	public Roc() {
 		this.apparence = 'r';
 		traversable = false;
+	}
+	
+	public Roc(Set<PositionTombe> position) {
+		this();
+		this.positionRoc = new HashSet<PositionTombe>(positionRoc);
+	}
+	
+	public Roc copy(){
+		return new Roc(positionRoc);
 	}
 	
 	public void tomber(){
