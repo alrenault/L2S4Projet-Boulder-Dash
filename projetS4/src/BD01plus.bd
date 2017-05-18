@@ -3,6 +3,14 @@
 
 [BDCFF]
 [game]
+Name=Boulder Dash 1 Plus
+Date=February 2004
+Author=Matthias Steiner
+WWW=http://www.steiner-online.at/en/software.html
+Charset=Original
+Fontset=Original
+Levels=1
+Caves=20
 
 [cave]
 Name=Cave 1

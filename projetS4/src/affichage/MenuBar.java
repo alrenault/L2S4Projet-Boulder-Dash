@@ -4,12 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import moteurJeu.MoteurJeu.Intelligence;
+import moteurJeu.Convertisseur;
+import moteurJeu.Intelligence;
 
 /**
  * Classe gerant le menu sur l'interface graphique
@@ -54,6 +61,7 @@ public class MenuBar extends JMenuBar{
 		public Fichier(){
 			this.setText("Fichier");
 			this.add(new NouvellePartie());
+			this.add(new Rejouer());
 			this.addMouseListener(new EcouteurTouche());
 		}
 		
@@ -84,6 +92,70 @@ public class MenuBar extends JMenuBar{
 				}
 			}
 		}//NouvellePartie
+		/**
+		 * Menu Rejouer
+		 * */
+		public class Rejouer extends JMenu{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			public Rejouer(){
+				this.setText("Rejouer");
+				this.add(new RejouerFichier());
+			}
+			
+			/**
+			 * Onglet Rejouer un fichier
+			 * */
+			private class RejouerFichier extends JMenuItem{
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				
+				public RejouerFichier(){
+					this.setText("Rejouer une partie enregistree");
+					this.addActionListener(new ActionLecture());
+				}
+				
+				private class ActionLecture implements ActionListener{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JFileChooser choix = new JFileChooser();
+						choix.setCurrentDirectory(new File("src"));
+						String path="";
+						int retour=choix.showOpenDialog(null);
+						//si une option correcte est saisie
+						if(retour==JFileChooser.APPROVE_OPTION){
+						   path = choix.getSelectedFile().getAbsolutePath();
+						   Scanner sc;
+							String ligne = "";
+							//tente de recuperer la premiere ligne du fichier sauvegarde
+							try {
+								sc = new Scanner(new File(path));
+								ligne = sc.nextLine();
+							} catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							}
+							List<Character> list = new ArrayList<Character>();
+							//remplit le tableau de deplacements avec les caracteres de la chaine
+							for(int i=0;i<ligne.length();i++){
+								char chara = ligne.charAt(i);
+								System.out.println("Prochain cara : "+chara);
+								list.add(chara);
+							}
+							//convertit du format dghb en vk
+							Convertisseur.convTabDGHB_vers_VK(list);
+							
+							//lance l' IA Rejoue
+							fenetre.getMoteur().rejouerPartie(list);
+						}
+					}
+				}//ActionLecture
+			}//RejouerFichier
+		}//Rejouer
 	}//Fichier
 	
 	/**

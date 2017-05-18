@@ -60,6 +60,20 @@ public class FenetreBoulder extends JFrame{
 	public void ecrireMessage(String message, int duree){
 		panneauBoulder.ecrireMessage(message, duree);
 	}
+
+	/**
+	 * Affiche le message de victoire du panneau quand le joueur a fini la derniere map.
+	 * */
+	public void afficherMessageVictoire(){
+		panneauBoulder.afficherMessageVictoire();
+	}
+	
+	/**
+	 * Efface le message de victoire
+	 * */
+	public void effacerMessageVictoire() {
+		panneauBoulder.effacerMessageVictoire();
+	}
 	
 	/**
 	 * Retourne la reference vers le moteur.

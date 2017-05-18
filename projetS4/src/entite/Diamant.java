@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe construisant un diamant
  * @author PITROU Adrien
@@ -15,6 +18,16 @@ public class Diamant extends Entite {
 		this.apparence = 'd';
 		traversable = true;
 	}
+	
+	public Diamant(Set<PositionTombe> position) {
+		this();
+		this.positionTombe = new HashSet<PositionTombe>(position);
+	}
+	
+	public Diamant copy(){
+		return new Diamant(positionTombe);
+	}
+
 
 	/**
 	 * Redefinition de la methode toString() pour Diamant

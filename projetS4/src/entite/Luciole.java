@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
 /**
  * Classe construisant une luciole
@@ -32,6 +32,15 @@ public class Luciole extends Entite implements Deplacable, Ennemi {
 		this.moteur = moteur;
 		this.apparence = 'F';
 		traversable = true;;
+	}
+	
+	public Luciole(MoteurJeu moteur, Set<Position> position) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public Luciole copy(){
+		return new Luciole(moteur, position);
 	}
 	
 	/**

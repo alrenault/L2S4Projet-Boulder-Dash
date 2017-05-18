@@ -68,6 +68,7 @@ public class PanneauBoulder extends JPanel{
 	 * Duree d'un message
 	 */
 	private int duree=2;
+	private boolean victoire = false;
 	
 	/**
 	 * Une enumeration qui contient les URL vers les images du jeu.
@@ -119,7 +120,21 @@ public class PanneauBoulder extends JPanel{
 		longueurGrille=tab[0].length;
 	}
 	
+	/**
+	 * Affiche le message de victoire quand le joueur a fini la derniere map
+	 * */
+	public void afficherMessageVictoire(){
+		victoire = true;
+		repaint();
+	}
 	
+	/**
+	 * Efface le message de victoire
+	 * */
+	public void effacerMessageVictoire() {
+		victoire = false;
+		repaint();
+	}
 	
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
@@ -218,32 +233,46 @@ public class PanneauBoulder extends JPanel{
 	 * @param g Le graphics que l'on veut afficher
 	 * */
 	public void paintComponent(Graphics g){
-		//au cas ou la grille n'aurait pas la meme taille que la precedente
-		raffraichirLongueurEtLargeur();
 		
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
-		debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
-		Entite[][] tab=moteur.getEntite();
-		
-		for(int i=0;i<largeurGrille;i++){
-			for(int j=0;j<longueurGrille;j++){
-				g.drawImage(ImagesJeu.SOL.get(), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
-				g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+		if(victoire){
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setFont(new Font("Arial",1, 40));
+			g.setColor(Color.BLACK);
+			g.drawString("YOU WON !!!", getWidth()/2 -150, getHeight()/2-20);
+			
+		}else{
+			//au cas ou la grille n'aurait pas la meme taille que la precedente
+			raffraichirLongueurEtLargeur();
+			
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			//moteur.jeu('r');
+			debutCaseX=(getWidth()/2)-((longueurGrille*TAILLE)/2);
+			debutCaseY=(getHeight()/2)-((largeurGrille*TAILLE)/2);
+			Entite[][] tab=moteur.getEntite();
+			
+			for(int i=0;i<largeurGrille;i++){
+				for(int j=0;j<longueurGrille;j++){
+					//g.setColor(reconnaitreCouleur(tab[i][j]));
+					/**/
+					//g.fillRect(debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE);
+					g.drawImage(ImagesJeu.SOL.get(), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+					g.drawImage(recupererImage(tab[i][j]), debutCaseX+TAILLE*j+j, debutCaseY+TAILLE*i+i, TAILLE, TAILLE, null);
+				}
 			}
-		}
-		
-		//barre de menu
-		g=dessinerMenu(g);
-		
-		//messages
-		if(duree>0){
-			g.setFont(new Font("Arial",1, 20));
-			g.drawString(message, 15, getHeight()-15);
-			duree--;
-		}
+			
+			//barre de menu
+			g=dessinerMenu(g);
+			
+			//messages
+			if(duree>0){
+				g.setFont(new Font("Arial",1, 20));
+				g.drawString(message, 15, getHeight()-15);
+				duree--;
+			}
+		}//else du if victoire
 	}
 	
 	/**
@@ -277,5 +306,5 @@ public class PanneauBoulder extends JPanel{
 				}
 			}
 		}
-	}
+	}//ecouteur touche
 }

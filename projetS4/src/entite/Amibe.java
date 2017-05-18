@@ -3,9 +3,11 @@ package entite;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.RandomAccess;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
+import moteurJeu.Touche;
 
 /**
  * Classe qui sert a modeliser une Amibe et ses comportements
@@ -34,6 +36,20 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 		this.apparence = 'a';
 		traversable = true;
 		this.moteur = moteur;
+	}
+
+	
+	/**
+	 * Le constructeur de copie d'Amibe.
+	 * */
+	public Amibe(MoteurJeu moteur, Set<Position> position, int seuil) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+		this.seuil=seuil;
+	}
+	
+	public Amibe copy(){
+		return new Amibe(moteur,position,seuil);
 	}
 
 	/**

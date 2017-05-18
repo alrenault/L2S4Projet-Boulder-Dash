@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe centrale de boulder dash creant le moteur de jeu se chargeant de tout coordonner
  * @author PITROU Adrien
@@ -15,5 +18,14 @@ public class MurMagique extends Entite {
 		this.apparence = 'M';
 		traversable = false;
 		// TODO Auto-generated constructor stub
+	}
+
+	public MurMagique(Set<Position> position) {
+		this();
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public MurMagique copy(){
+		return new MurMagique(position);
 	}
 }

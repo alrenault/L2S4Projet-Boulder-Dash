@@ -143,4 +143,6 @@ public abstract class Entite  {
 			return s;
 		}
 	}
+
+	public abstract Entite copy();
 }

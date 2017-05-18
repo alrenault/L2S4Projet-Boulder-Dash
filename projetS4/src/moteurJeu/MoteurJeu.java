@@ -1,9 +1,9 @@
 package moteurJeu;
-//quand on meurt, probleme avec les libellule et amibe qui font encore un mouvement et ne sont donc pas reset comme il faut
 
 import ia.*;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
@@ -12,6 +12,7 @@ import java.util.List;
 import entite.*;
 import map.Map;
 import affichage.FenetreBoulder;
+import moteurJeu.Enregistreur;
 
 /**
  * Classe centrale de boulder dash creant le moteur de jeu se chargeant de tout coordonner
@@ -30,7 +31,7 @@ public class MoteurJeu {
 	public char touche;
 	
 	/**
-	 * 
+	 * Fil d'execution du programme
 	 */
 	public Thread thread=Thread.currentThread();
 	
@@ -53,33 +54,36 @@ public class MoteurJeu {
 	 * Mode debug pour les lucioles
 	 */
 	public static boolean MODE_DEBUG_LUCIOLE=false;
+	public static boolean MODE_DEBUG_PARFAITE=true;
 
 	//IA
 
-	/**
-	 * 
-	 */
-	public int tabia = 0;
 	
 	/**
-	 * Creation de l'IA random
+	 * Champ de l'IA random
 	 */
-	IA_Random random = new IA_Random();
+	private IA_Random iaRandom;
 	
 	/**
-	 * Tableau de directions de l'IA random
+	 * Champ de l'IA genetique
 	 */
-	char[] directions = random.getDirections();
+	private IA_Genetique iaGen;
 	
 	/**
-	 * Creation de l'IA directive
+	 * Champ de l'IA directive
 	 */
 	private IA_Directive directive;
+	
+	/**
+	 * Champ de l'IA parfaite
+	 */
+	private IA_Parfaite parfaite;
 	
 	/**
 	 * Liste de Character (representant les touches) de l'IA directive
 	 */
 	private List<Character> chemin_direct;
+	private ArrayList<Character> deplacements ;	//Mémorise les touches
 
 	/**
 	 * Int representant l'IA utilise :
@@ -231,50 +235,6 @@ public class MoteurJeu {
 	private Position posPorte;
 
 	/**
-	 * Definition d'une touche en fonction d'un char
-	 * */
-
-	public enum Touche {
-		TOUCHE_DROITE ((char)KeyEvent.VK_RIGHT),
-		TOUCHE_GAUCHE ((char)KeyEvent.VK_LEFT),
-		TOUCHE_HAUT ((char)KeyEvent.VK_UP),
-		TOUCHE_BAS ((char)KeyEvent.VK_DOWN),
-		TOUCHE_IMMOBILE ((char)KeyEvent.VK_0),
-		MAUVAISE_TOUCHE ('_');
-
-		private char touche;
-
-		Touche(char t){
-			touche = t;
-		}
-
-		public char toChar(){
-			return touche;
-		}
-	}
-
-	/**
-	 * Definition de l'intelligence en fonction d'un int
-	 * */
-	public enum Intelligence {
-		NO(-1),
-		ME(0),
-		RANDOM(1),
-		GENETIQUE(2),
-		DIRECTIVE(3);
-
-		private int intelligence;
-
-		Intelligence(int j){
-			intelligence=j;
-		}
-
-		public int get(){
-			return intelligence;
-		}
-	}
-
-	/**
 	 * Permet a la barre de menu de changer le mode d'IA sans pour autant donner acces
 	 * a la variable.
 	 * @param ia La nouvelle IA
@@ -316,8 +276,18 @@ public class MoteurJeu {
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
 		
+		
+		//IA
+		deplacements = new ArrayList<Character>();
+		//Random
+		iaRandom = new IA_Random();
+		//Genetique
+		iaGen = new IA_Genetique(this);
+		
+		//Directive
 		directive = new IA_Directive(this);
 		chemin_direct = directive.actionList();
+		parfaite=new IA_Parfaite(5,this);
 		jeu();
 	}
 
@@ -350,10 +320,19 @@ public class MoteurJeu {
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (intelligence != 2) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {/*
+			System.out.println(iaGen.getITRocker());
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}*/
 		}
 
 		fenetre.repaint();
@@ -409,6 +388,26 @@ public class MoteurJeu {
 	public void jeu(){
 
 		char deplacement = KeyEvent.VK_0 ;
+		
+		switch (intelligence){
+		case 2: //GENETIQUE --- Une population de Rockford va jouer et s'ameliorer au fil du temps
+			
+			while(true){
+				affichage();
+				//System.out.println(iaGen.getITRocker());
+				if(!iaGen.thisRockfordisMoving()){
+					exportPath();
+					resetMap();
+				}
+				deplacement = iaGen.action();
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+			}
+			
+			
+			
+			//break; //!GENETIQUE
+		}		
 
 		while(true){
 			int cpt = 0;
@@ -427,6 +426,20 @@ public class MoteurJeu {
 			}
 			
 			switch(intelligence){
+			case -2 : // rejoue
+				affichage();
+				if(!deplacements.isEmpty()){
+					deplacement = deplacements.get(0);
+					deplacements.remove(0);
+				}
+				else{
+					deplacement = recupererTouche();
+				}
+				tour(deplacement,processPosition());
+				processEndOfTurn();
+				break;
+				//rejoue
+				
 			case -1 : //NO --- Rockford reste immobile
 				affichage();
 				deplacement = KeyEvent.VK_0;
@@ -451,9 +464,7 @@ public class MoteurJeu {
 
 			case 1 : //RANDOM --- Joue Rockford aleatoirement
 				affichage();
-				deplacement = directions[tabia]; tabia++;
-
-				if (tabia==1000) intelligence=Intelligence.ME.get();
+				deplacement = iaRandom.action();
 				tour(deplacement,processPosition());
 				processEndOfTurn();
 
@@ -515,9 +526,25 @@ public class MoteurJeu {
 						}	
 					}
 				}
-			break;
+				break;				
+			case 4 : //parfaite
+				affichage();
+				parfaite.lancerAnalyse(5);
+				processEndOfTurn();
+				break;
+				//parfaite
 			}
 		}
+	}
+
+	/**
+	 * Fait passer en IA rejouer avec un tableau de deplacements predefinis passes en parametres
+	 * @param tab
+	 */
+	public void rejouerPartie(List<Character> listRejoue){
+		deplacements=(ArrayList<Character>)listRejoue;
+		resetMap();
+		intelligence=Intelligence.REJOUE.get();
 	}
 
 	/**
@@ -556,10 +583,14 @@ public class MoteurJeu {
 
 		if(entite[x][y] == roc){
 			pousserRocher(new PositionTombe(x,y));
+			memorizePath(touche);
 		}
 		else if (deplacementPossible(t)){
+			memorizePath(touche);
 			deplacerJoueur(x,y);
-		}
+		} else memorizePath((char) KeyEvent.VK_0);
+		
+		
 
 	}
 
@@ -1324,10 +1355,60 @@ public class MoteurJeu {
 	/**
 	 * Fait gagner le joueur. Fait aussi changer de carte.
 	 * */
-	public void gagner(){
-		aGagne = true;
-		changerMap(++numMap);
+	
+	public void memorizePath(char touche){
+		//deplacements est une liste de touche qui mémorise les déplacements du joueur
+		if(intelligence != -2){
+			deplacements.add(touche);
+		}
 	}
+	public void resetPath(){
+		deplacements.clear();
+	}
+	
+	@SuppressWarnings("unchecked") //Il faut cast en ArrayList car la methode clone retourne un type object
+	public void exportPath(){
+		
+		if(intelligence == 2){
+			if (aGagne) iaGen.updateThisRockford(aGagne, nbDiamantRecolte, nbTour,(ArrayList<Character>) deplacements.clone());
+			else if (aPerdu) iaGen.updateThisRockford(aGagne, nbDiamantRecolte, nbTour,(ArrayList<Character>) deplacements.clone());
+			else iaGen.updateThisRockford(aGagne, nbDiamantRecolte, nbTour,(ArrayList<Character>) deplacements.clone());
+			
+			resetPath();
+			iaGen.nextRockford();
+		} else
+		
+		if (aGagne){
+			Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+			if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
+			resetPath();
+		} else if (aPerdu){
+			Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+			resetPath();
+		}
+		
+		else if (true){	//Onglet EnregistrerPartie
+			Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+		}
+		
+	}
+	public void enregistrer(){
+		Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+		if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
+	}
+	public void gagner(){
+	aGagne = true;
+	exportPath();
+	if(numMap == map.getNbMap()){
+		System.out.println("ca a fonctionne");
+		fenetre.afficherMessageVictoire();
+	}
+	else{
+		if (intelligence != 2 )changerMap(++numMap);
+		else resetMap();
+	}
+		
+}
 
 	/**
 	 * Fait perdre le joueur. Fait aussi reset la carte.
@@ -1335,6 +1416,7 @@ public class MoteurJeu {
 	public void perdu() {
 		fenetre.ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
+		exportPath();
 		resetMap();
 		
 	}
@@ -1351,6 +1433,65 @@ public class MoteurJeu {
 		luciole.deplacer(entite);
 		libellule.deplacer(entite);
 		amibe.deplacer(entite);	
+	}
+
+	public Entite copyEntite(Entite type){
+		//System.out.println("copyEntite apparence : "+type.getApparence());
+		switch(type.getApparence()){
+		case 'R' : return joueur.copy();
+		case 'X' : return exit.copy();
+		case ' ' : return espace.copy();
+		case '.' : return poussiere.copy();
+		case 'r' : return roc.copy();
+		case 'd' : return diamant.copy();
+		case 'w' : return mur.copy();
+		case 'W' : return murTitane.copy();
+		case 'M' : return murMagique.copy();
+		case 'a' : return amibe.copy();
+		case 'E' : return explosion.copy();
+		case 'F' :
+		case 'o' :
+		case 'O' :
+		case 'q' :
+		case 'Q' :return luciole.copy();
+		case 'b' :
+		case 'B' :
+		case 'c' :
+		case 'C' :return libellule.copy();
+		default : 
+			return null;
+		}
+	}
+	public void chargerDonnees(DataRobil data){
+		joueur = data.joueur.copy();
+		luciole = data.luciole.copy();
+		libellule = data.libellule.copy();
+		amibe = data.amibe.copy();
+		explosion = data.explosion.copy();
+		espace = data.espace.copy();
+		mur = data.mur.copy();
+		murTitane = data.murTitane.copy();
+		murMagique = data.murMagique.copy();
+		poussiere = data.poussiere.copy();
+		diamant = data.diamant.copy();
+		if(isPorteAffiche()){
+			posPorte = new Position(data.posPorte.getX(), data.posPorte.getY());
+		}
+		for(int i=0;i<data.entite.length;i++){//copie la map d'entite
+			for(int j=0;j<data.entite[0].length;j++){
+				entite[i][j]=data.entite[i][j].copy();
+			}
+		}
+	}
+
+	public Entite[][] copieEntite() {
+		Entite[][] retour = new Entite[entite.length][entite[0].length];
+		for(int i=0;i<entite.length;i++){
+			for(int j=0;j<entite[0].length;j++){
+				retour[i][j]=(Entite) entite[i][j].copy();
+			}
+		}
+		return retour;
 	}
 	
 	/**
@@ -1521,6 +1662,10 @@ public class MoteurJeu {
 	public int getNbDiamantRecolte() {
 		return nbDiamantRecolte;
 	}
+
+	public int getIntelligence() {
+		return intelligence;
+	}
 	
 	/**
 	 * Fait que l'IA va s'arreter dans son execution jusqu' a la prochaine repriseIA()
@@ -1545,4 +1690,65 @@ public class MoteurJeu {
 	public boolean enPause(){
 		return enPause;
 	}
+
+public IA_Random getIaRandom() {
+		return iaRandom;
+	}
+
+	public IA_Genetique getIaGen() {
+		return iaGen;
+	}
+
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	public Espace getEspace() {
+		return espace;
+	}
+
+	public Poussiere getPoussiere() {
+		return poussiere;
+	}
+
+	public Roc getRoc() {
+		return roc;
+	}
+
+	public Diamant getDiamant() {
+		return diamant;
+	}
+
+	public MurBasique getMur() {
+		return mur;
+	}
+
+	public MurTitane getMurTitane() {
+		return murTitane;
+	}
+
+	public MurMagique getMurMagique() {
+		return murMagique;
+	}
+
+	public Exit getExit() {
+		return exit;
+	}
+
+	public Amibe getAmibe() {
+		return amibe;
+	}
+
+	public Luciole getLuciole() {
+		return luciole;
+	}
+
+	public Libellule getLibellule() {
+		return libellule;
+	}
+
+	public Explosion getExplosion() {
+		return explosion;
+	}
+
 }

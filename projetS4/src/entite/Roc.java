@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe construisant un rocher
  * @author PITROU Adrien
@@ -16,6 +19,18 @@ public class Roc extends Entite {
 		traversable = false;
 	}
 	
+	public Roc(Set<PositionTombe> position) {
+		this();
+		this.positionTombe = new HashSet<PositionTombe>(positionTombe);
+	}
+	
+	public Roc copy(){
+		return new Roc(positionTombe);
+	}
+	
+	public void tomber(){
+		
+	}
 
 	@Override
 	public String toString() {

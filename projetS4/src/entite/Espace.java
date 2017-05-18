@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe construisant un espace
  * @author PITROU Adrien
@@ -17,8 +20,12 @@ public class Espace extends Entite {
 		traversable = true;
 	}
 	
+	public Espace(Set<Position> position) {
+		this();
+		this.position = new HashSet<Position>(position);
+	}
 	
-	
-	
-
+	public Espace copy(){
+		return new Espace(position);
+	}
 }

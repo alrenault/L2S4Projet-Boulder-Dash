@@ -1,5 +1,8 @@
 package entite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe construisant un mur basique
  * @author PITROU Adrien
@@ -14,6 +17,15 @@ public class MurBasique extends Entite {
 	public MurBasique() {
 		this.apparence = 'w';
 		traversable = false;
+	}
+
+	public MurBasique(Set<Position> position) {
+		this();
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public MurBasique copy(){
+		return new MurBasique(position);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
 /**
  * Classe construisant une livellule
@@ -33,6 +33,15 @@ public class Libellule extends Entite implements Deplacable, Ennemi {
 		this.apparence = 'B';
 		traversable = true;
 		this.moteur = moteur;
+	}
+
+	public Libellule(MoteurJeu moteur, Set<Position> position) {
+		this(moteur);
+		this.position = new HashSet<Position>(position);
+	}
+	
+	public Libellule copy(){
+		return new Libellule(moteur, position);
 	}
 	
 	/**

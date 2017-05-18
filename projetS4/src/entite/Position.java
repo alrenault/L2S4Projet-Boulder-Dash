@@ -1,6 +1,6 @@
 package entite;
 
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
 /**
  * Classe construisant une position
