@@ -143,6 +143,10 @@ public abstract class Entite  {
 			return s;
 		}
 	}
-
+	
+	/**
+	 * Permet la copie de l'entite
+	 * @return Retourne la copie de l'entite
+	 */
 	public abstract Entite copy();
 }

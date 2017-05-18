@@ -93,14 +93,15 @@ public class MenuBar extends JMenuBar{
 			}
 		}//NouvellePartie
 		/**
-		 * Menu Rejouer
+		 * Classe permettant d'afficher le menu Rejouer
 		 * */
 		public class Rejouer extends JMenu{
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			
+			/**
+			 * Les actions de rejouer
+			 */
 			public Rejouer(){
 				this.setText("Rejouer");
 				this.add(new RejouerFichier());
@@ -110,16 +111,20 @@ public class MenuBar extends JMenuBar{
 			 * Onglet Rejouer un fichier
 			 * */
 			private class RejouerFichier extends JMenuItem{
-				/**
-				 * 
-				 */
+		
 				private static final long serialVersionUID = 1L;
 				
+				/**
+				 * Les actions de l'onglets RejouerFichier
+				 */
 				public RejouerFichier(){
 					this.setText("Rejouer une partie enregistree");
 					this.addActionListener(new ActionLecture());
 				}
 				
+				/**
+				 * Lis le fichier choisi
+				 */
 				private class ActionLecture implements ActionListener{
 					@Override
 					public void actionPerformed(ActionEvent e) {

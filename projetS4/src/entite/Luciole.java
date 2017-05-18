@@ -34,11 +34,20 @@ public class Luciole extends Entite implements Deplacable, Ennemi {
 		traversable = true;;
 	}
 	
+	/**
+	 * Constructeur de la copie de la Luciole
+	 * @param moteur Reference vers le moteur de jeu
+	 * @param position L'ensemble de position de la luciole
+	 */
 	public Luciole(MoteurJeu moteur, Set<Position> position) {
 		this(moteur);
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree la copie de la luciole
+	 * @return Retourne la copie de la luciole
+	 */
 	public Luciole copy(){
 		return new Luciole(moteur, position);
 	}

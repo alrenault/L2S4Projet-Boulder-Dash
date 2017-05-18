@@ -12,6 +12,12 @@ import entite.Position;
 import moteurJeu.DataRobil;
 import moteurJeu.MoteurJeu;
 
+/**
+ * Classe creant une IA parfaite
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public class IA_Parfaite {
 	MoteurJeu moteur;
 	char[] solution;

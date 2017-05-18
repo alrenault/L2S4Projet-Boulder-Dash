@@ -19,17 +19,21 @@ public class Roc extends Entite {
 		traversable = false;
 	}
 	
+	/**
+	 * Constructeur de la copie de Roc
+	 * @param position L'ensemble de position du Roc
+	 */
 	public Roc(Set<PositionTombe> position) {
 		this();
 		this.positionTombe = new HashSet<PositionTombe>(positionTombe);
 	}
 	
+	/**
+	 * Cree la copie du Roc
+	 * @return Retourne la copie de Roc
+	 */
 	public Roc copy(){
 		return new Roc(positionTombe);
-	}
-	
-	public void tomber(){
-		
 	}
 
 	@Override

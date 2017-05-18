@@ -20,11 +20,18 @@ public class MurMagique extends Entite {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructeur de la copie du MurMagique
+	 * @param position L'ensemble de position du mur magique
+	 */
 	public MurMagique(Set<Position> position) {
 		this();
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree la copie du mur magique
+	 */
 	public MurMagique copy(){
 		return new MurMagique(position);
 	}

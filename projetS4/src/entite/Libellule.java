@@ -26,7 +26,7 @@ public class Libellule extends Entite implements Deplacable, Ennemi {
 	private MoteurJeu moteur;
 	
 	/**
-	 * Constructeur de la classe Libellule
+	 * Constructeur de la Libellule
 	 * @param moteur Reference vers le moteur
 	 */
 	public Libellule(MoteurJeu moteur) {
@@ -35,11 +35,20 @@ public class Libellule extends Entite implements Deplacable, Ennemi {
 		this.moteur = moteur;
 	}
 
+	/**
+	 * Constructeur de la copie de la class Libellule
+	 * @param moteur Reference vers le moteur
+	 * @param position L'ensemble des positions de la libellule
+	 */
 	public Libellule(MoteurJeu moteur, Set<Position> position) {
 		this(moteur);
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree une copie de la libellule
+	 * @return Retourne une copie de la libellule
+	 */
 	public Libellule copy(){
 		return new Libellule(moteur, position);
 	}

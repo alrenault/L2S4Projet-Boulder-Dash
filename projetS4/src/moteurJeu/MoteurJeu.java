@@ -538,8 +538,8 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Fait passer en IA rejouer avec un tableau de deplacements predefinis passes en parametres
-	 * @param tab
+	 * Fait passer en IA rejouer avec une liste de deplacements predefinis passes en parametres
+	 * @param listRejoue Liste de deplacements
 	 */
 	public void rejouerPartie(List<Character> listRejoue){
 		deplacements=(ArrayList<Character>)listRejoue;
@@ -1352,20 +1352,28 @@ public class MoteurJeu {
 			score += map.getDiamondVal();
 	}
 
+
 	/**
-	 * Fait gagner le joueur. Fait aussi changer de carte.
-	 * */
-	
+	 * Memorise une touche et l'ajoute au chemin actuel
+	 * @param touche Touche a memoriser
+	 */
 	public void memorizePath(char touche){
 		//deplacements est une liste de touche qui mémorise les déplacements du joueur
 		if(intelligence != -2){
 			deplacements.add(touche);
 		}
 	}
+	
+	/**
+	 * Vide le chemin actuel
+	 */
 	public void resetPath(){
 		deplacements.clear();
 	}
 	
+	/**
+	 * Sauvegarde le chemin via l'enregistreur
+	 */
 	@SuppressWarnings("unchecked") //Il faut cast en ArrayList car la methode clone retourne un type object
 	public void exportPath(){
 		
@@ -1392,10 +1400,16 @@ public class MoteurJeu {
 		}
 		
 	}
-	public void enregistrer(){
+	
+
+/*	public void enregistrer(){
 		Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
 		if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
-	}
+	}*/
+	
+	/**
+	 * Fait gagner le joueur. Fait aussi changer de carte.
+	 * */
 	public void gagner(){
 	aGagne = true;
 	exportPath();

@@ -19,11 +19,19 @@ public class MurBasique extends Entite {
 		traversable = false;
 	}
 
+	/**
+	 * Constructeur de la copie de la calsse MurBasique
+	 * @param position L'ensemble des positions du mur basiqur
+	 */
 	public MurBasique(Set<Position> position) {
 		this();
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree la copie du mur basique
+	 * @return Retourne la copie du mur basique
+	 */
 	public MurBasique copy(){
 		return new MurBasique(position);
 	}

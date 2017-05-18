@@ -41,7 +41,6 @@ public class EcouteurTouche implements KeyListener{
 				fenetre.getMoteur().thread.notify();
 			}
 		}
-		//fenetre.repaint();
 	}
 	
 	@Override

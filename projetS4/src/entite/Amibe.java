@@ -41,6 +41,9 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 	
 	/**
 	 * Le constructeur de copie d'Amibe.
+	 * @param moteur Reference vers le moteur
+	 * @param position L'ensemble des positions de l'amibe
+	 * @param seuil Pourcentage de chance que l'amibe se deplace
 	 * */
 	public Amibe(MoteurJeu moteur, Set<Position> position, int seuil) {
 		this(moteur);
@@ -48,6 +51,10 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 		this.seuil=seuil;
 	}
 	
+	/**
+	 * Copie l'amibe
+	 * @return Retourne l'amibe copie
+	 */
 	public Amibe copy(){
 		return new Amibe(moteur,position,seuil);
 	}
