@@ -5,20 +5,36 @@ import java.util.Iterator;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
-public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi {
+/**
+ * Classe construisant une livellule
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Libellule extends Entite implements Deplacable, Ennemi {
 	
-	private Touche direction=Touche.TOUCHE_DROITE;
+	/**
+	 * Booleen pour savoir si la libllule est immobile ou non
+	 */
 	private boolean immobile=false;
+	
+	/**
+	 * Reference vers le moteur
+	 */
 	private MoteurJeu moteur;
 	
+	/**
+	 * Constructeur de la classe Libellule
+	 * @param moteur Reference vers le moteur
+	 */
 	public Libellule(MoteurJeu moteur) {
 		this.apparence = 'B';
 		traversable = true;
 		this.moteur = moteur;
 	}
-	
+
 	public Libellule(MoteurJeu moteur, Set<Position> position) {
 		this(moteur);
 		this.position = new HashSet<Position>(position);
@@ -29,9 +45,12 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	}
 	
 	/**
-	 * Verifie si la case indiquee peut être traversee relativement a la direction de la libellule.
-	 * @param Entite[][] carte, int x, int y, Touche direction
-	 * @return boolean estTraversable : true si la case est traversable et false sinon.
+	 * Verifie si la case indiquee peut etre traversee relativement a la direction de la libellule.
+	 * @param carte La map d'entite sur laquelle se trouve la libellule
+	 * @param x Coordonnee en x de la position a tester
+	 * @param y Coordonnee en y de la position a tester 
+	 * @param direction La direction dans laquelle la libellule va aller
+	 * @return Retourne estTraversable : true si la case est traversable et false sinon.
 	 * */
 	private boolean estTraversable(Entite[][] carte, int x, int y, Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -49,7 +68,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case a gauche de la libellule.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @return Retourne une touche representant la direction
 	 * */
 	private Touche directionGauche(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -68,7 +87,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case a droite de la libellule.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @return Retourne une touche representant la direction
 	 * */
 	private Touche directionDroite(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -87,7 +106,7 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case derriere la libellule.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @return Retourne une touche representant la direction
 	 * */
 	private Touche directionDerriere(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -105,17 +124,13 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	
 	/**
 	 * Fait tourner la libellule en fonction des murs qui entourent sa position.
-	 * @param Entite[][] carte, int x,int y
+	 * @param carte La map sur laquelle se trouve la libellule
+	 * @param x Coordonnee en x de la future position
+	 * @param y Coordonnee en y de la future position
+	 * @return Retourne la touche correspondante au mouvement voulue
 	 * */
 	private Touche tourner(Entite[][] carte, int x,int y, Touche direction){
 		immobile=false;
-		
-		if(estCoin(carte,x,y,direction)
-				&&estTraversable(carte,x,y,directionGauche(direction))
-				){
-			System.out.println("----------------\n----------------\nestCoin");
-			return directionGauche(direction);
-		}else
 		//si il y a un mur devant, change d'optique, sinon avance.
 				if(!estTraversable(carte,x,y, direction)){
 					//s'il y a un mur a gauche, change d'optique, sinon tourne a gauche.
@@ -141,33 +156,36 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 				return direction;
 	}
 	
+	/**
+	 * Teste si une case est un coin
+	 * @param carte La map pu se trouve la libellule
+	 * @param x Coordonnee en x de la position a tester
+	 * @param y Coordonnee en y de la position a tester
+	 * @param direction Direction dans laquelle va la libellule
+	 * @return Retourne vrai si la case est un coin, sinon false
+	 */
 	private boolean estCoin(Entite[][] carte,int x,int y,Touche direction){
 		
 		if(direction==Touche.TOUCHE_HAUT){
-			// || !(carte[x-1][y+1] instanceof Joueur)
-			return !(carte[x-1][y-1] instanceof Espace);
+			return !(carte[x-1][y-1] instanceof Espace) || !(carte[x-1][y+1] instanceof Joueur);
 		}else if(direction==Touche.TOUCHE_DROITE){
-			// || !(carte[x-1][y-1] instanceof Joueur)
-			return !(carte[x-1][y+1] instanceof Espace);
+			return !(carte[x-1][y+1] instanceof Espace) || !(carte[x-1][y-1] instanceof Joueur);
 		}else if(direction==Touche.TOUCHE_BAS){
-			// || !(carte[x+1][y-1] instanceof Joueur)
-			return !(carte[x+1][y+1] instanceof Espace);
+			return !(carte[x+1][y-1] instanceof Espace) || !(carte[x+1][y-1] instanceof Joueur);
 		}else if(direction==Touche.TOUCHE_GAUCHE){
-			// || !(carte[x+1][y+1] instanceof Joueur)
-			return !(carte[x+1][y-1] instanceof Espace);
+			return !(carte[x+1][y-1] instanceof Espace) || !(carte[x+1][y+1] instanceof Joueur);
 		}else{
 			throw new IllegalStateException("La direction de la libellule ne peut prendre une autre valeur.");
 		}
 	}
 	
 	/**
-	 * Effectue le deplacement de toutes les libellule du plateau.
-	 * @param Entite[][] carte
-	 * @return boolean enVie : renvoie true.
+	 * Effectue le deplacement de toutes les libellule de la map.
+	 * @param carte La map sur laquelle se trouve la libellule
+	 * @return Renvoie false si le joueur a perdu a ce tour pour eviter le deplacement des autres libellule, sinon true
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
-		System.out.println("les libellules se deplacent. Il y a "+this.getPosition().size()+" libellule.");
 		
 		//copie de l'ensemble des libellules
 		Set<Position> ensemble=new HashSet<Position>();
@@ -202,21 +220,22 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 	
 	/**
 	 * Effectue le deplacement d'une libellule reperee par son emplacement sur la carte.
-	 * @param Entite[][] carte, Position p
-	 * @return boolean enVie : renvoie true
+	 * @param carte La map sur laquelle se trouve la libellule
+	 * @param p La position ou se trouve la libellule
+	 * @return Retourne true
 	 * */
 	private boolean deplacerUneLibellule(Entite[][] carte, Position p){
 		//changer d'orientation
 		int x=0,y=0;
 		Touche nouvelleDirection=tourner(carte,p.getX(),p.getY(),p.getDirection());
-		/*if(nouvelleDirection!=Touche.TOUCHE_IMMOBILE){
+		if(nouvelleDirection!=Touche.TOUCHE_IMMOBILE){
 			if(estCoin(carte,p.getX(),p.getY(),nouvelleDirection)
 					&&estTraversable(carte,p.getX(),p.getY(),directionGauche(nouvelleDirection))
 					&&estTraversable(carte,p.getX(),p.getY(),nouvelleDirection)){
-				System.out.println("----------------\n----------------\nestCoin");
+				//System.out.println("----------------\n----------------\nestCoin");
 				nouvelleDirection=directionGauche(nouvelleDirection);
 			}
-		}*/
+		}
 		//nouvelles coordonnees relatives a la direction qu'emprunte la libellule.
 		if(nouvelleDirection==Touche.TOUCHE_BAS){
 			x=p.getX();
@@ -239,35 +258,22 @@ public class Libellule extends Entite implements Deplacable, Disparaitre, Ennemi
 			if(carte[x][y] instanceof Joueur){
 				mangerJoueur(carte,x,y);
 			}
-			//nouvelle position.
-			Position pPlusUn = new Position(x,y);
-			System.out.println("ancienne position de la libellule : posX="+p.getX()+
-					" posY="+p.getY()+
-					"\nnouvelle position : x="+pPlusUn.getX()+
-					" y="+pPlusUn.getY());
-					
-			//deplacement
-			moteur.ajouterUnEspace(p); //rajoute l'emplacement de la libellule a Espace
-					
-			this.getPosition().remove(p); //enleve la pos actuelle de this
-			carte[x][y] = this; //fait pointer sur la nouvelle pos
-			carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
-			System.out.println("changement position libellule : "+this.getPosition().size());
+			else{
+				//deplacement
+				moteur.ajouterUnEspace(p); //rajoute l'emplacement de la libellule a Espace
+						
+				this.getPosition().remove(p); //enleve la pos actuelle de this
+				carte[x][y] = this; //fait pointer sur la nouvelle pos
+				carte[x][y].getPosition().add(new Position(x,y,nouvelleDirection)); //rajoute l'emplacement de this dans son ensemble de position.
+			}
+			
 		}
 		return true;
 	}
 
-
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	
 	/**
-	 * @return String texte
+	 * Redefinition de la methode toString pour libellule
+	 * @return Retourne l'etat de la libellule sous forme d'une chaine de caractere
 	 */
 	@Override
 	public String toString() {

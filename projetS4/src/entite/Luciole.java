@@ -5,15 +5,28 @@ import java.util.Iterator;
 import java.util.Set;
 
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
-public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
-	
-	private MoteurJeu moteur;
-	private boolean immobile = false;
+/**
+ * Classe construisant une luciole
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Luciole extends Entite implements Deplacable, Ennemi {
 	
 	/**
-	 * Le constructeur de la classe.
+	 * Reference vers le moteur de jeu
+	 */
+	private MoteurJeu moteur;
+	/**
+	 * Booleen pour savoir si la luciole est immobile
+	 */
+	private boolean immobile = false; 
+	
+	/**
+	 * Constructeur de la classe Luciole
+	 * @param moteur Reference vers le moteur de jeu
 	 */
 	public Luciole(MoteurJeu moteur) {
 		this.moteur = moteur;
@@ -31,9 +44,12 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	}
 	
 	/**
-	 * Verifie si la case indiquee peut être traversee relativement a la direction de la luciole.
-	 * @param Entite[][] carte, int x, int y, Touche direction
-	 * @return boolean estTraversable : true si la case est traversable et false sinon.
+	 * Verifie si la case indiquee peut etre traversee relativement a la direction de la luciole.
+	 * @param carte La map sur laqulle se trouve la luciole
+	 * @param x La coordonnee en x sur laquelle se trouve la luciole
+	 * @param y La coordonnee en y sur laquelle se trouve la luciole
+	 * @param direction La direction dans laquelle se dirige la luciole
+	 * @return Retourne estTraversable : true si la case est traversable et false sinon.
 	 * */
 	private boolean estTraversable(Entite[][] carte, int x, int y, Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -51,7 +67,8 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case a gauche de la luciole.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @param direction La direction de la luciole
+	 * @return Retourne une touche representant la direction
 	 * */
 	public Touche directionGauche(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -70,7 +87,8 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case a droite de la luciole.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @param direction La direction de la luciole
+	 * @return Retourne une touche representant la direction
 	 * */
 	public Touche directionDroite(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -89,7 +107,8 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	/**
 	 * Retourne la direction qu'il faut suivre pour trouver la case derriere la luciole.
 	 * relativement a son orientation actuelle.
-	 * @return Touche direction
+	 * @param direction La direction de la luciole
+	 * @return Retourne une touche representant la direction
 	 * */
 	public Touche directionDerriere(Touche direction){
 		if(direction==Touche.TOUCHE_BAS){
@@ -107,7 +126,11 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
 	/**
 	 * Fait tourner la luciole en fonction des murs qui entourent sa position.
-	 * @param Entite[][] carte, int x,int y
+	 * @param carte La map sur laquelle se trouve la luciole
+	 * @param x Coordonnee en x de la future position
+	 * @param y Coordonnee en y de la future position
+	 * @param direction La direction de la luciole
+	 * @return Retourne la touche correspondante au mouvement voulue
 	 * */
 	public Touche tourner(Entite[][] carte, int x,int y, Touche direction){
 		immobile=false;
@@ -138,8 +161,8 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
 	/**
 	 * Effectue le deplacement de toutes les lucioles du plateau.
-	 * @param Entite[][] carte
-	 * @return boolean enVie : renvoie true.
+	 * @param carte La map sur laquelle se trouve la luciole
+	 * @return Renvoie false si le joueur a perdu a ce tour pour eviter le deplacement des autres lucioles, sinon true
 	 * */
 	@Override
 	public boolean deplacer(Entite[][] carte) {
@@ -176,8 +199,9 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 	
 	/**
 	 * Effectue le deplacement d'une luciole reperee par son emplacement sur la carte.
-	 * @param Entite[][] carte, Position p
-	 * @return boolean enVie : renvoie true
+	 * @param carte La carte sur laquelle se trouve la luciole
+	 * @param p La position ou se trouve la luciole
+	 * @return Retourne true
 	 * */
 	private boolean deplacerUneLuciole(Entite[][] carte, Position p){
 		//changer d'orientation
@@ -220,72 +244,10 @@ public class Luciole extends Entite implements Deplacable, Disparaitre, Ennemi {
 		return true;
 	}
 
-	/**
-	 * Fait disparaitre ?
-	 * */
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/*Déplacement :
-		Prendre en paramètre la dernière direction pour le prochain déplacement :
-		-> Si on allait à droite, on continue à droite si possible
-		
-		
-		Creer 100 tableaux de taille 2 fois le nombre de pas
-		-> on les remplit de HAUT,BAS,DROITE...
-		-> on détermine le score de chacun des 100 tableaux
-		-> on sélectionne les 50 meilleures scores -> on se retrouve avec 50 tableaux
-		-> on en rajoute 50 avec les combinaisons entre les 50 meilleurs ancients tableaux
-		-> on boucle
-		-> on parametre la manière dont on arrete
-		-> 1000 iterations
-		
-	*/
-	
-	/**
-	 * Genere ?
-	 * */
-	public void generate(){
-		
-		/*
-		 * Evaluation
-		 * 
-		 * tab[0-100] = int score et tab[2n] de char
-		 * 		--> Individu
-		 * 
-		 * Selection
-		 *  	Voir cours
-		 *  
-		 *  Mutation / Reproduction
-		 *  25 par mut - 25 par rep
-		 *  
-		 *  
-		 *  
-		
-		en face
-		-->
-		
-		
-		
-		
-		
-		
-		*/
-	}
-
-	
-	
-
-	/**
-	 * Mange le joueur ?
-	 * */
 	@Override
 	public void mangerJoueur(Entite[][] map, int x, int y) {
 		map[x][y].getPosition().clear();
-		System.out.println("La luciole a mange le joueur");
+		//System.out.println("La luciole a mange le joueur");
 		//moteur.setEnJeu(false);
 		moteur.perdu();
 		//System.exit(0);

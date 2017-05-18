@@ -1,17 +1,39 @@
 package entite;
 
+/**
+ * Classe construisant une position pour les entites tombant (Roc ou Diamant)
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public class PositionTombe extends Position{
 	
+	/**
+	 * Booleen montrant si l'entite est en train de tomber ou non
+	 */
 	boolean tombe = false;
 	
+	/**
+	 * COnstructeur de la classe PositionTombe
+	 * @param x Coordonnee en x de la position
+	 * @param y Coordonnee en y de la position
+	 */
 	public PositionTombe(int x, int y){
 		super(x,y);	
 	}
 
+	/**
+	 * Getter de tombe
+	 * @return Retourne true si l'entite tombe, false sinon
+	 */
 	public boolean isTombe() {
 		return tombe;
 	}
 
+	/**
+	 * Setter de tombe
+	 * @param tombe La nouvelle valeur de tombe
+	 */
 	public void setTombe(boolean tombe) {
 		this.tombe = tombe;
 	}
@@ -20,9 +42,6 @@ public class PositionTombe extends Position{
 		return super.toString()+ "Tombe : "+ tombe;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -31,9 +50,6 @@ public class PositionTombe extends Position{
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

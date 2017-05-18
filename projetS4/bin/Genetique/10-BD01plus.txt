@@ -1,0 +1,316 @@
+IA_Génétique de Map-Fichier :src\Genetique\data\10-BD01plus.dat 
+Génération : 3292
+_______________________________________
+
+Nombre de Pas sur la Map : 240
+Nombre de Rockford : 100
+Nombre d'Opérations Déplacement (population*nbPas) = 24000
+_______________________________________
+
+Listes de Déplacement : 
+
+
+Rockford n°1 --> Rockford : 990893 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°2 --> Rockford : 990894 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°3 --> Rockford : 990895 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°4 --> Rockford : 990896 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°5 --> Rockford : 990897 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°6 --> Rockford : 990898 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°7 --> Rockford : 990899 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°8 --> Rockford : 990900 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°9 --> Rockford : 990901 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°10 --> Rockford : 990902 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°11 --> Rockford : 990903 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°12 --> Rockford : 990904 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°13 --> Rockford : 990905 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°14 --> Rockford : 990906 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°15 --> Rockford : 990907 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°16 --> Rockford : 990908 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°17 --> Rockford : 990909 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°18 --> Rockford : 990910 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°19 --> Rockford : 990911 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°20 --> Rockford : 990912 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°21 --> Rockford : 990913 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°22 --> Rockford : 990914 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[', 0]
+
+Rockford n°23 --> Rockford : 990915 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°24 --> Rockford : 990916 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, 0]
+
+Rockford n°25 --> Rockford : 990917 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°26 --> Rockford : 990918 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°27 --> Rockford : 990919 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°28 --> Rockford : 990920 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[', ']
+
+Rockford n°29 --> Rockford : 990921 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°30 --> Rockford : 990922 	Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°31 --> Rockford : 990923 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°32 --> Rockford : 990924 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°33 --> Rockford : 990925 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°34 --> Rockford : 990926 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, 0]
+
+Rockford n°35 --> Rockford : 990927 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°36 --> Rockford : 990928 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°37 --> Rockford : 990929 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°38 --> Rockford : 990930 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°39 --> Rockford : 990931 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[', 0]
+
+Rockford n°40 --> Rockford : 990932 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°41 --> Rockford : 990933 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°42 --> Rockford : 990934 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°43 --> Rockford : 990935 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°44 --> Rockford : 990936 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°45 --> Rockford : 990937 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°46 --> Rockford : 990938 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°47 --> Rockford : 990939 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°48 --> Rockford : 990940 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°49 --> Rockford : 990941 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[', 0]
+
+Rockford n°50 --> Rockford : 990942 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°51 --> Rockford : 990943 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°52 --> Rockford : 990944 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°53 --> Rockford : 990945 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°54 --> Rockford : 990946 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°55 --> Rockford : 990947 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°56 --> Rockford : 990948 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°57 --> Rockford : 990949 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°58 --> Rockford : 990950 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°59 --> Rockford : 990951 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°60 --> Rockford : 990952 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°61 --> Rockford : 990953 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°62 --> Rockford : 990954 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, ']
+
+Rockford n°63 --> Rockford : 990955 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[', 0]
+
+Rockford n°64 --> Rockford : 990956 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°65 --> Rockford : 990957 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°66 --> Rockford : 990958 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°67 --> Rockford : 990959 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°68 --> Rockford : 990960 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, 0]
+
+Rockford n°69 --> Rockford : 990961 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°70 --> Rockford : 990962 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°71 --> Rockford : 990963 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°72 --> Rockford : 990964 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°73 --> Rockford : 990965 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°74 --> Rockford : 990966 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°75 --> Rockford : 990967 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°76 --> Rockford : 990968 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°77 --> Rockford : 990969 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°78 --> Rockford : 990970 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[0, 0]
+
+Rockford n°79 --> Rockford : 990971 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°80 --> Rockford : 990972 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°81 --> Rockford : 990973 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°82 --> Rockford : 990974 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°83 --> Rockford : 990975 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°84 --> Rockford : 990976 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°85 --> Rockford : 990977 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°86 --> Rockford : 990978 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°87 --> Rockford : 990979 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°88 --> Rockford : 990980 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°89 --> Rockford : 990981 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°90 --> Rockford : 990982 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°91 --> Rockford : 990983 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, 0]
+
+Rockford n°92 --> Rockford : 990984 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°93 --> Rockford : 990985 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°94 --> Rockford : 990986 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°95 --> Rockford : 990987 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°96 --> Rockford : 990988 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°97 --> Rockford : 990989 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°98 --> Rockford : 990990 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°99 --> Rockford : 990991 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+Rockford n°100 --> Rockford : 990992 	Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 2 	
+[%, %]
+
+
+
+-------------- Fin de l'IA : src\Genetique\data\10-BD01plus.dat ; Version 3292 --------------
+

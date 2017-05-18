@@ -4,8 +4,27 @@ import java.util.ArrayList;
 
 import map.Map;
 
+/**
+ * Classe main a lancer depuis le .jar
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public class Maintest_v2 {
 	
+	/**
+	 * Teste les arguments du main et lance les bonnes fonctionnalites en fonction. Voici les arguments possibles :
+	 * -name : Donne les noms des developpeurs du projet.
+	 * -lis FICHIER.bcdf : affiche les parametres d'un fichier bcdf.
+	 * -joue FICHIER.bcdf [-niveau N] : permet de jouer a Boulder Dash.
+	 * 		par defaut : joue les niveaux les uns apres les autres.
+	 * 		-niveau N : Fait jouer le niveau N et seulement lui.
+	 * Le resultat du jeu est sauvegarde dans un fichier bcdf a la racine du projet.
+	 * -cal strategie FICHIER.bdcff -niveau N :
+	 * -rejoue fichier.dash fichier.bdcff -niveau N : 
+	 * -simul N strategie strategie fichier.bdcff -niveau N : 
+	 * @param args L'ensemble des arguments du main
+	 */
 	public static void testArguments(String args[]){
 		if(args.length>0){
 			for(int i=0;i<args.length;i++){
@@ -56,8 +75,6 @@ public class Maintest_v2 {
 						System.out.println("alors ? :"+argsDebug[j]);
 					}*/
 					new MoteurJeu(argsDebug);
-				}else{
-					System.out.println("-------Adrien est trop cool !-------");
 				}
 			}
 		}
@@ -89,8 +106,9 @@ public class Maintest_v2 {
 	/**
 	 * Quand le -d est passe en argument, la fonction apelle celle-ci qui va recuperer tout
 	 * les arguments valides qui suivent le -d et les ajouter a la liste d'options a debugger.
-	 * @param String[] args, int i
-	 * @return String[] arguments la liste des arguments valides qui suivent le -d
+	 * @param args L'ensemble des arguments
+	 * @param i Iterateur sur les arguments (position actuelle)
+	 * @return Retourne l'ensemble des arguments valides se trouvant apres -d
 	 * */
 	public static String[] argumentsDebug(String[] args, int i){
 		ArrayList<String> retour=new ArrayList<String>();
@@ -113,15 +131,15 @@ public class Maintest_v2 {
 		//}
 		return tab;
 	}
-
+	
 	/**
 	 * Teste si l'argument passe en parametres est valide ( s'il correspond a un des cas
 	 * suivants : 
 	 * -tombe
 	 * -luciole
 	 * -libellule)
-	 * @param String string
-	 * @return true si l'argument est valide et false sinon
+	 * @param string L'argument a tester
+	 * @return Retourne true si l'argument est valide et false sinon
 	 * */
 	private static boolean estArgumentValideDebug(String string) {
 		String chaine=string.toLowerCase();
@@ -130,15 +148,11 @@ public class Maintest_v2 {
 			   chaine.equals("luciole");
 	}
 	
+	/**
+	 * Methode main de boulder dash
+	 * @param args Les arguments passes au .jar
+	 */
 	public static void main(String[] args) {
 		testArguments(args);
-		
-		/*Map m = new Map(1,"src/BD01plus.bd");
-		System.out.println(m.toString());
-		
-		MoteurJeu j = new MoteurJeu(1,"src/BD01plus.bd");
-		j.construireMapEntite();
-		j.jeu();
-		System.out.println(m.toString());*/
 	}
 }

@@ -14,7 +14,7 @@ import entite.Diamant;
 import entite.Entite;
 import entite.IA;
 import moteurJeu.MoteurJeu;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 import entite.Position;
 import entite.PositionTombe;
 
@@ -31,10 +31,6 @@ public class IA_RandomEvoluee  extends IA_Random implements IA{
 	public IA_RandomEvoluee() {
 		// TODO Auto-generated constructor stub
 		//j = new RockfordEvolue(10000);
-	}
-	
-	public char[] getDirections(){
-		return j.getDirections();
 	}
 	
 }

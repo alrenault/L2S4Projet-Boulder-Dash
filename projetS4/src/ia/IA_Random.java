@@ -1,16 +1,16 @@
 package ia;
-import moteurJeu.MoteurJeu.Touche;
+import moteurJeu.Touche;
 
 public class IA_Random {
 	private Rockford j ;
 
 	public IA_Random() {
 		// TODO Auto-generated constructor stub
-		j = new Rockford(10000);
+		j = new Rockford();
 	}
 	
-	public char[] getDirections(){
-		return j.getDirections();
-	}
 
+	public char action(){
+		return j.randomTouche();
+	}
 }

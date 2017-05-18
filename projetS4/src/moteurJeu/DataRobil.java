@@ -39,6 +39,8 @@ public class DataRobil {
 	Position posPorte = null;
 	MoteurJeu moteur;
 	
+	int numMap;
+	
 	public ArrayList<Character> listeDeplacements = new ArrayList<Character>();
 	
 	public DataRobil(MoteurJeu moteur){
@@ -63,11 +65,13 @@ public class DataRobil {
 		
 		entite = moteur.copieEntite();
 		nbDiamants = moteur.getNbDiamantRecolte();
+		numMap = moteur.getNumMap();
+		
 		this.moteur = moteur;
 		
-		if(moteur.isPorteAffiche()){
+		//if(moteur.isPorteAffiche()){
 			posPorte = moteur.getPosPorte();
-		}
+		//}
 		
 		listeDeplacements = new ArrayList<Character>();
 		//System.out.println("renvoie un "+joueur);
@@ -80,10 +84,10 @@ public class DataRobil {
 	}
 
 	public boolean estSolution(){
-		Iterator<Position> itJoueur = joueur.getPosition().iterator();
+		/*Iterator<Position> itJoueur = joueur.getPosition().iterator();
 		boolean verite =itJoueur.next().equals(posPorte);
-		System.out.println("estSolution : "+verite);
-		return verite;
+		System.out.println("estSolution : "+verite);*/
+		return moteur.isAParfaiteGagne(this);
 	}
 	
 	public char[] solution(){

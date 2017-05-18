@@ -1,0 +1,216 @@
+IA_Génétique de Map-Fichier :src/Genetique/data/3-BD01plus.dat 
+Génération : 22
+_______________________________________
+
+Nombre de Pas sur la Map : 880
+Nombre de Rockford : 100
+Nombre d'Opérations Déplacement (population*nbPas) = 88000
+_______________________________________
+
+Listes de Déplacement : 
+
+
+Rockford n°1 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 407
+
+Rockford n°2 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 509
+
+Rockford n°3 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 509
+
+Rockford n°4 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 509
+
+Rockford n°5 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 509
+
+Rockford n°6 --> 		Victorieux : false ; Nombre de Diamants : 11 ; Nombre de Pas : 596
+
+Rockford n°7 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°8 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°9 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°10 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°11 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°12 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°13 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°14 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 160
+
+Rockford n°15 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 407
+
+Rockford n°16 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 407
+
+Rockford n°17 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 407
+
+Rockford n°18 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 407
+
+Rockford n°19 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 407
+
+Rockford n°20 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 509
+
+Rockford n°21 --> 		Victorieux : false ; Nombre de Diamants : 6 ; Nombre de Pas : 109
+
+Rockford n°22 --> 		Victorieux : false ; Nombre de Diamants : 6 ; Nombre de Pas : 109
+
+Rockford n°23 --> 		Victorieux : false ; Nombre de Diamants : 3 ; Nombre de Pas : 40
+
+Rockford n°24 --> 		Victorieux : false ; Nombre de Diamants : 7 ; Nombre de Pas : 160
+
+Rockford n°25 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 509
+
+Rockford n°26 --> 		Victorieux : false ; Nombre de Diamants : 10 ; Nombre de Pas : 509
+
+Rockford n°27 --> 		Victorieux : false ; Nombre de Diamants : 6 ; Nombre de Pas : 109
+
+Rockford n°28 --> 		Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 8
+
+Rockford n°29 --> 		Victorieux : false ; Nombre de Diamants : 1 ; Nombre de Pas : 7
+
+Rockford n°30 --> 		Victorieux : false ; Nombre de Diamants : 2 ; Nombre de Pas : 40
+
+Rockford n°31 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 596
+
+Rockford n°32 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°33 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°34 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°35 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°36 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°37 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°38 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°39 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°40 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 40
+
+Rockford n°41 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°42 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°43 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 596
+
+Rockford n°44 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 40
+
+Rockford n°45 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°46 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°47 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°48 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°49 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°50 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°51 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°52 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°53 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 596
+
+Rockford n°54 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°55 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°56 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°57 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 7
+
+Rockford n°58 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°59 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°60 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°61 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°62 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°63 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 7
+
+Rockford n°64 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 40
+
+Rockford n°65 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°66 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°67 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°68 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°69 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 40
+
+Rockford n°70 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 8
+
+Rockford n°71 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°72 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°73 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 7
+
+Rockford n°74 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°75 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 40
+
+Rockford n°76 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°77 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°78 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°79 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°80 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°81 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°82 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°83 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+Rockford n°84 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 596
+
+Rockford n°85 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°86 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°87 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°88 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 596
+
+Rockford n°89 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°90 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°91 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°92 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°93 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°94 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°95 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°96 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 509
+
+Rockford n°97 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 160
+
+Rockford n°98 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 109
+
+Rockford n°99 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 7
+
+Rockford n°100 --> 		Victorieux : false ; Nombre de Diamants : 0 ; Nombre de Pas : 407
+
+
+
+-------------- Fin de l'IA : src/Genetique/data/3-BD01plus.dat ; Version 22 --------------
+

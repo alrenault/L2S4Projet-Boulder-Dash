@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.swing.JSpinner.ListEditor;
+
 import com.sun.glass.events.KeyEvent;
 
 import entite.Position;
@@ -24,6 +26,10 @@ public class IA_Parfaite {
 		System.out.println("IA_Parfaite : n="+n);
 		//DataRobil dr = new DataRobil(moteur);
 		//System.out.println("IAParf to str : \n"+dr);
+		
+	}
+
+	public boolean lancerAnalyse(int n){
 		HashSet<DataRobil> robils = new HashSet<DataRobil>();//les robils en concurrences
 		robils.add(new DataRobil(moteur));//Le point de depart de l'IA
 		HashSet<DataRobil> selectionnees = new HashSet<DataRobil>();//les robils arrives a destination
@@ -41,8 +47,14 @@ public class IA_Parfaite {
 				for(int k=0;k<ret.length;k++){
 					robils.add(ret[k]);
 					if(ret[k].estSolution()){//si un des 5 robils est solution, ajoute-le aux solutions
-						selectionnees.add(ret[k]);
-						ret[k].supprimerData(robils);//supprime le robil solution pour eviter de le re-multiplier
+						//selectionnees.add(ret[k]);
+						//ret[k].supprimerData(robils);//supprime le robil solution pour eviter de le re-multiplier
+						solution = new char[ret[k].listeDeplacements.size()];
+						for(int inc=0;inc<ret[k].listeDeplacements.size();inc++){
+							solution[inc] = ret[k].listeDeplacements.get(inc);
+						}
+						System.out.println("CA MARCHE !!!!!!!");
+						return true;
 					}//si est solution
 				}//pour les 5 deplacements
 			}//pour les robils du tour precedent
@@ -50,8 +62,8 @@ public class IA_Parfaite {
 			System.out.println("Il y a "+robils.size()+" robils");
 		}//pour n deplacements
 		 solution = meilleur(selectionnees).solution();//recupere la solution du meilleur
+		 return false;
 	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -91,7 +103,7 @@ public class IA_Parfaite {
 
 	private void afficheLesRobils(HashSet<DataRobil> robils,int n) {
 		//pour le debugage de l'IA_Parfaite
-		if(moteur.MODE_DEBUG_PARFAITE){
+		if(MoteurJeu.MODE_DEBUG_PARFAITE){
 			Iterator<DataRobil> it = robils.iterator();
 			System.out.println("\n___Tour "+n+" : ___\n");
 			while(it.hasNext()){
@@ -106,6 +118,10 @@ public class IA_Parfaite {
 				}
 			}
 		}
+	}
+	
+	public char[] recupererSolution(){
+		return solution;
 	}
 
 	private DataRobil meilleur(HashSet<DataRobil> selectionnees) {
@@ -161,6 +177,14 @@ public class IA_Parfaite {
 			moteur.affichage();
 			moteur.tour(mouvementSuivant(i), moteur.processPosition());//joue un tour
 			moteur.processEndOfTurn();
+			moteur.getFenetre().repaint();
+			synchronized(moteur.getFenetre().getMoteur().thread){
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException exp) {
+					exp.printStackTrace();
+				}
+			}
 			if(!moteur.isaPerdu()){//si le joueur n'a pas perdu, sauvegarde la direction
 				DataRobil data =new DataRobil(moteur,robil.listeDeplacements);
 				//System.out.println("data créee ( deplacement robil )"+data);

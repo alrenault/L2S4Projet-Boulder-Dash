@@ -20,7 +20,7 @@ public class RockfordEvolue extends Rockford implements Serializable {
 	}
 	
 	
-	private char randomTouche(){
+	/*private char randomTouche(){
 		
 		// Generate un int borné par les 5 choix possibles aléatoirement
 		int i = choisirDirectionIntelligemment();
@@ -42,7 +42,7 @@ public class RockfordEvolue extends Rockford implements Serializable {
 		
 		
 		return 0;
-	}
+	}*/
 
 	/**
 	 * 

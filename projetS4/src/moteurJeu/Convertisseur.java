@@ -1,5 +1,7 @@
 package moteurJeu;
 
+import java.util.List;
+
 import com.sun.glass.events.KeyEvent;
 
 public class Convertisseur {
@@ -56,7 +58,13 @@ public class Convertisseur {
 	 */
 	public static void convTabDGHB_vers_VK(char[] tabChara){
 		for(int i=0;i<tabChara.length;i++){
-			tabChara[i]=Convertisseur.convertirDGHB_vers_VK(tabChara[i]);
+			tabChara[i] = Convertisseur.convertirDGHB_vers_VK(tabChara[i]);
+		}
+	}
+	
+	public static void convTabDGHB_vers_VK(List<Character> listChara){
+		for(int i=0;i<listChara.size();i++){
+			listChara.set(i, Convertisseur.convertirDGHB_vers_VK(listChara.get(i)));
 		}
 	}
 	
@@ -99,6 +107,12 @@ public class Convertisseur {
 	public static void convTabVK_vers_6482(char[] tabChara){
 		for(int i=0;i<tabChara.length;i++){
 			tabChara[i]=Convertisseur.convertirVK_vers_6482(tabChara[i]);
+		}
+	}
+	
+	public static void convTabVK_vers_6482(List<Character> listChara){
+		for(int i=0;i<listChara.size();i++){
+			listChara.set(i, Convertisseur.convertirVK_vers_6482(listChara.get(i)));
 		}
 	}
 	

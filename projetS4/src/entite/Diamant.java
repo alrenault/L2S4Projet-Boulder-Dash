@@ -3,10 +3,17 @@ package entite;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Diamant extends Entite implements Deplacable, Disparaitre {
-	
-	private boolean tombe = false;
-	
+/**
+ * Classe construisant un diamant
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Diamant extends Entite {
+		
+	/**
+	 * Constructeur de la classe Diamant
+	 */
 	public Diamant() {
 		this.apparence = 'd';
 		traversable = true;
@@ -14,30 +21,21 @@ public class Diamant extends Entite implements Deplacable, Disparaitre {
 	
 	public Diamant(Set<PositionTombe> position) {
 		this();
-		this.positionRoc = new HashSet<PositionTombe>(position);
+		this.positionTombe = new HashSet<PositionTombe>(position);
 	}
 	
 	public Diamant copy(){
-		return new Diamant(positionRoc);
+		return new Diamant(positionTombe);
 	}
 
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean deplacer(Entite[][] carte) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	/**
-	 * @return String texte
+	 * Redefinition de la methode toString() pour Diamant
+	 * @return Retourne via une chaine de caractere l'etat du diamant
 	 */
 	@Override
 	public String toString() {
-		return "Diamant [positionRoc= " + positionRoc + ", traversable=" + traversable + "]";
+		return "Diamant [positionRoc= " + positionTombe + ", traversable=" + traversable + "]";
 	}
+
 }

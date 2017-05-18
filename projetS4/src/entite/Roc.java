@@ -3,10 +3,17 @@ package entite;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Roc extends Entite implements Deplacable, Disparaitre {
+/**
+ * Classe construisant un rocher
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Roc extends Entite {
 
-	private boolean tombe = false;
-	
+	/**
+	 * Constructeur de la classe Roc
+	 */
 	public Roc() {
 		this.apparence = 'r';
 		traversable = false;
@@ -14,11 +21,11 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 	
 	public Roc(Set<PositionTombe> position) {
 		this();
-		this.positionRoc = new HashSet<PositionTombe>(positionRoc);
+		this.positionTombe = new HashSet<PositionTombe>(positionTombe);
 	}
 	
 	public Roc copy(){
-		return new Roc(positionRoc);
+		return new Roc(positionTombe);
 	}
 	
 	public void tomber(){
@@ -26,25 +33,8 @@ public class Roc extends Entite implements Deplacable, Disparaitre {
 	}
 
 	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @return String texte
-	 */
-	@Override
 	public String toString() {
-		return "Roc [positionRoc=" + positionRoc + ", traversable=" + traversable +"]";
+		return "Roc [positionRoc=" + positionTombe + ", traversable=" + traversable +"]";
 	}
 
-	@Override
-	public boolean deplacer(Entite[][] carte) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	
 }

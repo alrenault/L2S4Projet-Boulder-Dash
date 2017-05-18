@@ -24,10 +24,10 @@ Colors=Black Black Red Blue Green
 
 [map]
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-W.............wwcccccccccww.........raaW
+WP............wwcccccccccww.........raaW
 Wd..............wcccccccw...........raaW
 Wd...............wcccccw............raaW
-Wd......P.........wcccw.............raaW
+Wd................wcccw.............raaW
 W.................wcccw.............raaW
 W..................wcw..............rrrW
 W..................wcw.................W
@@ -668,6 +668,24 @@ Wwd.w.wd.w.w.rw.wr.W
 Wwr.w.wr.w.w.rw.wr.W
 Wwr...wd...w....wdXW
 WWWWWWWWWWWWWWWWWWWW
+[/map]
+[/cave]
+
+[cave]
+Name=Cave 21
+Intermission=true
+CaveDelay=7
+CaveTime=15
+DiamondsRequired=1
+DiamondValue=20 99
+Colors=Black Black Brown Brown Blue
+
+[map]
+WWWWW
+Wd..w
+W.P.w
+W.X.w
+WWWWW
 [/map]
 [/cave]
 [/game]
