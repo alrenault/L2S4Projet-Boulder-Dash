@@ -104,9 +104,7 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 				//si l'amibe est entouree de murs, ne la deplace pas
 				break;
 			}
-		}
-		System.out.println("Fin de boucle");
-		
+		}		
 		return false;
 	}
 

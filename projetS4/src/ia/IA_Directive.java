@@ -244,7 +244,7 @@ public class IA_Directive implements IA{
 		}
 		
 		//Afficahge pour debugage
-		for(int i=0;i<poidCase.length;i++){
+		/*for(int i=0;i<poidCase.length;i++){
 			for(int j=0;j<poidCase[i].length;j++){
 				System.out.print(poidCase[i][j]+" ");
 			}
@@ -254,7 +254,7 @@ public class IA_Directive implements IA{
 		Iterator<Position> it4 = listFinale.iterator();
 		while(it4.hasNext()){
 			System.out.println(it4.next());
-		}
+		}*/
 		
 		return listFinale;
 	}

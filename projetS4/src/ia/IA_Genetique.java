@@ -114,7 +114,7 @@ public class IA_Genetique implements IA, Serializable {
 			importDataGen();
 		else initialisation(); //Sinon on la crée
 		
-		System.out.println(thisRockford.get(1));
+		//System.out.println(thisRockford.get(1));
 			
 	}
 	

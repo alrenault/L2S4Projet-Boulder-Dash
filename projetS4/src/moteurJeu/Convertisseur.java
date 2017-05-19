@@ -63,11 +63,14 @@ public class Convertisseur {
 	/**
 	 * Convertit une liste de VK vers une liste de DGHB
 	 * @param listChara Liste de caracteres au format VK
+	 * @return Retourne la chaine de caractere convertie
 	 */
-	public static void convTabVK_vers_DGHB(List<Character> listChara){
+	public static String convVKList_vers_DGHBstring(List<Character> listChara){
+		String j = "";
 		for(int i=0;i<listChara.size();i++){
-			listChara.set(i, Convertisseur.convertirVK_vers_DGHB(listChara.get(i)));
+			j += Convertisseur.convertirVK_vers_DGHB(listChara.get(i));
 		}
+		return j;
 	}
 	
 	

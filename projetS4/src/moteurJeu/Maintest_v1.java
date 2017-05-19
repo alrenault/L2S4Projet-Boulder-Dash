@@ -14,8 +14,8 @@ public class Maintest_v1 {
 	 */
 	public static void main(String[] args) {
 		
-		new MoteurJeu();
-
+		MoteurJeu moteur = new MoteurJeu();
+		moteur.jeu();
 	}
 	
 

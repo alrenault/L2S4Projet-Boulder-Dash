@@ -82,7 +82,7 @@ public class Enregistreur {
 			cible.createNewFile();
 			fw = new FileWriter(cible);
 			pw = new PrintWriter(fw);
-			pw.println(listePas);
+			pw.println(Convertisseur.convVKList_vers_DGHBstring(listePas));
 			pw.flush();
 		}
 		catch(IOException e){

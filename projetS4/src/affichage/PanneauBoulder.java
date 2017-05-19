@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -74,21 +75,21 @@ public class PanneauBoulder extends JPanel{
 	 * Une enumeration qui contient les URL vers les images du jeu.
 	 * */
 	private enum ImagesJeu{
-		MUR_BASIQUE (chargerImage("src/BoulderDashImages/Mur.png")),
-		MUR_MAGIQUE (chargerImage("src/BoulderDashImages/MurMagique.png")),
-		MUR_TITANE (chargerImage("src/BoulderDashImages/MurTitane.png")),
-		ROCHER (chargerImage("src/BoulderDashImages/Rocher.png")),
-		ROBIL (chargerImage("src/BoulderDashImages/Robil.png")),
-		LIBELLULE (chargerImage("src/BoulderDashImages/Libellule1.png")),
-		LUCIOLE (chargerImage("src/BoulderDashImages/Carre1.png")),
-		AMIBE (chargerImage("src/BoulderDashImages/Amibe.png")),
-		SORTIE (chargerImage("src/BoulderDashImages/Sortie2.png")),
-		DIAMANT (chargerImage("src/BoulderDashImages/Diamant.png")),
-		POUSSIERE (chargerImage("src/BoulderDashImages/Poussiere.png")),
-		SOL (chargerImage("src/BoulderDashImages/Sol2.png")),
-		MENU (chargerImage("src/BoulderDashImages/Menu.png")),
-		EXPLOSION (chargerImage("src/BoulderDashImages/RocherExplose1.png")),
-		DEFAULT (chargerImage("src/BoulderDashImages/Default.png"));
+		MUR_BASIQUE (chargerImage("BoulderDashImages/Mur.png")),
+		MUR_MAGIQUE (chargerImage("BoulderDashImages/MurMagique.png")),
+		MUR_TITANE (chargerImage("BoulderDashImages/MurTitane.png")),
+		ROCHER (chargerImage("BoulderDashImages/Rocher.png")),
+		ROBIL (chargerImage("BoulderDashImages/Robil.png")),
+		LIBELLULE (chargerImage("BoulderDashImages/Libellule1.png")),
+		LUCIOLE (chargerImage("BoulderDashImages/Carre1.png")),
+		AMIBE (chargerImage("BoulderDashImages/Amibe.png")),
+		SORTIE (chargerImage("BoulderDashImages/Sortie2.png")),
+		DIAMANT (chargerImage("BoulderDashImages/Diamant.png")),
+		POUSSIERE (chargerImage("BoulderDashImages/Poussiere.png")),
+		SOL (chargerImage("BoulderDashImages/Sol2.png")),
+		MENU (chargerImage("BoulderDashImages/Menu.png")),
+		EXPLOSION (chargerImage("BoulderDashImages/RocherExplose1.png")),
+		DEFAULT (chargerImage("BoulderDashImages/Default.png"));
 		
 		private Image img;
 		ImagesJeu(Image img){
@@ -139,8 +140,9 @@ public class PanneauBoulder extends JPanel{
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
 	 * @param path Chemin de l'image
+	 * @return Retourne l'image a charger
 	 * */
-	/*
+	
 	public static Image chargerImage(String path){
 		Image img =null;
 		try {
@@ -150,14 +152,14 @@ public class PanneauBoulder extends JPanel{
 		}catch (IOException e) {e.printStackTrace();}
 		
 		return img;
-	}*/
+	}
 	
 	/**
 	 * Effectue le chargement des images du jeu.
 	 * @param adresse Chemin vers l'image
 	 * @return Retourne l'image a l'adresse indiquee
 	 * */
-	private static Image chargerImage(String adresse){
+	/*private static Image chargerImage(String adresse){
 		Image img = null;
 		try {
 		    img = ImageIO.read(new File(adresse));
@@ -165,7 +167,7 @@ public class PanneauBoulder extends JPanel{
 			e.printStackTrace();
 		}
 		return img;
-	}
+	}*/
 	
 	/**
 	 * Ecrit un message sur la fenetre d'une duree duree

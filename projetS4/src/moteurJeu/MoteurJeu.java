@@ -23,12 +23,16 @@ import moteurJeu.Enregistreur;
 
 public class MoteurJeu {
 
-	//public static final int OBSTACLE_MORTEL=1;
-	//public static final int TOUCHER_MORTEL=2;
+
 	/**
 	 * Char representant la touche appuye
 	 */
 	public char touche;
+	
+	/**
+	 * Boolean representant une victoire de l'IA parfaite
+	 * */
+	public boolean iaParfaiteAGagne = false;
 	
 	/**
 	 * Fil d'execution du programme
@@ -54,7 +58,10 @@ public class MoteurJeu {
 	 * Mode debug pour les lucioles
 	 */
 	public static boolean MODE_DEBUG_LUCIOLE=false;
-	public static boolean MODE_DEBUG_PARFAITE=true;
+	/**
+	 * Mode debug pour l' IA parfaite
+	 */
+	public static boolean MODE_DEBUG_PARFAITE=false;
 
 	//IA
 
@@ -83,7 +90,10 @@ public class MoteurJeu {
 	 * Liste de Character (representant les touches) de l'IA directive
 	 */
 	private List<Character> chemin_direct;
-	private ArrayList<Character> deplacements ;	//Mémorise les touches
+	/**
+	 * Liste de Character (representant les touches) de l'IA rejoue
+	 */
+	private ArrayList<Character> deplacements;	//Mémorise les touches
 
 	/**
 	 * Int representant l'IA utilise :
@@ -256,9 +266,6 @@ public class MoteurJeu {
 		map = new Map(numMap,chemin);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
-		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.ME.get();
-
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
 		poussiere = (Poussiere) builder.buildEntity(this,'.');
@@ -275,10 +282,15 @@ public class MoteurJeu {
 
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
-		
+		touche = KeyEvent.VK_0;
 		
 		//IA
+		
+		intelligence = Intelligence.ME.get();
+		
+		//deplacements ;
 		deplacements = new ArrayList<Character>();
+		
 		//Random
 		iaRandom = new IA_Random();
 		//Genetique
@@ -288,22 +300,8 @@ public class MoteurJeu {
 		directive = new IA_Directive(this);
 		chemin_direct = directive.actionList();
 		parfaite=new IA_Parfaite(5,this);
-		jeu();
-	}
-
-	/**
-	 * Constructeur de la classe MoteurJeu pour le mode Debug
-	 * @param nomVar Tableau de parametre rentre par l'utilisateur pour debugguer
-	 */
-	public MoteurJeu(String[] nomVar){
-		for(int i=0;i<nomVar.length;i++){
-			switch(nomVar[i]){
-			case "tombe":MODE_DEBUG_TOMBER = true; break;
-			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
-			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
-			}
-		}
-		new MoteurJeu();
+		
+		//jeu();
 	}
 	
 	/**
@@ -314,13 +312,51 @@ public class MoteurJeu {
 	}
 
 	/**
+	 * Constructeur de la classe MoteurJeu. Prend en charge les arguments du
+	 * mode DEBUG suivants :
+	 * -tombe
+	 * -libellule
+	 * -lucole
+	 * -parfaite
+	 * @param numMap : numero de la map choisie
+	 * @param nomFichier : chemin de fichier
+	 * @param argsDebug : les arguments qui suivent l'option -d
+	 * @param ia Numero de l'IA
+	 * @param aRejouer Liste des deplacements a rejouer
+	 */
+	public MoteurJeu(int numMap, String nomFichier, String[] argsDebug, int ia, List<Character> aRejouer) {
+		this(numMap,nomFichier);
+		if(aRejouer != null){
+			//rejouerPartie(aRejouer);
+			for(int i=0;i<aRejouer.size();i++){
+				System.out.println("->"+aRejouer.get(i));
+			}
+			deplacements = new ArrayList<Character>(aRejouer);
+		}
+		//if(ia >= -2 && ia <= 4){
+		System.out.println("intel : "+ia);
+			intelligence = ia;
+		//}
+		for(int i=0;i<argsDebug.length;i++){
+			switch(argsDebug[i]){
+			case "tombe":MODE_DEBUG_TOMBER = true; break;
+			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
+			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
+			case "parfaite":MODE_DEBUG_PARFAITE = true; break;
+			}
+		}
+	}
+	
+	
+
+	/**
 	 * Affiche tour par tour la map sur l'interface graphique
 	 */
 	public void affichage(){
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
-		if (intelligence != 2) {
+		if (intelligence != 2 && intelligence != 4) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -336,7 +372,7 @@ public class MoteurJeu {
 		}
 
 		fenetre.repaint();
-
+		System.out.println(afficherMapEntite());
 	}
 
 	/**
@@ -403,10 +439,30 @@ public class MoteurJeu {
 				tour(deplacement,processPosition());
 				processEndOfTurn();
 			}
-			
-			
-			
-			//break; //!GENETIQUE
+			//break; 
+			//!GENETIQUE
+		case 4 : //parfaite
+			System.out.println("test parfaite jeu() - debut analyse");
+			parfaite.lancerAnalyse(100);
+			System.out.println("test parfaite jeu() - fin analyse");
+			char[] deplacements = parfaite.recupererSolution();
+			resetMap();
+			for(int i=0;i<deplacements.length-1;i++){
+				affichage();
+				fenetre.repaint();
+				synchronized(thread){
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException exp) {
+						exp.printStackTrace();
+					}
+				}
+				tour(deplacements[i],processPosition());
+				processEndOfTurn();
+			}
+			intelligence = Intelligence.ME.get();
+			//break;
+			//parfaite
 		}		
 
 		while(true){
@@ -472,7 +528,7 @@ public class MoteurJeu {
 
 			case 2 : break;
 
-			case 3 :
+			case 3 :	//Directive
 				affichage();
 				if(!chemin_direct.isEmpty()){
 					deplacement = chemin_direct.get(0);
@@ -526,13 +582,9 @@ public class MoteurJeu {
 						}	
 					}
 				}
-				break;				
-			case 4 : //parfaite
-				affichage();
-				parfaite.lancerAnalyse(5);
-				processEndOfTurn();
 				break;
-				//parfaite
+				
+				case 4: jeu();
 			}
 		}
 	}
@@ -581,7 +633,7 @@ public class MoteurJeu {
 			case KeyEvent.VK_0 : t = Touche.TOUCHE_IMMOBILE;break;
 		}
 
-		if(entite[x][y] == roc){
+		if(entite[x][y] instanceof Roc){
 			pousserRocher(new PositionTombe(x,y));
 			memorizePath(touche);
 		}
@@ -823,11 +875,14 @@ public class MoteurJeu {
 			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
 		}
 		
-		return entite[doitTomber.getX()+1][doitTomber.getY()] == roc &&
-				((entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
-				entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace) ||
-				(entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
-				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
+		return (entite[doitTomber.getX()+1][doitTomber.getY()] == roc ||
+				entite[doitTomber.getX()+1][doitTomber.getY()] == diamant) 
+				&&
+					((entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
+					entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace) 
+					||
+					(entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
+					entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
 	}
 	
 	/**
@@ -916,7 +971,7 @@ public class MoteurJeu {
 					//on n'ajoute pas d'explosion quand le joueur perd car sinon,
 					//apres le reset il reste un morceau d'explosion
 					perdu();
-				}else if(entiteCarte(p)==luciole || entiteCarte(p)==libellule || entiteCarte(p)==amibe){
+				}else if(entiteCarte(p)==libellule || entiteCarte(p)==amibe){
 					entite[p.getX()][p.getY()] = diamant;
 					diamant.getPositionTombe().add(new PositionTombe(p.getX(),p.getY()));
 				}else{
@@ -1219,12 +1274,12 @@ public class MoteurJeu {
 	public void deplacerJoueur(int x, int y){
 		if(joueur.getPosition().size()!=1)
 			throw new IllegalArgumentException("Plusieurs positions pour le joueurs");
-		if(entite[x][y] == exit){
+		if(entite[x][y] instanceof Exit){
 			System.out.println("JE GAGNE ???");
 				gagner();
 		}
 		if(!aGagne){
-			if(entite[x][y] == diamant){
+			if(entite[x][y] instanceof Diamant){
 				gagnerPoints();
 			}
 			Iterator<Position> it = joueur.getPosition().iterator();
@@ -1235,11 +1290,13 @@ public class MoteurJeu {
 			Position p1 = new Position(x,y);
 			PositionTombe pT = new PositionTombe(x,y);
 			joueur.getPosition().remove(p); //enleve la pos actuelle du joueur
-			if(entite[x][y] == diamant){
+			if(entite[x][y] instanceof Diamant){
 				diamant.getPositionTombe().remove(pT);
 			}
-			else
+			else{
 				entite[x][y].getPosition().remove(p1);
+			}
+			//System.out.println("deplacerJoueur() : ");
 			entite[x][y] = joueur; //fait pointer sur la nouvelle pos
 			entite[x][y].getPosition().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
 		}
@@ -1410,10 +1467,25 @@ public class MoteurJeu {
 	 * */
 	public void gagner(){
 	aGagne = true;
+	if(intelligence == 4){
+		iaParfaiteAGagne = true;
+	}
+	if(intelligence == 3){
+		intelligence = Intelligence.ME.get();
+	}
 	exportPath();
-	if(numMap == map.getNbMap()){
+	if(numMap == map.getNbMap() && intelligence != 2 && intelligence != 4){
 		System.out.println("ca a fonctionne");
 		fenetre.afficherMessageVictoire();
+		changerMap(1);
+		synchronized(thread){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException exp) {
+				exp.printStackTrace();
+			}
+		}
+		fenetre.effacerMessageVictoire();
 	}
 	else{
 		if (intelligence != 2 )changerMap(++numMap);
@@ -1428,6 +1500,9 @@ public class MoteurJeu {
 	public void perdu() {
 		fenetre.ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
+		if(intelligence == 3){
+			intelligence = Intelligence.ME.get();
+		}
 		exportPath();
 		resetMap();
 		
@@ -1486,6 +1561,10 @@ public class MoteurJeu {
 		murMagique = data.murMagique.copy();
 		poussiere = data.poussiere.copy();
 		diamant = data.diamant.copy();
+		
+		nbDiamantRecolte = data.nbDiamants;
+		numMap = data.numMap;
+		
 		if(isPorteAffiche()){
 			posPorte = new Position(data.posPorte.getX(), data.posPorte.getY());
 		}
@@ -1761,6 +1840,29 @@ public IA_Random getIaRandom() {
 
 	public Explosion getExplosion() {
 		return explosion;
+	}
+	
+	public boolean getMODE_DEBUG_TOMBER() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_TOMBER;
+	}
+	
+	public boolean getMODE_DEBUG_LIBELLULE() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_LIBELLULE;
+	}
+	
+	public boolean getMODE_DEBUG_LUCIOLE() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_LUCIOLE;
+	}
+
+	public ArrayList<Character> getDeplacements() {
+		return deplacements;
+	}
+
+	public boolean isIAParfaiteAGagne() {
+		return iaParfaiteAGagne;
 	}
 
 }

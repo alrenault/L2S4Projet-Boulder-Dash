@@ -1,6 +1,12 @@
 package moteurJeu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entite.IA;
 
 import map.Map;
 
@@ -11,6 +17,12 @@ import map.Map;
  * @author LEVEQUE Quentin
  */
 public class Maintest_v2 {
+	private static String[] argsDebug ={""};
+	private static boolean jeu = false;
+	private static int numMap = 1;
+	private static String nomFichier ="BD01plus.bd";
+	private static int intel=Intelligence.ME.get();
+	private static List<Character> arejouer= new ArrayList<Character>();
 	
 	/**
 	 * Teste les arguments du main et lance les bonnes fonctionnalites en fonction. Voici les arguments possibles :
@@ -28,13 +40,13 @@ public class Maintest_v2 {
 	public static void testArguments(String args[]){
 		if(args.length>0){
 			for(int i=0;i<args.length;i++){
-				if(args[i].endsWith("name")){
+				if(args[i].endsWith("-name")){
 					System.out.println("-------Projet Boulder Dash-------\n" +
 										"realise par : \n" +
 										"	PITROU Adrien\n" +
 										"	LEVEQUE Quentin\n" +
 										"	RENAULT Alexis\n");
-				}else if(args[i].endsWith("h")){
+				}else if(args[i].endsWith("-h")){
 					System.out.println("-------Options-------\n" +
 							"-name : Donne les noms des developpeurs du projet\n" +
 							"-lis FICHIER.bcdf : affiche les parametres d'un fichier bcdf\n" +
@@ -44,11 +56,22 @@ public class Maintest_v2 {
 							"Le resultat du jeu est sauvegarde dans un fichier bcdf a la racine du projet.\n" +
 							"-cal strategie FICHIER.bdcff -niveau N : \n"+
 							"-rejoue fichier.dash fichier.bdcff -niveau N : \n" +
-							"-simul N strategie strategie fichier.bdcff -niveau N : ");
-				}else if(args[i].endsWith("joue")){
+							"-simul N strategie strategie fichier.bdcff -niveau N : \n" +
+							"-d option [option] : jouer au BoulderDash avec les options de debug :\n" +
+							" 1) tombe\n" +
+							" 2) libellule\n" +
+							" 3) luciole\n" +
+							" 4) parfaite");
+				}else if(args[i].endsWith("-lis")){
+					System.out.println("-------Proprietes-------\n");
+					String chaine = nomFichier;
+					if(i+1<args.length){
+						chaine=args[i+1];
+						i++;
+					}
+					System.out.println(Map.proprieties("src/"+chaine));
+				}else if(args[i].endsWith("-joue")){
 					System.out.println("-------Jouer au jeu-------\n");
-					int numMap=1;
-					String nomFichier="BD01plus.bd";
 					
 					if(i+1<args.length){
 						nomFichier=args[i+1];
@@ -59,34 +82,68 @@ public class Maintest_v2 {
 						numMap=Integer.parseInt(args[i+2]);
 						i++;
 					}
-					
-					new MoteurJeu(numMap,nomFichier);
-				}else if(args[i].endsWith("cal")){
+					jeu = true;
+				}else if(args[i].endsWith("-cal")){
 					System.out.println("-------Calcul-------\n");
-				}else if(args[i].endsWith("rejoue")){
+					if(i+1<args.length){
+						String strategie=args[i+1];
+						i++;
+						if(estValideStrategie(strategie)){
+							intel = strategie(strategie);
+						}
+					}
+					jeu = true;
+				}else if(args[i].endsWith("-rejoue")){
 					System.out.println("-------Rejouer une partie-------\n");
-				}else if(args[i].endsWith("simul")){
+					intel = Intelligence.REJOUE.get();
+					String adresse = "src/Sauv1.dash";
+					if(i+1<args.length){
+						adresse=args[i+1];
+						i++;
+					}
+					rejouerPartie(adresse);
+					jeu = true;
+				}else if(args[i].endsWith("-simul")){
 					System.out.println("-------Simuler un jeu-------\n");
 				}else if(args[i].endsWith("d")){
 					System.out.println("-------Mode Debug-------");
-					String[] argsDebug = argumentsDebug(args,i+1);
+					argsDebug = argumentsDebug(args,i+1);
 					i+=argsDebug.length;
 					/*for(int j=0;j<argsDebug.length;j++){
 						System.out.println("alors ? :"+argsDebug[j]);
 					}*/
-					new MoteurJeu(argsDebug);
+					//new MoteurJeu(argsDebug);
+				}
+				if(jeu){
+					MoteurJeu moteur = new MoteurJeu(numMap,nomFichier, argsDebug, intel, arejouer);
+					moteur.jeu();
 				}
 			}
 		}
 	}
 	
+	private static int strategie(String strategie) {
+		switch(strategie){
+		case "-parfait" : return Intelligence.PARFAITE.get();
+		case "-directif" : return Intelligence.DIRECTIVE.get();
+		case "-evolue" : return Intelligence.GENETIQUE.get();
+		case "-simplet" : return Intelligence.RANDOM.get();
+		}
+		return 0;
+	}
+
+	private static boolean estValideStrategie(String strategie) {
+		return strategie.endsWith("-parfait") || strategie.endsWith("-directif") ||
+				strategie.endsWith("-evolue") || strategie.endsWith("-simplet");
+	}
+
 	/**
 	 * Quand le -d est passe en argument, la fonction apelle celle-ci qui va recuperer tout
 	 * les arguments valides qui suivent le -d et les ajouter a la liste d'options a debugger.
 	 * @param String[] args, int i
 	 * @return String[] arguments la liste des arguments valides qui suivent le -d
 	 * */
-	private static String[] argumentsJoue(String[] args, int i) {
+	/*private static String[] argumentsJoue(String[] args, int i) {
 		ArrayList<String> retour=new ArrayList<String>();
 		
 		//System.out.println("estArgumentValide : "+estArgumentValideJoue(args[i]));
@@ -101,6 +158,27 @@ public class Maintest_v2 {
 		//	o[j]=(String) o[j];
 		//}
 		return tab;
+	}*/
+	
+	private static void rejouerPartie(String path){
+		Scanner sc;
+		String ligne = "";
+		//tente de recuperer la premiere ligne du fichier sauvegarde
+		try {
+			sc = new Scanner(new File(path));
+			ligne = sc.nextLine();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		//List<Character> list = new ArrayList<Character>();
+		//remplit le tableau de deplacements avec les caracteres de la chaine
+		for(int i=0;i<ligne.length();i++){
+			char chara = ligne.charAt(i);
+			System.out.println("Prochain cara : "+chara);
+			arejouer.add(chara);
+		}
+		//convertit du format dghb en vk
+		Convertisseur.convTabDGHB_vers_VK(arejouer);
 	}
 
 	/**
@@ -145,6 +223,7 @@ public class Maintest_v2 {
 		String chaine=string.toLowerCase();
 		return chaine.equals("tombe") || 
 			   chaine.equals("libellule") ||
+			   chaine.equals("parfaite") ||
 			   chaine.equals("luciole");
 	}
 	

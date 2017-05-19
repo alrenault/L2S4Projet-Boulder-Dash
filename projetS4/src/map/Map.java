@@ -93,13 +93,13 @@ public class Map{
 	 */
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
-			throw new IllegalArgumentException("Fichier non trouvé");
+			throw new IllegalArgumentException("Fichier non trouve");
 		fichier = Paths.get(chemin);
 		try{
 			contenu = readFile(fichier, Charset.defaultCharset());
 		}
 		catch(IOException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouve");
 		}
 		this.numMap = numMap;
 		name = "Cave "+numMap;
@@ -122,12 +122,13 @@ public class Map{
 	
 	/**
 	 * Renvoie les proprietes d'un fichier bdcff
-	 * @param Le chemin du fichier dont on veut les proprietes
+	 * @param chemin Le chemin du fichier dont on veut les proprietes
 	 * @return Retourne sous forme de chaine de caractere les proprietes
 	 */
 	public static String proprieties(String chemin){
 		Path f;
 		String proprieties = "";
+		String contenu = "";
 		
 		if(!Files.exists(Paths.get(chemin)))
 			throw new IllegalArgumentException("Fichier non trouvé");
@@ -143,14 +144,20 @@ public class Map{
 		String ligne = "";
 		while(sc.hasNext()){
 			ligne = sc.nextLine();
+			if(ligne.equals("[game]")){
+				break;
+			}
+		}
+		while(sc.hasNext()){
+			ligne = sc.nextLine();
 			if(ligne.equals("[cave]")){
 				break;
 			}
-			proprieties += ligne;
+			contenu += ligne + "\n";
 		}
 		
 		sc.close();
-		return proprieties;
+		return contenu;
 	}
 	
 	/**

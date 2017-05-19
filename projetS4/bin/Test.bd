@@ -1,0 +1,52 @@
+; Projet Boulder Dash - L2 Infos Orléans, 2016-2017
+; Tests Unitaires de Non-régression
+
+[BDCFF]
+[game]
+Name=Boulder Dash 1 Plus
+Date=February 2004
+Author=Matthias Steiner
+WWW=http://www.steiner-online.at/en/software.html
+Charset=Original
+Fontset=Original
+Levels=1
+Caves=20
+
+[cave]
+Name=Cave 1
+Intermission=true
+CaveDelay=7
+CaveTime=15
+DiamondsRequired=1
+DiamondValue=20 99
+Colors=Black Black Brown Brown Blue
+
+[map]
+WWWWWW
+WPr  W
+Wd.. W
+W.X.wW
+WWWWWW
+[/map]
+[/cave]
+
+[cave]
+Name=Cave 2
+Intermission=true
+CaveDelay=7
+CaveTime=15
+DiamondsRequired=1
+DiamondValue=20 99
+Colors=Black Black Brown Brown Blue
+
+[map]
+WWWWWW
+WPr  W
+Wdrr W
+WrXrwW
+WWWWWW
+[/map]
+[/cave]
+
+[/game]
+[/BDCFF]
