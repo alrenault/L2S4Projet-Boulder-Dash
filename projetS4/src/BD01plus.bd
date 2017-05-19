@@ -694,16 +694,16 @@ Name=Cave 22
 Intermission=true
 CaveDelay=7
 CaveTime=15
-DiamondsRequired=1
+DiamondsRequired=2
 DiamondValue=20 99
 Colors=Black Black Brown Brown Blue
 
 [map]
-WwWWW
-Wd..w
-W.P.W
-W.X.w
-WWWWW
+WwWWWWW
+Wd q rW
+W P  dW
+W X  .W
+WWWWWWW
 [/map]
 [/cave]
 [/game]

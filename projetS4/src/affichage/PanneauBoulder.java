@@ -124,9 +124,8 @@ public class PanneauBoulder extends JPanel{
 	/**
 	 * Affiche le message de victoire quand le joueur a fini la derniere map
 	 * */
-	public void afficherMessageVictoire(int duree){
+	public void afficherMessageVictoire(){
 		victoire = true;
-		this.duree = duree;
 		repaint();
 	}
 	
@@ -235,13 +234,12 @@ public class PanneauBoulder extends JPanel{
 	 * */
 	public void paintComponent(Graphics g){
 		
-		if(victoire && duree > 0){
+		if(victoire){
 			g.setColor(Color.GRAY);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.setFont(new Font("Arial",1, 40));
 			g.setColor(Color.BLACK);
 			g.drawString("YOU WON !!!", getWidth()/2 -150, getHeight()/2-20);
-			duree--;
 		}else{
 			//au cas ou la grille n'aurait pas la meme taille que la precedente
 			raffraichirLongueurEtLargeur();

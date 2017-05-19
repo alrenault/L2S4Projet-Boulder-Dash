@@ -46,13 +46,14 @@ public class MenuBar extends JMenuBar{
 		this.add(new Fichier());
 		this.add(new ChangerIA());
 		this.add(new ChangerCarte());
+		this.add(new Credits());
 		this.addMouseListener(new EcouteurTouche());
 	}
 	
 	/**
 	 * Classe interne creant le menu fichier
 	 */
-	public class Fichier extends JMenu{
+	private class Fichier extends JMenu{
 		private static final long serialVersionUID = 1L;
 		
 		/**
@@ -68,7 +69,7 @@ public class MenuBar extends JMenuBar{
 		/**
 		 * Classe interne creant l'onglet de nouvelle partie.
 		 * */
-		public class NouvellePartie extends JMenuItem{
+		private class NouvellePartie extends JMenuItem{
 			private static final long serialVersionUID = 1L;
 
 			/**
@@ -82,7 +83,7 @@ public class MenuBar extends JMenuBar{
 			/**
 			 * Classe interne faisant les actions lors de l'utilisation du bouton nouvelle partie
 			 */
-			public class ActionNouvellePartie implements ActionListener{
+			private class ActionNouvellePartie implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Le bouton de nouvelle partie");
@@ -95,7 +96,7 @@ public class MenuBar extends JMenuBar{
 		/**
 		 * Menu Rejouer
 		 * */
-		public class Rejouer extends JMenu{
+		private class Rejouer extends JMenu{
 			/**
 			 * 
 			 */
@@ -161,7 +162,7 @@ public class MenuBar extends JMenuBar{
 	/**
 	 * Classe interne creant le menu de changement des IA
 	 * */
-	public class ChangerIA extends JMenu{
+	private class ChangerIA extends JMenu{
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -195,7 +196,7 @@ public class MenuBar extends JMenuBar{
 		/**
 		 * Classe interne creant les differents onglets
 		 */
-		public class IA extends JMenuItem{
+		private class IA extends JMenuItem{
 			private static final long serialVersionUID = 1L;
 			private String intitule="IA";
 			
@@ -222,7 +223,7 @@ public class MenuBar extends JMenuBar{
 			 * Classe interne changeant l'IA en fonction de celle choisie 
 			 * et affiche un message sur la fenetre
 			 */
-			public class ActionIA implements ActionListener{
+			private class ActionIA implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("changement en "+intitule);
@@ -265,8 +266,9 @@ public class MenuBar extends JMenuBar{
 						break;
 					case "IA parfaite":fenetre.getMoteur().changerIA(
 							Intelligence.PARFAITE);
+						fenetre.getMoteur().iaParfaiteAGagne = false;
 						fenetre.getMoteur().repriseIA();
-						fenetre.ecrireMessage("IA Parfaite", 2);
+						fenetre.ecrireMessage("IA Parfaite", 20);
 						fenetre.repaint();
 						//fenetre.focusPanneau();
 						//fenetre.getMoteur().jeu();
@@ -282,7 +284,7 @@ public class MenuBar extends JMenuBar{
 	/**
 	 * Classe interne creant le menu de changement de carte.
 	 * */
-	public class ChangerCarte extends JMenu{
+	private class ChangerCarte extends JMenu{
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -299,7 +301,7 @@ public class MenuBar extends JMenuBar{
 		/**
 		 * Classe interne creant un onglet par map
 		 */
-		public class Carte extends JMenuItem{
+		private class Carte extends JMenuItem{
 			private static final long serialVersionUID = 1L;
 			
 			/**
@@ -320,7 +322,7 @@ public class MenuBar extends JMenuBar{
 			/**
 			 * Classe interne changeant la carte et affichant un message
 			 */
-			public class ActionCarte implements ActionListener{
+			private class ActionCarte implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("La carte "+num);
@@ -331,6 +333,43 @@ public class MenuBar extends JMenuBar{
 		}
 	}//changerCarte
 	
+	/**
+	 * Classe interne gerant l'affichage des credits
+	 */
+	private class Credits extends JMenu{
+		/**
+		 * Le num de serialisation
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public Credits(){
+			this.setText("Credits");
+			this.add(new Noms());
+			this.addMouseListener(new EcouteurTouche());
+		}
+		
+		/**
+		 * Classe interne qui s'occupe d'afficher les noms des membres du groupe
+		 * */
+		private class Noms extends JMenuItem{
+			
+			public Noms(){
+				this.setText("Noms des membres du groupe");
+				this.addActionListener(new ActionCredits());
+			}
+			/**
+			 * Classe interne changeant la carte et affichant un message
+			 */
+			private class ActionCredits implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					fenetre.ecrireMessage("Projet realise par PITROU Adrien, RENAULT Alexis" +
+							" et LEVEQUE Quentin", 3);
+					fenetre.repaint();
+				}
+			}
+		}
+	}
 	/**
 	 * Classe interne permettant de mettre en pause quant on clique sur la fenetre
 	 */

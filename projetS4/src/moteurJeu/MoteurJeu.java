@@ -284,6 +284,7 @@ public class MoteurJeu {
 
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
+		touche = KeyEvent.VK_0;
 		
 		//IA
 		
@@ -445,7 +446,7 @@ public class MoteurJeu {
 			System.out.println("test parfaite jeu() - fin analyse");
 			char[] deplacements = parfaite.recupererSolution();
 			resetMap();
-			for(int i=0;i<100;i++){
+			for(int i=0;i<deplacements.length-1;i++){
 				affichage();
 				fenetre.repaint();
 				synchronized(thread){
@@ -876,11 +877,14 @@ public class MoteurJeu {
 			throw new NullPointerException("impossible de faire tomber sur une positionTombe a null");
 		}
 		
-		return entite[doitTomber.getX()+1][doitTomber.getY()] == roc &&
-				((entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
-				entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace) ||
-				(entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
-				entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
+		return (entite[doitTomber.getX()+1][doitTomber.getY()] == roc ||
+				entite[doitTomber.getX()+1][doitTomber.getY()] == diamant) 
+				&&
+					((entite[doitTomber.getX()][doitTomber.getY()+1] == espace &&
+					entite[doitTomber.getX()+1][doitTomber.getY()+1] == espace) 
+					||
+					(entite[doitTomber.getX()][doitTomber.getY()-1] == espace &&
+					entite[doitTomber.getX()+1][doitTomber.getY()-1] == espace));
 	}
 	
 	/**
@@ -969,7 +973,7 @@ public class MoteurJeu {
 					//on n'ajoute pas d'explosion quand le joueur perd car sinon,
 					//apres le reset il reste un morceau d'explosion
 					perdu();
-				}else if(entiteCarte(p)==luciole || entiteCarte(p)==libellule || entiteCarte(p)==amibe){
+				}else if(entiteCarte(p)==libellule || entiteCarte(p)==amibe){
 					entite[p.getX()][p.getY()] = diamant;
 					diamant.getPositionTombe().add(new PositionTombe(p.getX(),p.getY()));
 				}else{
@@ -1062,7 +1066,7 @@ public class MoteurJeu {
 		while(it1.hasNext()){
 			//pour le debugage de tomber
 			if(MODE_DEBUG_TOMBER){
-				System.out.println("ATomber : "+e.toString());
+				//System.out.println("ATomber : "+e.toString());
 				fenetre.repaint();
 				synchronized(fenetre.getMoteur().thread){
 					try {
@@ -1445,28 +1449,33 @@ public class MoteurJeu {
 		
 	}
 	public void enregistrer(){
-		Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
-		if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
-	}
-	public void gagner(){
-	aGagne = true;
-	if(intelligence == 4){
-		iaParfaiteAGagne = true;
-	}
-	exportPath();
-	if(numMap == map.getNbMap()){
-		System.out.println("ca a fonctionne");
-		fenetre.afficherMessageVictoire(3);
-	}
-	else{
-		if (intelligence != 2 )changerMap(++numMap);
-		else resetMap();
-	}
-		
-}
+			Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+			if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
+		}
 	
-	public boolean isAParfaiteGagne(DataRobil data){
-		return data.numMap+1 == this.numMap || aGagne;
+	public void gagner(){
+		aGagne = true;
+		if(intelligence == 4){
+			iaParfaiteAGagne = true;
+		}
+		exportPath();
+		if(numMap == map.getNbMap() && intelligence != 2 && intelligence != 4){
+			//System.out.println("ca a fonctionne");
+			fenetre.afficherMessageVictoire();
+			changerMap(1);
+			synchronized(thread){
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException exp) {
+					exp.printStackTrace();
+				}
+			}
+			fenetre.effacerMessageVictoire();
+		}
+		else{
+				if (intelligence != 2 && intelligence != 4) changerMap(++numMap);
+				else resetMap();
+			}
 	}
 	
 	/**

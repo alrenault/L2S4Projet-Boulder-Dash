@@ -30,6 +30,11 @@ public class IA_Parfaite {
 		
 	}
 
+	/**
+	 * Lance l'analyse du chemin pour l'IA parfaite.
+	 * @param n
+	 * @return
+	 */
 	public boolean lancerAnalyse(int n){
 		HashSet<DataRobil> robils = new HashSet<DataRobil>();//les robils en concurrences
 		robils.add(new DataRobil(moteur));//Le point de depart de l'IA
@@ -200,9 +205,11 @@ public class IA_Parfaite {
 				}
 			}
 			if(!moteur.isaPerdu()){//si le joueur n'a pas perdu, sauvegarde la direction
-				DataRobil data =new DataRobil(moteur,robil.listeDeplacements);
+				DataRobil data = new DataRobil(moteur,robil.listeDeplacements);
 				//System.out.println("data créee ( deplacement robil )"+data);
-				data.listeDeplacements.add(mouvementSuivant(i));
+				if(mouvementSuivant(i) != KeyEvent.VK_0){
+					data.listeDeplacements.add(mouvementSuivant(i));
+				}
 				gardes.add(data);
 			}
 		}

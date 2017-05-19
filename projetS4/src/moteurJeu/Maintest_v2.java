@@ -85,6 +85,14 @@ public class Maintest_v2 {
 					jeu = true;
 				}else if(args[i].endsWith("-cal")){
 					System.out.println("-------Calcul-------\n");
+					if(i+1<args.length){
+						String strategie=args[i+1];
+						i++;
+						if(estValideStrategie(strategie)){
+							intel = strategie(strategie);
+						}
+					}
+					jeu = true;
 				}else if(args[i].endsWith("-rejoue")){
 					System.out.println("-------Rejouer une partie-------\n");
 					intel = Intelligence.REJOUE.get();
@@ -114,6 +122,21 @@ public class Maintest_v2 {
 		}
 	}
 	
+	private static int strategie(String strategie) {
+		switch(strategie){
+		case "-parfait" : return Intelligence.PARFAITE.get();
+		case "-directif" : return Intelligence.DIRECTIVE.get();
+		case "-evolue" : return Intelligence.GENETIQUE.get();
+		case "-simplet" : return Intelligence.RANDOM.get();
+		}
+		return 0;
+	}
+
+	private static boolean estValideStrategie(String strategie) {
+		return strategie.endsWith("-parfait") || strategie.endsWith("-directif") ||
+				strategie.endsWith("-evolue") || strategie.endsWith("-simplet");
+	}
+
 	/**
 	 * Quand le -d est passe en argument, la fonction apelle celle-ci qui va recuperer tout
 	 * les arguments valides qui suivent le -d et les ajouter a la liste d'options a debugger.
