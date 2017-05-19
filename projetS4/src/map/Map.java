@@ -120,6 +120,38 @@ public class Map{
 		return new String(encoded, encoding);
 	}
 	
+	/**
+	 * Renvoie les proprietes d'un fichier bdcff
+	 * @param Le chemin du fichier dont on veut les proprietes
+	 * @return Retourne sous forme de chaine de caractere les proprietes
+	 */
+	public static String proprieties(String chemin){
+		Path f;
+		String proprieties = "";
+		
+		if(!Files.exists(Paths.get(chemin)))
+			throw new IllegalArgumentException("Fichier non trouvé");
+		f = Paths.get(chemin);
+		try{
+			proprieties = readFile(f, Charset.defaultCharset());
+		}
+		catch(IOException e){
+			System.out.println("Fichier non trouvé");
+		}
+		
+		Scanner sc = new Scanner(proprieties);
+		String ligne = "";
+		while(sc.hasNext()){
+			ligne = sc.nextLine();
+			if(ligne.equals("[cave]")){
+				break;
+			}
+			proprieties += ligne;
+		}
+		
+		sc.close();
+		return proprieties;
+	}
 	
 	/**
 	 * Compte le nombre de map dans le fichier et change nbMap en consequence

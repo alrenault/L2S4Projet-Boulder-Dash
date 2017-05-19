@@ -596,11 +596,10 @@ public class MoteurJeu {
 
 	/**
 	 * Methode permettant de pousser un rocher
-	 * @param p Position du rocher a pousser
+	 * @param p Position où l'on veut pousser le rocher
 	 * @return Retourne false si ce n'est pas possible et true sinon
 	 */
 	public boolean pousserRocher(Position p){
-		//	System.out.println("COUCOU");
 			int x1 = p.getX();
 			int y1 = p.getY();
 			switch(touche){
@@ -625,7 +624,6 @@ public class MoteurJeu {
 						break;
 					}
 				}
-				//roc.getPositionTombe().remove(p1); //enleve la pos actuelle du rocher
 				entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
 				entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du rocher dans l'ens de pos du rocher
 				deplacerJoueur(p.getX(),p.getY());
