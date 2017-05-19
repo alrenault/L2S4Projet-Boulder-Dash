@@ -1,5 +1,10 @@
 package moteurJeu;
 
+/**
+ * Classe creant un enum d'intelligence
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
 public enum Intelligence {
 	REJOUE(-2),
 	NO(-1),

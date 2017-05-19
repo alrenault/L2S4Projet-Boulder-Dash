@@ -19,11 +19,19 @@ public class Diamant extends Entite {
 		traversable = true;
 	}
 	
+	/**
+	 * Constructeur pour la copie de la classe Diamant
+	 * @param position L'ensemble des positions du diamant
+	 */
 	public Diamant(Set<PositionTombe> position) {
 		this();
 		this.positionTombe = new HashSet<PositionTombe>(position);
 	}
 	
+	/**
+	 * Copie le diamant
+	 * @return Retourne une copie du diamant
+	 */
 	public Diamant copy(){
 		return new Diamant(positionTombe);
 	}

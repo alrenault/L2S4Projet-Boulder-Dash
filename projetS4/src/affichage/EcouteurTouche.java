@@ -31,7 +31,7 @@ public class EcouteurTouche implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent evt) {
 		char touche=(char) evt.getKeyCode();
-		System.out.println(touche);
+		//System.out.println(touche);
 		
 		//joue un tour.
 		if(!fenetre.getMoteur().enPause()){
@@ -41,7 +41,6 @@ public class EcouteurTouche implements KeyListener{
 				fenetre.getMoteur().thread.notify();
 			}
 		}
-		//fenetre.repaint();
 	}
 	
 	@Override

@@ -41,6 +41,9 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 	
 	/**
 	 * Le constructeur de copie d'Amibe.
+	 * @param moteur Reference vers le moteur
+	 * @param position L'ensemble des positions de l'amibe
+	 * @param seuil Pourcentage de chance que l'amibe se deplace
 	 * */
 	public Amibe(MoteurJeu moteur, Set<Position> position, int seuil) {
 		this(moteur);
@@ -48,13 +51,17 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 		this.seuil=seuil;
 	}
 	
+	/**
+	 * Copie l'amibe
+	 * @return Retourne l'amibe copie
+	 */
 	public Amibe copy(){
 		return new Amibe(moteur,position,seuil);
 	}
 
 	/**
 	 * Fait s'agrandir l'Amibe.
-	 * @param carte Map d'entite oï¿½ l'on fait s'agrandir l'amibe
+	 * @param carte Map d'entite où l'on fait s'agrandir l'amibe
 	 * @return Retourne true si l'amibe grandit false sinon
 	 * */
 	@Override
@@ -69,7 +76,7 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 		ensemble.addAll(this.getPosition());
 		Iterator<Position> it = ensemble.iterator();
 		
-		//choisit aleatoirement les parties de l'amibe et les multiplie peut-ï¿½tre si possible
+		//choisit aleatoirement les parties de l'amibe et les multiplie peut-être si possible
 		while(true){
 			
 			if(it.hasNext()){
@@ -97,9 +104,7 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 				//si l'amibe est entouree de murs, ne la deplace pas
 				break;
 			}
-		}
-		//System.out.println("Fin de boucle");
-		
+		}		
 		return false;
 	}
 
@@ -107,7 +112,7 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 	 * Exprime si oui ou non l'amibe va se deplacer.
 	 * Le programme de deplacement est fait de telle sorte que :
 	 * -Au 1er tour, l'Amibe a 0% de chances de se deplacer.
-	 * -Au 2ï¿½me tour, l'Amibe a 1 chance sur 2 de se delacer
+	 * -Au 2ème tour, l'Amibe a 1 chance sur 2 de se delacer
 	 * -Les chances montent a 2/3, 3/4, 4/5 etc jusqu'a ce que l'Amibe se deplace
 	 * -Une fois le deplacement effectue, les chances de se deplacer reviennent a 0 et on
 	 * recommence du debut. 
@@ -213,7 +218,7 @@ public class Amibe extends Entite implements Deplacable, Ennemi {
 
 
 	/**
-	 * Verifie si la case indiquee peut ï¿½tre traversee.
+	 * Verifie si la case indiquee peut être traversee.
 	 * @param carte La carte sur laquelle se trouve l'amibe
 	 * @param x Coordonnee en x de la position a tester
 	 * @param y Coordonnee en y de la position a tester

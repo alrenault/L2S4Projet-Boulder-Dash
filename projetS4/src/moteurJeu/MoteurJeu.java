@@ -23,8 +23,7 @@ import moteurJeu.Enregistreur;
 
 public class MoteurJeu {
 
-	//public static final int OBSTACLE_MORTEL=1;
-	//public static final int TOUCHER_MORTEL=2;
+
 	/**
 	 * Char representant la touche appuye
 	 */
@@ -65,6 +64,7 @@ public class MoteurJeu {
 	public static boolean MODE_DEBUG_PARFAITE=false;
 
 	//IA
+
 	
 	/**
 	 * Champ de l'IA random
@@ -246,8 +246,7 @@ public class MoteurJeu {
 
 	/**
 	 * Permet a la barre de menu de changer le mode d'IA sans pour autant donner acces
-	 * a la variable.case 4: 
-				case 5: jeu();
+	 * a la variable.
 	 * @param ia La nouvelle IA
 	 * */
 	public void changerIA(Intelligence ia){
@@ -265,7 +264,6 @@ public class MoteurJeu {
 		this.nomFichier = fichier;
 		this.numMap = numMap;
 		map = new Map(numMap,chemin);
-		System.out.println("maper a "+map);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
@@ -323,6 +321,8 @@ public class MoteurJeu {
 	 * @param numMap : numero de la map choisie
 	 * @param nomFichier : chemin de fichier
 	 * @param argsDebug : les arguments qui suivent l'option -d
+	 * @param ia Numero de l'IA
+	 * @param aRejouer Liste des deplacements a rejouer
 	 */
 	public MoteurJeu(int numMap, String nomFichier, String[] argsDebug, int ia, List<Character> aRejouer) {
 		this(numMap,nomFichier);
@@ -346,12 +346,13 @@ public class MoteurJeu {
 			}
 		}
 	}
+	
+	
 
 	/**
 	 * Affiche tour par tour la map sur l'interface graphique
 	 */
 	public void affichage(){
-		System.out.println("map a "+map);
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
@@ -371,7 +372,7 @@ public class MoteurJeu {
 		}
 
 		fenetre.repaint();
-
+		System.out.println(afficherMapEntite());
 	}
 
 	/**
@@ -482,7 +483,6 @@ public class MoteurJeu {
 			
 			switch(intelligence){
 			case -2 : // rejoue
-				System.out.println("joue rejoue");
 				affichage();
 				if(!deplacements.isEmpty()){
 					deplacement = deplacements.get(0);
@@ -528,7 +528,7 @@ public class MoteurJeu {
 
 			case 2 : break;
 
-			case 3 :
+			case 3 :	//Directive
 				affichage();
 				if(!chemin_direct.isEmpty()){
 					deplacement = chemin_direct.get(0);
@@ -590,8 +590,8 @@ public class MoteurJeu {
 	}
 
 	/**
-	 * Fait passer en IA rejouer avec un tableau de deplacements predefinis passes en parametres
-	 * @param tab
+	 * Fait passer en IA rejouer avec une liste de deplacements predefinis passes en parametres
+	 * @param listRejoue Liste de deplacements
 	 */
 	public void rejouerPartie(List<Character> listRejoue){
 		deplacements=(ArrayList<Character>)listRejoue;
@@ -648,11 +648,10 @@ public class MoteurJeu {
 
 	/**
 	 * Methode permettant de pousser un rocher
-	 * @param p Position du rocher a pousser
+	 * @param p Position où l'on veut pousser le rocher
 	 * @return Retourne false si ce n'est pas possible et true sinon
 	 */
 	public boolean pousserRocher(Position p){
-		//	System.out.println("COUCOU");
 			int x1 = p.getX();
 			int y1 = p.getY();
 			switch(touche){
@@ -677,7 +676,6 @@ public class MoteurJeu {
 						break;
 					}
 				}
-				//roc.getPositionTombe().remove(p1); //enleve la pos actuelle du rocher
 				entite[x1][y1] = roc; //fait pointer sur la nouvelle pos
 				entite[x1][y1].getPositionTombe().add(p1); //rajoute l'emplacement du rocher dans l'ens de pos du rocher
 				deplacerJoueur(p.getX(),p.getY());
@@ -1066,7 +1064,7 @@ public class MoteurJeu {
 		while(it1.hasNext()){
 			//pour le debugage de tomber
 			if(MODE_DEBUG_TOMBER){
-				//System.out.println("ATomber : "+e.toString());
+				System.out.println("ATomber : "+e.toString());
 				fenetre.repaint();
 				synchronized(fenetre.getMoteur().thread){
 					try {
@@ -1298,11 +1296,12 @@ public class MoteurJeu {
 			else{
 				entite[x][y].getPosition().remove(p1);
 			}
-			System.out.println("deplacerJoueur() : ");
+			//System.out.println("deplacerJoueur() : ");
 			entite[x][y] = joueur; //fait pointer sur la nouvelle pos
 			entite[x][y].getPosition().add(p1); //rajoute l'emplacement du joueur dans l'ens de pos du joueur
 		}
 		
+
 	}
 
 	/**
@@ -1408,20 +1407,28 @@ public class MoteurJeu {
 			score += map.getDiamondVal();
 	}
 
+
 	/**
-	 * Fait gagner le joueur. Fait aussi changer de carte.
-	 * */
-	
+	 * Memorise une touche et l'ajoute au chemin actuel
+	 * @param touche Touche a memoriser
+	 */
 	public void memorizePath(char touche){
 		//deplacements est une liste de touche qui mémorise les déplacements du joueur
 		if(intelligence != -2){
 			deplacements.add(touche);
 		}
 	}
+	
+	/**
+	 * Vide le chemin actuel
+	 */
 	public void resetPath(){
 		deplacements.clear();
 	}
 	
+	/**
+	 * Sauvegarde le chemin via l'enregistreur
+	 */
 	@SuppressWarnings("unchecked") //Il faut cast en ArrayList car la methode clone retourne un type object
 	public void exportPath(){
 		
@@ -1448,42 +1455,54 @@ public class MoteurJeu {
 		}
 		
 	}
-	public void enregistrer(){
-			Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
-			if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
-		}
 	
+
+/*	public void enregistrer(){
+		Enregistreur.sauvegarderPartie(intelligence,numMap+nomFichier,deplacements);
+		if (intelligence >= 2) Enregistreur.ecraserSolution(intelligence,numMap+nomFichier,deplacements);
+	}*/
+	
+	/**
+	 * Fait gagner le joueur. Fait aussi changer de carte.
+	 * */
 	public void gagner(){
-		aGagne = true;
-		if(intelligence == 4){
-			iaParfaiteAGagne = true;
-		}
-		exportPath();
-		if(numMap == map.getNbMap() && intelligence != 2 && intelligence != 4){
-			//System.out.println("ca a fonctionne");
-			fenetre.afficherMessageVictoire();
-			changerMap(1);
-			synchronized(thread){
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException exp) {
-					exp.printStackTrace();
-				}
-			}
-			fenetre.effacerMessageVictoire();
-		}
-		else{
-				if (intelligence != 2 && intelligence != 4) changerMap(++numMap);
-				else resetMap();
-			}
+	aGagne = true;
+	if(intelligence == 4){
+		iaParfaiteAGagne = true;
 	}
-	
+	if(intelligence == 3){
+		intelligence = Intelligence.ME.get();
+	}
+	exportPath();
+	if(numMap == map.getNbMap() && intelligence != 2 && intelligence != 4){
+		System.out.println("ca a fonctionne");
+		fenetre.afficherMessageVictoire();
+		changerMap(1);
+		synchronized(thread){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException exp) {
+				exp.printStackTrace();
+			}
+		}
+		fenetre.effacerMessageVictoire();
+	}
+	else{
+		if (intelligence != 2 )changerMap(++numMap);
+		else resetMap();
+	}
+		
+}
+
 	/**
 	 * Fait perdre le joueur. Fait aussi reset la carte.
 	 */
 	public void perdu() {
 		fenetre.ecrireMessage("Vous etes mort !", 1);
 		aPerdu = true;
+		if(intelligence == 3){
+			intelligence = Intelligence.ME.get();
+		}
 		exportPath();
 		resetMap();
 		
@@ -1821,6 +1840,25 @@ public IA_Random getIaRandom() {
 
 	public Explosion getExplosion() {
 		return explosion;
+	}
+	
+	public boolean getMODE_DEBUG_TOMBER() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_TOMBER;
+	}
+	
+	public boolean getMODE_DEBUG_LIBELLULE() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_LIBELLULE;
+	}
+	
+	public boolean getMODE_DEBUG_LUCIOLE() {
+		// TODO Auto-generated method stub
+		return MODE_DEBUG_LUCIOLE;
+	}
+
+	public ArrayList<Character> getDeplacements() {
+		return deplacements;
 	}
 
 	public boolean isIAParfaiteAGagne() {

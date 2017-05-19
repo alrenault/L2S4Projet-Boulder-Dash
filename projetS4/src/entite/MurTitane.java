@@ -19,11 +19,19 @@ public class MurTitane extends Entite {
 		traversable = false;
 	}
 
+	/**
+	 * Constructeur de la copie du MurTitane
+	 * @param position L'ensemble des positions du mur de titane
+	 */
 	public MurTitane(Set<Position> position) {
 		this();
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree la copie du mur de titane
+	 * @return Retourne la copie du mur de titane
+	 */
 	public MurTitane copy(){
 		return new MurTitane(position);
 	}

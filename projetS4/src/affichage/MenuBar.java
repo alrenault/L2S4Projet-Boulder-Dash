@@ -94,11 +94,11 @@ public class MenuBar extends JMenuBar{
 			}
 		}//NouvellePartie
 		/**
-		 * Menu Rejouer
+		 * Classe permettant d'afficher le menu Rejouer
 		 * */
 		private class Rejouer extends JMenu{
 			/**
-			 * 
+			 * Les actions de rejouer
 			 */
 			private static final long serialVersionUID = 1L;
 			
@@ -111,16 +111,20 @@ public class MenuBar extends JMenuBar{
 			 * Onglet Rejouer un fichier
 			 * */
 			private class RejouerFichier extends JMenuItem{
-				/**
-				 * 
-				 */
+		
 				private static final long serialVersionUID = 1L;
 				
+				/**
+				 * Les actions de l'onglets RejouerFichier
+				 */
 				public RejouerFichier(){
 					this.setText("Rejouer une partie enregistree");
 					this.addActionListener(new ActionLecture());
 				}
 				
+				/**
+				 * Lis le fichier choisi
+				 */
 				private class ActionLecture implements ActionListener{
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -130,8 +134,8 @@ public class MenuBar extends JMenuBar{
 						int retour=choix.showOpenDialog(null);
 						//si une option correcte est saisie
 						if(retour==JFileChooser.APPROVE_OPTION){
-							path = choix.getSelectedFile().getAbsolutePath();
-							Scanner sc;
+						   path = choix.getSelectedFile().getAbsolutePath();
+						   Scanner sc;
 							String ligne = "";
 							//tente de recuperer la premiere ligne du fichier sauvegarde
 							try {

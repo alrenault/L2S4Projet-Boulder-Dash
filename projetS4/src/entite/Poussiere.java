@@ -19,11 +19,19 @@ public class Poussiere extends Entite {
 		traversable = true;
 	}
 
+	/**
+	 * Constructeur de la copie de la Poussiere
+	 * @param position L'ensemble des positions de la Poussiere
+	 */
 	public Poussiere(Set<Position> position) {
 		this();
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree la copie de la Poussiere
+	 * @return Retourne la copie de la Poussiere
+	 */
 	public Poussiere copy(){
 		return new Poussiere(position);
 	}

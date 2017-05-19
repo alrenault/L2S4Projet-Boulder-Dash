@@ -29,11 +29,20 @@ public class Explosion extends Entite implements Ennemi{
 		traversable = false;
 	}
 	
+	/**
+	 * Constructeur de la copie de l'Explosion
+	 * @param moteur Reference vers le moteur de jeu
+	 * @param position L'ensemble des positions de l'explosion
+	 */
 	public Explosion(MoteurJeu moteur,Set<Position> position) {
 		this(moteur);
 		this.position = new HashSet<Position>(position);
 	}
 	
+	/**
+	 * Cree une copie de l'explosion
+	 * @return Retourne la copie de l'explosion
+	 */
 	public Explosion copy(){
 		return new Explosion(moteur,position);
 	}

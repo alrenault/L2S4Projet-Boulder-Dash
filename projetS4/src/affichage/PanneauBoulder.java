@@ -140,11 +140,13 @@ public class PanneauBoulder extends JPanel{
 	/**
 	 * Charge une image sans etre affectee par la transformation du projet en .jar
 	 * @param path Chemin de l'image
+	 * @return Retourne l'image a charger
 	 * */
 	
 	public static Image chargerImage(String path){
 		Image img =null;
 		try {
+			
 			img = (Image) ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(path));
 		}catch (FileNotFoundException e) {e.printStackTrace();
 		}catch (IOException e) {e.printStackTrace();}
@@ -240,6 +242,7 @@ public class PanneauBoulder extends JPanel{
 			g.setFont(new Font("Arial",1, 40));
 			g.setColor(Color.BLACK);
 			g.drawString("YOU WON !!!", getWidth()/2 -150, getHeight()/2-20);
+			
 		}else{
 			//au cas ou la grille n'aurait pas la meme taille que la precedente
 			raffraichirLongueurEtLargeur();

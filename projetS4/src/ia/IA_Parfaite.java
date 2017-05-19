@@ -24,7 +24,6 @@ public class IA_Parfaite {
 	
 	public IA_Parfaite(int n, MoteurJeu moteur){
 		this.moteur=moteur;
-		System.out.println("IA_Parfaite : n="+n);
 		//DataRobil dr = new DataRobil(moteur);
 		//System.out.println("IAParf to str : \n"+dr);
 		

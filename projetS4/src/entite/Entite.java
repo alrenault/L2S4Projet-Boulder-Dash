@@ -89,13 +89,13 @@ public abstract class Entite  {
 		return apparence;
 	}
 
+
 	/**
 	 * Getter de l'ensemble de position de l'entite
 	 * @throws IllegalArgumentException Methode pour des positions pas des positionTombe.
 	 * @return Retourne l'ensemble de position de l'entite
 	 */
 	public Set<Position> getPosition() {
-		//System.out.println("getPosition entite : "+this);
 		if(this instanceof Diamant || this instanceof Roc){
 			throw new IllegalArgumentException("Methode pour des positions pas des positionTombe. Veuillez utiliser viderPositionTombe()");
 		}
@@ -143,6 +143,10 @@ public abstract class Entite  {
 			return s;
 		}
 	}
-
+	
+	/**
+	 * Permet la copie de l'entite
+	 * @return Retourne la copie de l'entite
+	 */
 	public abstract Entite copy();
 }
