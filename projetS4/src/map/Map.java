@@ -32,7 +32,7 @@ public class Map{
 	private int nbMap = 0; //nombre de map
 	
 	/**
-	 * Numéro de la map choisie
+	 * Numï¿½ro de la map choisie
 	 */
 	private int numMap;
 	
@@ -89,17 +89,17 @@ public class Map{
 	/**
 	 * Constructeur de la classe Map
 	 * @param numMap Numero de la map choisie
-	 * @param chemin Chemin du fichier où se trouve la map
+	 * @param chemin Chemin du fichier oï¿½ se trouve la map
 	 */
 	public Map(int numMap, String chemin){
 		if(!Files.exists(Paths.get(chemin)))
-			throw new IllegalArgumentException("Fichier non trouvé");
+			throw new IllegalArgumentException("Fichier non trouvï¿½");
 		fichier = Paths.get(chemin);
 		try{
 			contenu = readFile(fichier, Charset.defaultCharset());
 		}
 		catch(IOException e){
-			System.out.println("Fichier non trouvé");
+			System.out.println("Fichier non trouvï¿½");
 		}
 		this.numMap = numMap;
 		name = "Cave "+numMap;
@@ -120,6 +120,45 @@ public class Map{
 		return new String(encoded, encoding);
 	}
 	
+	/**
+	 * Renvoie les proprietes d'un fichier bdcff
+	 * @param Le chemin du fichier dont on veut les proprietes
+	 * @return Retourne sous forme de chaine de caractere les proprietes
+	 */
+	public static String proprieties(String chemin){
+		Path f;
+		String proprieties = "";
+		String contenu = "";
+		
+		if(!Files.exists(Paths.get(chemin)))
+			throw new IllegalArgumentException("Fichier non trouvÃ©");
+		f = Paths.get(chemin);
+		try{
+			proprieties = readFile(f, Charset.defaultCharset());
+		}
+		catch(IOException e){
+			System.out.println("Fichier non trouvÃ©");
+		}
+		
+		Scanner sc = new Scanner(proprieties);
+		String ligne = "";
+		while(sc.hasNext()){
+			ligne = sc.nextLine();
+			if(ligne.equals("[game]")){
+				break;
+			}
+		}
+		while(sc.hasNext()){
+			ligne = sc.nextLine();
+			if(ligne.equals("[cave]")){
+				break;
+			}
+			contenu += ligne + "\n";
+		}
+		
+		sc.close();
+		return contenu;
+	}
 	
 	/**
 	 * Compte le nombre de map dans le fichier et change nbMap en consequence
@@ -144,7 +183,7 @@ public class Map{
 	 */
 	public int nbLigne(String map){
 		Scanner scanner = new Scanner(map);
-		Scanner sc = scanner.useDelimiter("\n"); //en deux étapes pour pouvoir fermer scanner
+		Scanner sc = scanner.useDelimiter("\n"); //en deux ï¿½tapes pour pouvoir fermer scanner
 		String ligne ="";
 		int i = 0;
 		if(sc.hasNext()){

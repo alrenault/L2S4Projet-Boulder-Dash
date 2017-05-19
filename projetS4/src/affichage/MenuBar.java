@@ -129,8 +129,8 @@ public class MenuBar extends JMenuBar{
 						int retour=choix.showOpenDialog(null);
 						//si une option correcte est saisie
 						if(retour==JFileChooser.APPROVE_OPTION){
-						   path = choix.getSelectedFile().getAbsolutePath();
-						   Scanner sc;
+							path = choix.getSelectedFile().getAbsolutePath();
+							Scanner sc;
 							String ligne = "";
 							//tente de recuperer la premiere ligne du fichier sauvegarde
 							try {

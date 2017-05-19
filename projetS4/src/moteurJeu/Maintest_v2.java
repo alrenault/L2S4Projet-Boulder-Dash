@@ -1,6 +1,12 @@
 package moteurJeu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entite.IA;
 
 import map.Map;
 
@@ -15,6 +21,8 @@ public class Maintest_v2 {
 	private static boolean jeu = false;
 	private static int numMap = 1;
 	private static String nomFichier ="BD01plus.bd";
+	private static int intel=Intelligence.ME.get();
+	private static List<Character> arejouer= new ArrayList<Character>();
 	
 	/**
 	 * Teste les arguments du main et lance les bonnes fonctionnalites en fonction. Voici les arguments possibles :
@@ -32,13 +40,13 @@ public class Maintest_v2 {
 	public static void testArguments(String args[]){
 		if(args.length>0){
 			for(int i=0;i<args.length;i++){
-				if(args[i].endsWith("name")){
+				if(args[i].endsWith("-name")){
 					System.out.println("-------Projet Boulder Dash-------\n" +
 										"realise par : \n" +
 										"	PITROU Adrien\n" +
 										"	LEVEQUE Quentin\n" +
 										"	RENAULT Alexis\n");
-				}else if(args[i].endsWith("h")){
+				}else if(args[i].endsWith("-h")){
 					System.out.println("-------Options-------\n" +
 							"-name : Donne les noms des developpeurs du projet\n" +
 							"-lis FICHIER.bcdf : affiche les parametres d'un fichier bcdf\n" +
@@ -54,7 +62,15 @@ public class Maintest_v2 {
 							" 2) libellule\n" +
 							" 3) luciole\n" +
 							" 4) parfaite");
-				}else if(args[i].endsWith("joue")){
+				}else if(args[i].endsWith("-lis")){
+					System.out.println("-------Proprietes-------\n");
+					String chaine = nomFichier;
+					if(i+1<args.length){
+						chaine=args[i+1];
+						i++;
+					}
+					System.out.println(Map.proprieties("src/"+chaine));
+				}else if(args[i].endsWith("-joue")){
 					System.out.println("-------Jouer au jeu-------\n");
 					
 					if(i+1<args.length){
@@ -67,11 +83,19 @@ public class Maintest_v2 {
 						i++;
 					}
 					jeu = true;
-				}else if(args[i].endsWith("cal")){
+				}else if(args[i].endsWith("-cal")){
 					System.out.println("-------Calcul-------\n");
-				}else if(args[i].endsWith("rejoue")){
+				}else if(args[i].endsWith("-rejoue")){
 					System.out.println("-------Rejouer une partie-------\n");
-				}else if(args[i].endsWith("simul")){
+					intel = Intelligence.REJOUE.get();
+					String adresse = "src/Sauv1.dash";
+					if(i+1<args.length){
+						adresse=args[i+1];
+						i++;
+					}
+					rejouerPartie(adresse);
+					jeu = true;
+				}else if(args[i].endsWith("-simul")){
 					System.out.println("-------Simuler un jeu-------\n");
 				}else if(args[i].endsWith("d")){
 					System.out.println("-------Mode Debug-------");
@@ -83,7 +107,8 @@ public class Maintest_v2 {
 					//new MoteurJeu(argsDebug);
 				}
 				if(jeu){
-					new MoteurJeu(numMap,nomFichier, argsDebug);
+					MoteurJeu moteur = new MoteurJeu(numMap,nomFichier, argsDebug, intel, arejouer);
+					moteur.jeu();
 				}
 			}
 		}
@@ -111,6 +136,27 @@ public class Maintest_v2 {
 		//}
 		return tab;
 	}*/
+	
+	private static void rejouerPartie(String path){
+		Scanner sc;
+		String ligne = "";
+		//tente de recuperer la premiere ligne du fichier sauvegarde
+		try {
+			sc = new Scanner(new File(path));
+			ligne = sc.nextLine();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		//List<Character> list = new ArrayList<Character>();
+		//remplit le tableau de deplacements avec les caracteres de la chaine
+		for(int i=0;i<ligne.length();i++){
+			char chara = ligne.charAt(i);
+			System.out.println("Prochain cara : "+chara);
+			arejouer.add(chara);
+		}
+		//convertit du format dghb en vk
+		Convertisseur.convTabDGHB_vers_VK(arejouer);
+	}
 
 	/**
 	 * Quand le -d est passe en argument, la fonction apelle celle-ci qui va recuperer tout

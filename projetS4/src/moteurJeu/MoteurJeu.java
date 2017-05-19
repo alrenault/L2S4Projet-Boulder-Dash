@@ -59,6 +59,9 @@ public class MoteurJeu {
 	 * Mode debug pour les lucioles
 	 */
 	public static boolean MODE_DEBUG_LUCIOLE=false;
+	/**
+	 * Mode debug pour l' IA parfaite
+	 */
 	public static boolean MODE_DEBUG_PARFAITE=false;
 
 	//IA
@@ -87,7 +90,10 @@ public class MoteurJeu {
 	 * Liste de Character (representant les touches) de l'IA directive
 	 */
 	private List<Character> chemin_direct;
-	private ArrayList<Character> deplacements ;	//Mémorise les touches
+	/**
+	 * Liste de Character (representant les touches) de l'IA rejoue
+	 */
+	private ArrayList<Character> deplacements;	//Mémorise les touches
 
 	/**
 	 * Int representant l'IA utilise :
@@ -259,10 +265,8 @@ public class MoteurJeu {
 		this.nomFichier = fichier;
 		this.numMap = numMap;
 		map = new Map(numMap,chemin);
+		System.out.println("maper a "+map);
 		entite = new Entite[map.getHauteur()][map.getLargeur()];
-
-		//CHOIX DE L'IA AU DEBUT DU JEU
-		intelligence=Intelligence.ME.get();
 
 		joueur = (Joueur) builder.buildEntity(this,'P');
 		espace = (Espace) builder.buildEntity(this,' ');
@@ -281,9 +285,13 @@ public class MoteurJeu {
 		fenetre = new FenetreBoulder(this);
 		construireMapEntite();
 		
-		
 		//IA
+		
+		intelligence = Intelligence.ME.get();
+		
+		//deplacements ;
 		deplacements = new ArrayList<Character>();
+		
 		//Random
 		iaRandom = new IA_Random();
 		//Genetique
@@ -293,7 +301,8 @@ public class MoteurJeu {
 		directive = new IA_Directive(this);
 		chemin_direct = directive.actionList();
 		parfaite=new IA_Parfaite(5,this);
-		jeu();
+		
+		//jeu();
 	}
 	
 	/**
@@ -314,7 +323,19 @@ public class MoteurJeu {
 	 * @param nomFichier : chemin de fichier
 	 * @param argsDebug : les arguments qui suivent l'option -d
 	 */
-	public MoteurJeu(int numMap, String nomFichier, String[] argsDebug) {
+	public MoteurJeu(int numMap, String nomFichier, String[] argsDebug, int ia, List<Character> aRejouer) {
+		this(numMap,nomFichier);
+		if(aRejouer != null){
+			//rejouerPartie(aRejouer);
+			for(int i=0;i<aRejouer.size();i++){
+				System.out.println("->"+aRejouer.get(i));
+			}
+			deplacements = new ArrayList<Character>(aRejouer);
+		}
+		//if(ia >= -2 && ia <= 4){
+		System.out.println("intel : "+ia);
+			intelligence = ia;
+		//}
 		for(int i=0;i<argsDebug.length;i++){
 			switch(argsDebug[i]){
 			case "tombe":MODE_DEBUG_TOMBER = true; break;
@@ -323,13 +344,13 @@ public class MoteurJeu {
 			case "parfaite":MODE_DEBUG_PARFAITE = true; break;
 			}
 		}
-		new MoteurJeu(numMap,nomFichier);
 	}
 
 	/**
 	 * Affiche tour par tour la map sur l'interface graphique
 	 */
 	public void affichage(){
+		System.out.println("map a "+map);
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
@@ -460,6 +481,7 @@ public class MoteurJeu {
 			
 			switch(intelligence){
 			case -2 : // rejoue
+				System.out.println("joue rejoue");
 				affichage();
 				if(!deplacements.isEmpty()){
 					deplacement = deplacements.get(0);
@@ -561,8 +583,7 @@ public class MoteurJeu {
 				}
 				break;
 				
-				case 4: 
-				case 5: jeu();
+				case 4: jeu();
 			}
 		}
 	}
