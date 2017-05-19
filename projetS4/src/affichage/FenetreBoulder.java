@@ -5,23 +5,38 @@ import javax.swing.JFrame;
 import moteurJeu.MoteurJeu;
 
 /**
- * La classe qui gere l'affichage graphique. 
+ * Classe gerant l'affichage graphique. 
  * Cree une fenetre a l'instanciation qui contient tout les composants du jeu ainsi
  * que son contenu affiche.
  * @author PITROU Adrien
- * @since 14/04/17
- * @version 1.0
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
  */
 public class FenetreBoulder extends JFrame{
+	
+	/**
+	 * Reference vers le moteur de jeu
+	 */
 	private MoteurJeu moteur=null;
+	
+	/**
+	 * Variable pour serialiser
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Panneau d'affichage du jeu
+	 */
 	private PanneauBoulder panneauBoulder;
+	
+	/**
+	 * Permet d'enregistrer les touches entrees au clavier
+	 */
 	private EcouteurTouche ecouteurTouche;
 	
 	/**
-	 * Le constructeur de la classe.
-	 * Prend en parametre une instance du moteur avec qui il va converser.
-	 * @param MoteurJeu moteur
+	 * Constructeur de la classe FenetreBOulder.
+	 * @param moteur Reference vers le moteur de jeu
 	 * */
 	public FenetreBoulder(MoteurJeu moteur){
 		this.moteur=moteur;
@@ -39,14 +54,30 @@ public class FenetreBoulder extends JFrame{
 
 	/**
 	 * Ecrit un message dans le panneau
-	 * @param String message, int duree
+	 * @param message Le message a afficher
+	 * @param duree Le nombre de tour ou le message reste affiche
 	 * */
 	public void ecrireMessage(String message, int duree){
 		panneauBoulder.ecrireMessage(message, duree);
 	}
+
+	/**
+	 * Affiche le message de victoire du panneau quand le joueur a fini la derniere map.
+	 * */
+	public void afficherMessageVictoire(){
+		panneauBoulder.afficherMessageVictoire();
+	}
+	
+	/**
+	 * Efface le message de victoire
+	 * */
+	public void effacerMessageVictoire() {
+		panneauBoulder.effacerMessageVictoire();
+	}
 	
 	/**
 	 * Retourne la reference vers le moteur.
+	 * @return Retourne le moteur
 	 * */
 	public MoteurJeu getMoteur() {
 		return moteur;

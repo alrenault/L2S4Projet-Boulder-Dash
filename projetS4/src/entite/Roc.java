@@ -1,40 +1,44 @@
 package entite;
 
+import java.util.HashSet;
 import java.util.Set;
 
-public class Roc extends Entite implements Deplacable, Disparaitre {
+/**
+ * Classe construisant un rocher
+ * @author PITROU Adrien
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ */
+public class Roc extends Entite {
 
-	private boolean tombe = false;
-	
+	/**
+	 * Constructeur de la classe Roc
+	 */
 	public Roc() {
 		this.apparence = 'r';
 		traversable = false;
 	}
 	
-	public void tomber(){
-		
-	}
-
-	@Override
-	public void disparait() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
-	 * @return String texte
+	 * Constructeur de la copie de Roc
+	 * @param position L'ensemble de position du Roc
 	 */
+	public Roc(Set<PositionTombe> position) {
+		this();
+		this.positionTombe = new HashSet<PositionTombe>(positionTombe);
+	}
+	
+	/**
+	 * Cree la copie du Roc
+	 * @return Retourne la copie de Roc
+	 */
+	public Roc copy(){
+		return new Roc(positionTombe);
+	}
+
 	@Override
 	public String toString() {
-		return "Roc [positionRoc=" + positionRoc + ", traversable=" + traversable +"]";
+		return "Roc [positionRoc=" + positionTombe + ", traversable=" + traversable +"]";
 	}
 
-	@Override
-	public boolean deplacer(Entite[][] carte) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	
 }
