@@ -688,5 +688,23 @@ W.X.w
 WWWWW
 [/map]
 [/cave]
+
+[cave]
+Name=Cave 22
+Intermission=true
+CaveDelay=7
+CaveTime=15
+DiamondsRequired=1
+DiamondValue=20 99
+Colors=Black Black Brown Brown Blue
+
+[map]
+WwWWW
+Wd..w
+W.P.W
+W.X.w
+WWWWW
+[/map]
+[/cave]
 [/game]
 [/BDCFF]

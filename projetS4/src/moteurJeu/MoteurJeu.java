@@ -31,6 +31,11 @@ public class MoteurJeu {
 	public char touche;
 	
 	/**
+	 * Boolean representant une victoire de l'IA parfaite
+	 * */
+	public boolean iaParfaiteAGagne = false;
+	
+	/**
 	 * Fil d'execution du programme
 	 */
 	public Thread thread=Thread.currentThread();
@@ -54,7 +59,7 @@ public class MoteurJeu {
 	 * Mode debug pour les lucioles
 	 */
 	public static boolean MODE_DEBUG_LUCIOLE=false;
-	public static boolean MODE_DEBUG_PARFAITE=true;
+	public static boolean MODE_DEBUG_PARFAITE=false;
 
 	//IA
 	
@@ -290,21 +295,6 @@ public class MoteurJeu {
 		parfaite=new IA_Parfaite(5,this);
 		jeu();
 	}
-
-	/**
-	 * Constructeur de la classe MoteurJeu pour le mode Debug
-	 * @param nomVar Tableau de parametre rentre par l'utilisateur pour debugguer
-	 */
-	public MoteurJeu(String[] nomVar){
-		for(int i=0;i<nomVar.length;i++){
-			switch(nomVar[i]){
-			case "tombe":MODE_DEBUG_TOMBER = true; break;
-			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
-			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
-			}
-		}
-		new MoteurJeu();
-	}
 	
 	/**
 	 * Constructeur de test de la classe MoteurJeu
@@ -314,13 +304,36 @@ public class MoteurJeu {
 	}
 
 	/**
+	 * Constructeur de la classe MoteurJeu. Prend en charge les arguments du
+	 * mode DEBUG suivants :
+	 * -tombe
+	 * -libellule
+	 * -lucole
+	 * -parfaite
+	 * @param numMap : numero de la map choisie
+	 * @param nomFichier : chemin de fichier
+	 * @param argsDebug : les arguments qui suivent l'option -d
+	 */
+	public MoteurJeu(int numMap, String nomFichier, String[] argsDebug) {
+		for(int i=0;i<argsDebug.length;i++){
+			switch(argsDebug[i]){
+			case "tombe":MODE_DEBUG_TOMBER = true; break;
+			case "libellule":MODE_DEBUG_LIBELLULE = true; break;
+			case "luciole":MODE_DEBUG_LUCIOLE = true; break;
+			case "parfaite":MODE_DEBUG_PARFAITE = true; break;
+			}
+		}
+		new MoteurJeu(numMap,nomFichier);
+	}
+
+	/**
 	 * Affiche tour par tour la map sur l'interface graphique
 	 */
 	public void affichage(){
 		if(nbDiamantRecolte>= map.getDiamondRec()){
 				afficherPorte();
 			}
-		if (intelligence != 2) {
+		if (intelligence != 2 && intelligence != 4) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -407,14 +420,24 @@ public class MoteurJeu {
 			//!GENETIQUE
 		case 4 : //parfaite
 			System.out.println("test parfaite jeu() - debut analyse");
-			parfaite.lancerAnalyse(5);
+			parfaite.lancerAnalyse(100);
 			System.out.println("test parfaite jeu() - fin analyse");
 			char[] deplacements = parfaite.recupererSolution();
-			for(int i=0;i<5;i++){
+			resetMap();
+			for(int i=0;i<100;i++){
 				affichage();
+				fenetre.repaint();
+				synchronized(thread){
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException exp) {
+						exp.printStackTrace();
+					}
+				}
 				tour(deplacements[i],processPosition());
 				processEndOfTurn();
 			}
+			intelligence = Intelligence.ME.get();
 			//break;
 			//parfaite
 		}		
@@ -1406,11 +1429,13 @@ public class MoteurJeu {
 	}
 	public void gagner(){
 	aGagne = true;
+	if(intelligence == 4){
+		iaParfaiteAGagne = true;
+	}
 	exportPath();
 	if(numMap == map.getNbMap()){
 		System.out.println("ca a fonctionne");
-		fenetre.afficherMessageVictoire();
-		++numMap;
+		fenetre.afficherMessageVictoire(3);
 	}
 	else{
 		if (intelligence != 2 )changerMap(++numMap);
@@ -1766,6 +1791,10 @@ public IA_Random getIaRandom() {
 
 	public Explosion getExplosion() {
 		return explosion;
+	}
+
+	public boolean isIAParfaiteAGagne() {
+		return iaParfaiteAGagne;
 	}
 
 }

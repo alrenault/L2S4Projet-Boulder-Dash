@@ -11,6 +11,10 @@ import map.Map;
  * @author LEVEQUE Quentin
  */
 public class Maintest_v2 {
+	private static String[] argsDebug ={""};
+	private static boolean jeu = false;
+	private static int numMap = 1;
+	private static String nomFichier ="BD01plus.bd";
 	
 	/**
 	 * Teste les arguments du main et lance les bonnes fonctionnalites en fonction. Voici les arguments possibles :
@@ -44,11 +48,14 @@ public class Maintest_v2 {
 							"Le resultat du jeu est sauvegarde dans un fichier bcdf a la racine du projet.\n" +
 							"-cal strategie FICHIER.bdcff -niveau N : \n"+
 							"-rejoue fichier.dash fichier.bdcff -niveau N : \n" +
-							"-simul N strategie strategie fichier.bdcff -niveau N : ");
+							"-simul N strategie strategie fichier.bdcff -niveau N : \n" +
+							"-d option [option] : jouer au BoulderDash avec les options de debug :\n" +
+							" 1) tombe\n" +
+							" 2) libellule\n" +
+							" 3) luciole\n" +
+							" 4) parfaite");
 				}else if(args[i].endsWith("joue")){
 					System.out.println("-------Jouer au jeu-------\n");
-					int numMap=1;
-					String nomFichier="BD01plus.bd";
 					
 					if(i+1<args.length){
 						nomFichier=args[i+1];
@@ -59,8 +66,7 @@ public class Maintest_v2 {
 						numMap=Integer.parseInt(args[i+2]);
 						i++;
 					}
-					
-					new MoteurJeu(numMap,nomFichier);
+					jeu = true;
 				}else if(args[i].endsWith("cal")){
 					System.out.println("-------Calcul-------\n");
 				}else if(args[i].endsWith("rejoue")){
@@ -69,12 +75,15 @@ public class Maintest_v2 {
 					System.out.println("-------Simuler un jeu-------\n");
 				}else if(args[i].endsWith("d")){
 					System.out.println("-------Mode Debug-------");
-					String[] argsDebug = argumentsDebug(args,i+1);
+					argsDebug = argumentsDebug(args,i+1);
 					i+=argsDebug.length;
 					/*for(int j=0;j<argsDebug.length;j++){
 						System.out.println("alors ? :"+argsDebug[j]);
 					}*/
-					new MoteurJeu(argsDebug);
+					//new MoteurJeu(argsDebug);
+				}
+				if(jeu){
+					new MoteurJeu(numMap,nomFichier, argsDebug);
 				}
 			}
 		}
@@ -86,7 +95,7 @@ public class Maintest_v2 {
 	 * @param String[] args, int i
 	 * @return String[] arguments la liste des arguments valides qui suivent le -d
 	 * */
-	private static String[] argumentsJoue(String[] args, int i) {
+	/*private static String[] argumentsJoue(String[] args, int i) {
 		ArrayList<String> retour=new ArrayList<String>();
 		
 		//System.out.println("estArgumentValide : "+estArgumentValideJoue(args[i]));
@@ -101,7 +110,7 @@ public class Maintest_v2 {
 		//	o[j]=(String) o[j];
 		//}
 		return tab;
-	}
+	}*/
 
 	/**
 	 * Quand le -d est passe en argument, la fonction apelle celle-ci qui va recuperer tout
@@ -145,6 +154,7 @@ public class Maintest_v2 {
 		String chaine=string.toLowerCase();
 		return chaine.equals("tombe") || 
 			   chaine.equals("libellule") ||
+			   chaine.equals("parfaite") ||
 			   chaine.equals("luciole");
 	}
 	

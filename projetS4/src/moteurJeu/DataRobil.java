@@ -42,6 +42,7 @@ public class DataRobil {
 	int numMap;
 	
 	public ArrayList<Character> listeDeplacements = new ArrayList<Character>();
+	public boolean aGagne = false;
 	
 	public DataRobil(MoteurJeu moteur){
 		/*Iterator<Position> jou = moteur.joueur.getPosition().iterator();
@@ -68,6 +69,7 @@ public class DataRobil {
 		numMap = moteur.getNumMap();
 		
 		this.moteur = moteur;
+		aGagne = moteur.isIAParfaiteAGagne();
 		
 		//if(moteur.isPorteAffiche()){
 			posPorte = moteur.getPosPorte();
@@ -86,8 +88,9 @@ public class DataRobil {
 	public boolean estSolution(){
 		/*Iterator<Position> itJoueur = joueur.getPosition().iterator();
 		boolean verite =itJoueur.next().equals(posPorte);
-		System.out.println("estSolution : "+verite);*/
-		return moteur.isAParfaiteGagne(this);
+		System.out.println("estSolution : "+verite);
+		moteur.isAParfaiteGagne(this);*/
+		return aGagne;
 	}
 	
 	public char[] solution(){
@@ -249,14 +252,14 @@ public class DataRobil {
 		System.out.println("other : "+other);*/
 		Position posJoueur = this.getPositionJoueur();
 		Position posAutre = other.getPositionJoueur();
-		System.out.println("PosJoueur : "+posJoueur);
-		System.out.println("PosAutre : "+posAutre);
+		/*System.out.println("PosJoueur : "+posJoueur);
+		System.out.println("PosAutre : "+posAutre);*/
 		if(posJoueur.getX() == posAutre.getX() &&
 				posJoueur.getY() == posAutre.getY()){
-			System.out.println("\n______retour du equals vrai_______\n");
+			//System.out.println("\n______retour du equals vrai_______\n");
 			return true;
 		}
-		System.out.println("\n______retour du equals faux_______\n");
+		//System.out.println("\n______retour du equals faux_______\n");
 		return false;
 	}
 	

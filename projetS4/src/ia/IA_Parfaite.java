@@ -11,6 +11,7 @@ import com.sun.glass.events.KeyEvent;
 
 import entite.Position;
 
+import moteurJeu.Convertisseur;
 import moteurJeu.DataRobil;
 import moteurJeu.MoteurJeu;
 
@@ -41,19 +42,30 @@ public class IA_Parfaite {
 				DataRobil unRobil = it.next();//extrait un robil
 				DataRobil[] ret = deplacementsRobil(unRobil);//fait les 5 deplacements du robil et garde ceux qui vivent
 				//unRobil.supprimerData(robils);
-				System.out.println("testavant : "+robils.size());
+				//System.out.println("testavant : "+robils.size());
 				unRobil.supprimerData(robils);
-				System.out.println("testapres : "+robils.size());
+				//System.out.println("testapres : "+robils.size());
 				for(int k=0;k<ret.length;k++){
 					robils.add(ret[k]);
+					//moteur.chargerDonnees(ret[k]);
 					if(ret[k].estSolution()){//si un des 5 robils est solution, ajoute-le aux solutions
 						//selectionnees.add(ret[k]);
 						//ret[k].supprimerData(robils);//supprime le robil solution pour eviter de le re-multiplier
+						System.out.println("SOLUTION !!");
 						solution = new char[ret[k].listeDeplacements.size()];
 						for(int inc=0;inc<ret[k].listeDeplacements.size();inc++){
+							//char sortie = Convertisseur.convertirVK_vers_6482(ret[k].listeDeplacements.get(inc));
 							solution[inc] = ret[k].listeDeplacements.get(inc);
+							System.out.println("sol "+inc+" : "+solution[inc]);
 						}
 						System.out.println("CA MARCHE !!!!!!!");
+						synchronized(moteur.thread){
+							try {
+								moteur.thread.wait();
+							} catch (InterruptedException exp) {
+								exp.printStackTrace();
+							}
+						}
 						return true;
 					}//si est solution
 				}//pour les 5 deplacements
@@ -61,7 +73,7 @@ public class IA_Parfaite {
 			supprimerDoublons(robils);//supprime les robils iddentiques pour eviter l'explosion combinatoire
 			System.out.println("Il y a "+robils.size()+" robils");
 		}//pour n deplacements
-		 solution = meilleur(selectionnees).solution();//recupere la solution du meilleur
+		 //solution = meilleur(selectionnees).solution();//recupere la solution du meilleur
 		 return false;
 	}
 	/* (non-Javadoc)
@@ -110,7 +122,7 @@ public class IA_Parfaite {
 				System.out.println("->"+it.next());
 			}
 			moteur.getFenetre().repaint();
-			synchronized(moteur.getFenetre().getMoteur().thread){
+			synchronized(moteur.thread){
 				try {
 					moteur.thread.wait();
 				} catch (InterruptedException exp) {
@@ -178,11 +190,13 @@ public class IA_Parfaite {
 			moteur.tour(mouvementSuivant(i), moteur.processPosition());//joue un tour
 			moteur.processEndOfTurn();
 			moteur.getFenetre().repaint();
-			synchronized(moteur.getFenetre().getMoteur().thread){
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException exp) {
-					exp.printStackTrace();
+			if(MoteurJeu.MODE_DEBUG_PARFAITE){
+				synchronized(moteur.getFenetre().getMoteur().thread){
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException exp) {
+						exp.printStackTrace();
+					}
 				}
 			}
 			if(!moteur.isaPerdu()){//si le joueur n'a pas perdu, sauvegarde la direction
